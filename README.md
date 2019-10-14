@@ -1,6 +1,6 @@
 # 50.043 Big Data Project
 
-One Paragraph of project description goes here
+Innovating the book review industry
 
 ## Setting up backend
 
