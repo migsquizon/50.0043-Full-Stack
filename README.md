@@ -2,87 +2,56 @@
 
 One Paragraph of project description goes here
 
-## Getting Started
+## Setting up backend
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
+### Virtual Environment and Flask
 
 What things you need to install the software and how to install them
 
+If you have virtualenv installed, please skip:
 ```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
+pip install virtualenv virtualenvwrapper
 ```
 
-And repeat
+From there, you need to add the following lines to your ~/.bash_profile  (notice that for macOS the file name is .bash_profile  and for Ubuntu it is .bashrc .
 
 ```
-until finished
+nano ~/.bash_profile
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+Append the following to the end. Ensure that the path corresponds to your root python path.
 
 ```
-Give an example
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
+Then source it
 
 ```
-Give an example
+source ~/.bash_profile
 ```
 
-## Deployment
+Finally, create the virtual environment and install flask.
 
-Add additional notes about how to deploy this on a live system
+```
+mkvirtualenv env_name -p python3
+pip install Flask
+```
 
-## Built With
+Ensure you are in the virtual environment, before installing flask as this allows us to isolate our development environment.
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+To activate and deacivate the virtual environment:
 
-## Contributing
+```
+workon env_name # activates virtual env
+deactivate # deactivates virtual env
+```
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+## Setting up the frontend
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+@frontend peeps, edit for necessary setup
 
