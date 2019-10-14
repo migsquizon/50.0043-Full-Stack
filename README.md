@@ -55,3 +55,4 @@ deactivate # deactivates virtual env
 
 @frontend peeps, edit for necessary setup
 
+Also please restructure the client folder according to React requirements
