@@ -1,7 +1,6 @@
-from flask import Flask, render_template, url_for, request, jsonify
+from flask import Flask, url_for, request, jsonify
 from pymongo import MongoClient
 import mysql.connector as db
-from flask_wtf import FlaskForm
 from bson import Binary, Code
 from bson.json_util import dumps, loads
 
@@ -17,10 +16,6 @@ def test_mongo():
 	metadata = mongo['Kindle']['Metadata'] ## First is db name, second is metadata
 	print('database connected')
 	print(mongo['Kindle'].list_collection_names())
-	#for meta in metadata.find({},{'_id': False,"title":1}):
-	 #   print(meta)
-	#print(mongo.database_names())
-	#print(db.list_collection_names())
 	return dumps(metadata.find_one())
 
 @app.route('/sql')
@@ -28,23 +23,26 @@ def test_sql():
 	cursor = sql.cursor()
 	cursor.execute("SELECT * FROM `Reviews` LIMIT 0, 10")
 	res = cursor.fetchall()
-	print(res)
-	#cursor.execute("select * from Payroll")
-	#res = cursor.fetchall()
 	#print(res)
-	return
+	return jsonify(res)
 
 
-@app.route('/books/<query>')
-def get_books_by_description(query):
+## to be completed for parameterized
+@app.route('/GET/books/<asin>',methods=['GET'])
+def get_books_by_asin(asin):
+	## MongoDb
 	return_value = {}
-	books = []
-	title_query = {"description":{"$regex":query}}
+	title_query = {"asin":{"$regex":asin}}
 	metadata_collection = mongo['Kindle']['Metadata']
-	query_result = metadata_collection.find(title_query,{"__id":True,"description":1})
-	for result in query_result:
-		books.append(result)	
-		return_value = {"books": books}
+	query_result = metadata_collection.find(title_query,{"__id":0,"related.buy_after_viewing":False,"related.also_bought":False})
+	for result in query_result:	
+		return_value["metadata"] =result
+
+	# MySQL
+	cursor = sql.cursor(prepared=True)
+	cursor.execute("""SELECT * FROM `Reviews` where asin = %s""",(asin,))
+	result = cursor.fetchall()
+	return_value["reviews"] = result
 	return dumps(return_value)
 
 @app.route('/reviews/<id>')
@@ -55,13 +53,7 @@ def get_reviews_by_id(id):
 	print(result)
 	return jsonify(result)
 
-@app.route('/index',methods=['GET','POST'])
-def index():
-	return render_template('index.html')
 
-@app.route('/404')
-def error():
-	return render_template('404.html')
 
 
 if __name__ == '__main__':
