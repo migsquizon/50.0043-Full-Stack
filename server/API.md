@@ -1,5 +1,10 @@
 # Flask API
-
+**IMPLEMENTED**\
+[**POST** /book/&lt;asin&gt;](#post-bookasin) -> Add reviews\
+[**GET** /book/&lt;asin&gt;](#get-bookasin) -> Get book metadata and reviews\
+**NOT IMPLEMENTED**\
+POST/book/<asin>/helpful\
+POST/add/book
 ## **POST** /book/&lt;asin&gt;
 Add a review by ASIN from the book\
 Content-Type: application/json
