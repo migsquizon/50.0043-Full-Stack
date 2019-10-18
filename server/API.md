@@ -33,18 +33,22 @@ fetch("http://localhost:5000/book/ASIN12345", {
 ```
 Expected Response: 200
 ## **GET** /book/&lt;asin&gt;
-All query parameters are optional\
+All query parameters are optional
 
-**GET** book/B000F83SZQ?verbose=3&also_bought=1&buy_after_viewing=1
-
+**GET** book/B000F83SZQ?verbose=3&also_bought=1&buy_after_viewing=1&num_reviews=3\
+**Query Parameters**\
 Verbose (default=2)
 * 1: returns summary only
-* 2: returns metadata
-* 3: return metadata and summary of suggested books 
+* 2: returns metadata and reviews
+* 3: return metadata,reviews and summary of suggested books 
+
+num_reviews (default=5)\
+also_bought (default=1)\
+buyafterviewing (default=1)
 
 Only when verbose = 3 will also_bought and buyafterviewing be used. \
 Show number of summaries in also_bought and buyafterviewing \
-also_bought and buyafterviewing default = 1
+
 
 ### Sample response
 **GET** http://localhost:5000/book/B000F83SZQ?verbose=1
@@ -68,9 +72,7 @@ also_bought and buyafterviewing default = 1
   "imUrl": "http://ecx.images-amazon.com/images/I/51yLqHe%2BFqL._BO2,204,203,200_PIsitb-sticker-v3-big,TopRight,0,-55_SX278_SY278_PIkin4,BottomRight,1,22_AA300_SH20_OU01_.jpg",
   "related": {
     "also_bought": [
-      "B0080H1C0W",
-      "B00LK4ZKOG",
-      "B00JZD2PU6"
+      "B0080H1C0W"
     ],
     "buy_after_viewing": [
       "B006HCTWVS",
@@ -96,6 +98,20 @@ also_bought and buyafterviewing default = 1
       "Mystery, Thriller & Suspense",
       "Suspense"
     ]
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "asin": "B000F83SZQ",
+      "helpful": "[0, 0]",
+      "overall": 5,
+      "reviewText": "I enjoy vintage books and movies so I enjoyed reading this book.  The plot was unusual.  Don't think killing someone in self-defense but leaving the scene and the body without notifying the police or hitting someone in the jaw to knock them out would wash today.Still it was a good read for me.",
+      "reviewTime": "05 5, 2014",
+      "reviewerID": "A1F6404F1VG29J",
+      "reviewerName": "Avidreader",
+      "summary": "Nice vintage story",
+      "unixReviewTime": 1399248000
+    }
   ]
 }
 ```
@@ -146,6 +162,20 @@ also_bought and buyafterviewing default = 1
       "Mystery, Thriller & Suspense",
       "Suspense"
     ]
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "asin": "B000F83SZQ",
+      "helpful": "[0, 0]",
+      "overall": 5,
+      "reviewText": "I enjoy vintage books and movies so I enjoyed reading this book.  The plot was unusual.  Don't think killing someone in self-defense but leaving the scene and the body without notifying the police or hitting someone in the jaw to knock them out would wash today.Still it was a good read for me.",
+      "reviewTime": "05 5, 2014",
+      "reviewerID": "A1F6404F1VG29J",
+      "reviewerName": "Avidreader",
+      "summary": "Nice vintage story",
+      "unixReviewTime": 1399248000
+    }
   ]
 }
 ```

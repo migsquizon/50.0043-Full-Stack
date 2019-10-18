@@ -5,12 +5,12 @@ sql = db.connect(host="18.139.174.176", user="root",
                  password='yckcmkg', db="Reviews")
 
 
-def get_reviews(asin):
+def get_reviews(asin,num=5):
     """
     Get all reviews with a given asin
     """
     cursor = sql.cursor(dictionary=True)
-    cursor.execute("""SELECT * FROM `Reviews` where asin = %s""", (asin,))
+    cursor.execute("""SELECT * FROM `Reviews` where asin = %s LIMIT %s""", (asin,num))
     result = cursor.fetchall()
     return result
 
@@ -53,3 +53,5 @@ def add_review(asin, json):
 #     "reviewerID":"GHJKGMHHGFFGB",
 #     "summary": "book was awesome",
 # })
+
+print(get_reviews("B000F83SZ"))

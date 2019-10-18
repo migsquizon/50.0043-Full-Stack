@@ -34,17 +34,21 @@ def get_book_by_asin(asin):
 	"""
 	verbose
 	1: returns summary only
-	2: returns metadata
+	2: returns metadata and reviews
 	3: return metadata and summary of suggested books 
 	"""
 	verbose = request.args.get('verbose',default=2,type=int)
 	also_bought = request.args.get('also_bought',default=1,type=int)
 	buy_after_viewing = request.args.get('buy_after_viewing',default=1,type=int)
+	num_reviews = request.args.get('num_reviews',default=5,type=int)
 	try:
 		if verbose == 1:
+			book = metadata.get_book_summary(asin)
 			return dumps(metadata.get_book_summary(asin)),200
 		if verbose == 2:
-			return dumps(metadata.get_book_by_asin(asin)),200
+			book = metadata.get_book_by_asin(asin)
+			book['reviews'] = reviews.get_reviews(asin,num_reviews)
+			return dumps(book),200
 		if verbose == 3:
 			main_book = metadata.get_book_by_asin(asin)
 			#dont want to throw exception if there is no related books
@@ -64,6 +68,7 @@ def get_book_by_asin(asin):
 					for i in range(length1):
 						ls1.append(metadata.get_book_summary(buyafterviewingls[i]))
 					main_book['related']['buy_after_viewing'] = ls1
+				main_book['reviews'] = reviews.get_reviews(asin,num_reviews)
 			return dumps(main_book)
 	except Exception as e:
 		return {"Exception":e},500
