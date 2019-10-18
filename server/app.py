@@ -3,7 +3,7 @@ from pymongo import MongoClient
 import mysql.connector as db
 from bson import Binary, Code
 from bson.json_util import dumps, loads
-
+import reviews
 app = Flask(__name__)
 
 mongo = MongoClient("mongodb://18.139.174.176:27017",username = 'Admin',password = 'yckcmkg')
@@ -66,6 +66,23 @@ def add_new_book():
 	x = metadata_collection.insert_one(data)
 	return '',200
 
-
+@app.route('/book/<asin>',methods=['POST'])
+def add_review(asin):
+	"""
+	POST
+	params in json
+	helpful(optional), overall, reviewText, reviewTime(optional), reviewerID, reviewerName, summary, unixReviewTime(optional)
+	"""
+	json_dict = request.get_json()
+	try:
+		succeeded = reviews.add_review(asin,json_dict)
+		if succeeded:
+			return {},200
+		else:
+			return {},500
+	except KeyError as e:
+		return {"key not found":e},400
+	except Exception as e:
+		return {"Exception":e},500
 if __name__ == '__main__':
 	app.run(debug=True)
