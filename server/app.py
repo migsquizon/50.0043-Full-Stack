@@ -4,6 +4,7 @@ import mysql.connector as db
 from bson import Binary, Code
 from bson.json_util import dumps, loads
 import reviews
+import metadata
 app = Flask(__name__)
 
 mongo = MongoClient("mongodb://18.139.174.176:27017",username = 'Admin',password = 'yckcmkg')
@@ -28,27 +29,44 @@ def test_sql():
 
 
 ## to be completed for parameterized
-@app.route('/books/<asin>',methods=['GET'])
-def get_books_by_asin(asin):
-	## MongoDb
-	return_value = {}
-	title_query = {"asin":{"$regex":asin}}
-	metadata_collection = mongo['Kindle']['Metadata']
-	summary = request.args.get('summary',default=0,type=int)
-	if(summary==1):
-		query_result = metadata_collection.find(title_query,{"title":True,"asin":True,"imUrl":True,"description":True})
-		for result in query_result:	
-			return_value["metadata"] = result
-		return dumps(return_value) , 200
-	query_result = metadata_collection.find(title_query,{"related.buy_after_viewing":False,"related.also_bought":False})
-	for result in query_result:	
-		return_value["metadata"] = result
-	# MySQL
-	cursor = sql.cursor(prepared=True)
-	cursor.execute("""SELECT * FROM `Reviews` where asin = %s""",(asin,))
-	result = cursor.fetchall()
-	return_value["reviews"] = result
-	return dumps(return_value) , 200
+@app.route('/book/<asin>',methods=['GET'])
+def get_book_by_asin(asin):
+	"""
+	verbose
+	1: returns summary only
+	2: returns metadata
+	3: return metadata and summary of suggested books 
+	"""
+	verbose = request.args.get('verbose',default=2,type=int)
+	also_bought = request.args.get('also_bought',default=1,type=int)
+	buy_after_viewing = request.args.get('buy_after_viewing',default=1,type=int)
+	try:
+		if verbose == 1:
+			return dumps(metadata.get_book_summary(asin)),200
+		if verbose == 2:
+			return dumps(metadata.get_book_by_asin(asin)),200
+		if verbose == 3:
+			main_book = metadata.get_book_by_asin(asin)
+			#dont want to throw exception if there is no related books
+			#Limit 5 books or maxL allowed only for speed
+			if 'related' in main_book:
+				if 'also_bought' in main_book['related']:
+					alsoboughtls = main_book['related']['also_bought']
+					length = min(len(alsoboughtls),also_bought,5)
+					ls = []
+					for i in range(length):
+						ls.append(metadata.get_book_summary(alsoboughtls[i]))
+					main_book['related']['also_bought'] = ls
+				if 'buy_after_viewing' in main_book['related']:
+					buyafterviewingls = main_book['related']['buy_after_viewing']
+					length1 = min(len(buyafterviewingls),buy_after_viewing,5)
+					ls1 = []
+					for i in range(length1):
+						ls1.append(metadata.get_book_summary(buyafterviewingls[i]))
+					main_book['related']['buy_after_viewing'] = ls1
+			return dumps(main_book)
+	except Exception as e:
+		return {"Exception":e},500
 
 @app.route('/reviews/<id>')
 def get_reviews_by_id(id):
@@ -81,7 +99,7 @@ def add_review(asin):
 		else:
 			return {},500
 	except KeyError as e:
-		return {"key not found":e},400
+		return {"keyError":e},400
 	except Exception as e:
 		return {"Exception":e},500
 if __name__ == '__main__':

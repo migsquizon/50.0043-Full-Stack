@@ -5,6 +5,16 @@ sql = db.connect(host="18.139.174.176", user="root",
                  password='yckcmkg', db="Reviews")
 
 
+def get_reviews(asin):
+    """
+    Get all reviews with a given asin
+    """
+    cursor = sql.cursor(dictionary=True)
+    cursor.execute("""SELECT * FROM `Reviews` where asin = %s""", (asin,))
+    result = cursor.fetchall()
+    return result
+
+
 def add_review(asin, json):
     """
     Args:
