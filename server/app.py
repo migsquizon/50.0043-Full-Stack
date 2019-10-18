@@ -34,10 +34,15 @@ def get_books_by_asin(asin):
 	return_value = {}
 	title_query = {"asin":{"$regex":asin}}
 	metadata_collection = mongo['Kindle']['Metadata']
-	query_result = metadata_collection.find(title_query,{"__id":0,"related.buy_after_viewing":False,"related.also_bought":False})
+	summary = request.args.get('summary',default=0,type=int)
+	if(summary==1):
+		query_result = metadata_collection.find(title_query,{"title":True,"asin":True,"imUrl":True})
+		for result in query_result:	
+			return_value["metadata"] = result
+		return dumps(return_value)
+	query_result = metadata_collection.find(title_query,{"related.buy_after_viewing":False,"related.also_bought":False})
 	for result in query_result:	
-		return_value["metadata"] =result
-
+		return_value["metadata"] = result
 	# MySQL
 	cursor = sql.cursor(prepared=True)
 	cursor.execute("""SELECT * FROM `Reviews` where asin = %s""",(asin,))
