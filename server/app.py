@@ -73,21 +73,28 @@ def get_book_by_asin(asin):
 	except Exception as e:
 		return {"Exception":e},500
 
-@app.route('/reviews/<id>')
-def get_reviews_by_id(id):
-	cursor = sql.cursor(prepared=True)
-	cursor.execute("""SELECT asin,reviewText,reviewerID FROM `Reviews` where asin = %s""",(id,))
-	result = cursor.fetchall()
-	print(result)
+@app.route('/reviews/<asin>')
+def get_reviews_by_asin(asin):
+	try:
+		result = reviews.get_reviews(asin)
+	except Exception as e:
+		return {"Exception": e},500
 	return jsonify(result) , 200
 
 
 @app.route('/add/book',methods=['POST'])
 def add_new_book():
-	metadata_collection = mongo['Kindle']['Metadata']
-	data = request.json
-	x = metadata_collection.insert_one(data)
-	return '',200
+	json_dict = request.get_json()
+	try:
+		succeeded = metadata.add_book(json_dict)
+		if succeeded:
+			return {},200
+		else:
+			return {},500
+	except KeyError as e:
+		return {"keyError":e},400
+	except Exception as e:
+		return {"Exception":e},500
 
 @app.route('/book/<asin>',methods=['POST'])
 def add_review(asin):
@@ -107,5 +114,7 @@ def add_review(asin):
 		return {"keyError":e},400
 	except Exception as e:
 		return {"Exception":e},500
+
+
 if __name__ == '__main__':
 	app.run(debug=True)

@@ -2,9 +2,9 @@
 **IMPLEMENTED**\
 [**POST** /book/&lt;asin&gt;](#post-bookasin) -> Add reviews\
 [**GET** /book/&lt;asin&gt;](#get-bookasin) -> Get book metadata and reviews\
+[**POST** /add/book](#post-addbook) -> Add a new book\
 **NOT IMPLEMENTED**\
-POST/book/<asin>/helpful\
-POST/add/book
+**POST** /book/&lt;asin&gt;/helpful;
 ## **POST** /book/&lt;asin&gt;
 Add a review by ASIN from the book\
 Content-Type: application/json
@@ -33,6 +33,35 @@ fetch("http://localhost:5000/book/ASIN12345", {
     "reviewerName": "John",
     "reviewerID": "GHJKGMHHGFFGB",
     "summary": "book was awesome"
+  }
+})
+```
+Expected Response: 200
+## **POST** /add/book;
+Add a new book \
+Content-Type: application/json
+### Input
+```
+{
+    "asin": "A000123123",
+    "title": "test",
+    "description": "this is a test",
+    "imUrl":"www.picture.com",
+    "categories": ["anime","manga"]
+}
+```
+```
+fetch("http://localhost:5000/add/book", {
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "body": {
+     "asin": "A000123123",
+    "title": "test",
+    "description": "this is a test",
+    "imUrl":"www.picture.com",
+    "categories": ["anime","manga"]
   }
 })
 ```

@@ -7,3 +7,10 @@ def get_book_by_asin(asin):
 def get_book_summary(asin):
     metadata_collection = mongo['Kindle']['Metadata']
     return metadata_collection.find_one({"asin":asin},{"title":True,"asin":True,"imUrl":True,"description":True})
+
+
+def add_book(json):
+    metadata_collection = mongo['Kindle']['Metadata']
+    x = metadata_collection.insert_one(json)
+    #print("added")
+    return True
