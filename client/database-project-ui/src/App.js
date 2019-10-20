@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
+import BookCard from './BookCard.js';
 import './App.css';
+import BookCarousel from './BookCarousel';
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
         >
           Learn React
         </a>
+        <BookCarousel/>
       </header>
     </div>
   );

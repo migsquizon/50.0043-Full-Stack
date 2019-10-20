@@ -1,0 +1,34 @@
+.book-summary-container{
+    display: block;
+    max-width: 102px;
+    font-size: 1rem;
+    
+}
+
+.book-summary-container:hover{
+    display: block;
+    max-width: 102px;
+    font-size: 1rem;
+}
+
+.book-img-container{
+    display: block;
+    border: 1px solid;
+    border-color:#ffffff;
+    box-sizing: border-box;
+    border-radius: 1%;
+}
+
+.book-img-container:hover{
+    display: block;
+    border: 1px solid;
+    box-sizing: border-box;
+    border-color:#F8CF46;
+    border-radius: 1%;
+}
+
+.book-img-container img{
+    /* border-radius: 1%; */
+    max-width: 100px;
+}
+
