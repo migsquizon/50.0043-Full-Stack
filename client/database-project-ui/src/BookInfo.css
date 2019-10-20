@@ -1,0 +1,16 @@
+.book-img-container-lg {
+    display: block;
+    border: 1px solid;
+    border-color:#ffffff;
+    box-sizing: border-box;
+    border-radius: 1%;
+}
+
+.book-img-container-lg img {
+    max-width: 150px;
+}
+
+.book-main-info-container {
+    display: block;
+    font-size: 1rem;
+}
