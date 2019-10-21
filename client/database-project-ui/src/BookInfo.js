@@ -2,6 +2,7 @@ import React from 'react';
 import StarRatings from 'react-star-ratings';
 import { Row, Col, Button } from 'react-bootstrap';
 import BookCarousel from './BookCarousel';
+import Reviews from './Reviews';
 import './BookInfo.css';
 
 const data = {
@@ -67,10 +68,13 @@ function BookInfo(props) {
         <BookCarousel/>
       </div>
       <hr/>
+      <Reviews/>
+      <hr/>
       <div className="readers-viewed-container">
         <div>Because you viewed this book</div>
         <BookCarousel/>
       </div>
+ 
     </div>
   )
 }
