@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@font-face {
+  font-family: 'Lato';
+  src: url(fonts/Lato-Regular.ttf);
+  font-style: normal;
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: 'NunitoSans';
+  src: url(fonts/NunitoSans-Regular.ttf);
+  font-style: normal;
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: 'AcuminProRegular';
+  src: url(fonts/Acumin-RPro.woff);
+  font-style: normal;
+  font-weight: 100;
+}
