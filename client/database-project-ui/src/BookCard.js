@@ -1,6 +1,7 @@
 import React from 'react';
 import StarRatings from 'react-star-ratings';
 import Truncate from 'react-truncate';
+import Ratings from './Ratings'
 import './BookCard.css';
 
 function BookCard(props) {
@@ -15,14 +16,9 @@ function BookCard(props) {
       <Truncate lines={1} ellipsis={<span>...</span>}>
         {props.author}
       </Truncate>
-      <StarRatings
-        name="book-rating"
+      <Ratings
         rating={props.rating}
-        numberOfStars={5}
-        starRatedColor="#F8CF46"
-        starEmptyColor="#D0CDC6"
-        starDimension="15px"
-        starSpacing="2px"
+        starDimension='12px'
       />
       {props.num_ratings}
 

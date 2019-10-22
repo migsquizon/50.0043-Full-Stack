@@ -1,16 +1,102 @@
+.book-info-page-container {
+    padding-top: 30px;
+}
+
 .book-img-container-lg {
-    display: block;
     border: 1px solid;
     border-color:#ffffff;
     box-sizing: border-box;
     border-radius: 1%;
+    padding: 20px 0 0 30px;
 }
 
 .book-img-container-lg img {
     max-width: 150px;
 }
 
+.book-info-container {
+    height: 150px;
+    justify-content: flex-start;
+    padding: 0 0 0 50px;
+}
+
 .book-main-info-container {
-    display: block;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
     font-size: 1rem;
+    font-family: 'AcuminProRegular';
+    justify-content: flex-start;
+    color: #3B5260;
+   
+   
+}
+
+.book-info-title-container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    font-size: 25px; 
+}
+
+.book-info-title {
+    color: #3B5260; 
+    padding-right: 20px;
+}
+
+.book-info-author {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    font-size: 20px;
+}
+
+.book-info-ratings {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    font-size: 20px;
+    padding: 5px 0 5px 0;
+}
+
+.buy-amazon-container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    font-size: 20px;
+    padding: 5px 0 10px 0;
+}
+
+.add-reading-list-button {
+    background-color: rgba(159, 159, 189, 0.2) !important;
+    border: 2px solid !important;
+    border-radius: 5px !important;
+    border-color: #9F9FBD !important;
+    color: #3B5260 !important;
+    padding: 3px 5px !important;
+    line-height: 22px !important;
+    text-align: center !important;
+}
+
+.buy-amazon-button {
+    background-color: rgba(250, 219, 168, 0.2) !important;
+    border: 2px solid !important;
+    border-radius: 5px !important;
+    border-color: rgba(252, 136, 0, 0.66)!important;
+    color: #3B5260 !important;
+    padding: 3px 5px !important;
+    line-height: 22px !important;
+    text-align: center !important;
+    font-size: 16px !important;
+    
 }

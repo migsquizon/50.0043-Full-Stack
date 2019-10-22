@@ -3,6 +3,7 @@ import StarRatings from 'react-star-ratings';
 import { Row, Col, Button } from 'react-bootstrap';
 import BookCarousel from './BookCarousel';
 import Reviews from './Reviews';
+import Ratings from './Ratings';
 import './BookInfo.css';
 
 const data = {
@@ -26,41 +27,41 @@ const data = {
 
 function BookInfo(props) {
   return (
-    <div>
+    <div className="book-info-page-container">
       <div className="book-main-info-container">
-        <Row>
-          <Col xs={2}>
+        {/* <Row>
+          <Col xs={2}> */}
             <div className="book-img-container-lg">
               <img src={data.imUrl} fluid />
             </div>
-          </Col>
-          <Col xs={10}>
-            <div className="book-info-title">
-              <span>{data.title}</span><span><Button variant="light">Add to reading list</Button></span>
+          {/* </Col>
+          <Col xs={10}> */}
+            <div className="book-info-container">
+              <div className="book-info-title-container">
+                <span className="book-info-title">{data.title}</span>
+                <span><Button className="btn-sm add-reading-list-button">Add to reading list</Button></span>
+              </div>
+              <div className="book-info-author">
+                <span style={{'color':'#B9C6CE'}}>by&nbsp;</span><span style={{'color':'#1D72A7'}}>{data.author}</span>
+              </div>
+              <div className="book-info-ratings">
+                <span>
+                  <Ratings
+                    rating={data.rating}
+                    starDimension='15px'
+                  />
+                </span>
+                <span>&nbsp;{data.num_ratings} Ratings</span>
+              </div>
+              <div className="buy-amazon-container">
+                <Button className="buy-amazon-button">
+                  <div>Buy on Amazon</div>
+                  <div style={{'color':'#831313', 'float': 'left'}}>${data.price}</div>
+                </Button>
+              </div>
             </div>
-            <div className="book-info-author">
-              <span>by {data.author}</span>
-            </div>
-            <div className="book-info-ratings">
-              <span>
-                <StarRatings
-                  name="book-rating"
-                  rating={data.rating}
-                  numberOfStars={5}
-                  starRatedColor="#F8CF46"
-                  starEmptyColor="#D0CDC6"
-                  starDimension="15px"
-                  starSpacing="2px"
-                />
-              </span>
-              <span>{data.num_ratings} Ratings</span>
-            </div>
-            <Button variant="warning">
-              <div>Buy on Amazon</div>
-              <div>${data.price}</div>
-            </Button>
-          </Col>
-        </Row>
+          {/* </Col>
+        </Row> */}
       </div>
       <hr/>
       <div className="readers-viewed-container">
