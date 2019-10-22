@@ -1,12 +1,11 @@
 .book-summary-container{
-    display: block;
+    display: inline-block;
     max-width: 102px;
-    font-size: 1rem;
-    
+    font-size: 1rem;  
 }
 
 .book-summary-container:hover{
-    display: block;
+    display: inline-block;
     max-width: 102px;
     font-size: 1rem;
 }
@@ -30,5 +29,19 @@
 .book-img-container img{
     /* border-radius: 1%; */
     max-width: 100px;
+}
+
+.react-multiple-carousel__arrow--left {
+    left: calc(0% + 1px);
+}
+
+.react-multiple-carousel__arrow--right {
+    right: calc(0% + 1px);
+}
+
+element.style {
+    flex: 1 1 auto;
+    position: relative;
+    width: 213px;
 }
 
