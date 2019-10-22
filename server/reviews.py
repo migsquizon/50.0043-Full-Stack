@@ -14,6 +14,20 @@ def get_reviews(asin,num=5):
     result = cursor.fetchall()
     return result
 
+def get_review_by_id(asin,reviewerID):
+    """
+    Get the review with a given asin and reviewerID
+    """
+    cursor = sql.cursor(dictionary=True)
+    cursor.execute("""SELECT * FROM `Reviews` where reviewerID = %s and asin = %s LIMIT %s""", (reviewerID,asin,1))
+    result = cursor.fetchall()
+    return result
+
+def update_helpful(asin,reviewerID,helpful):
+    cursor = sql.cursor()
+    cursor.execute("""UPDATE Reviews SET helpful = %s WHERE asin = %s and reviewerID = %s """,(helpful,asin,reviewerID))
+    sql.commit
+    return True
 
 def add_review(asin, json):
     """

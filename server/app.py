@@ -71,14 +71,16 @@ def get_book_by_asin(asin):
 				main_book['reviews'] = reviews.get_reviews(asin,num_reviews)
 			return dumps(main_book)
 	except Exception as e:
-		return {"Exception":e},500
+                print(e)
+                return {"Exception":str(e)},500
 
 @app.route('/reviews/<asin>')
 def get_reviews_by_asin(asin):
 	try:
 		result = reviews.get_reviews(asin)
 	except Exception as e:
-		return {"Exception": e},500
+                print(e)
+                return {"Exception": str(e)},500
 	return jsonify(result) , 200
 
 
@@ -92,9 +94,11 @@ def add_new_book():
 		else:
 			return {},500
 	except KeyError as e:
-		return {"keyError":e},400
+                print(e)
+                return {"keyError":str(e)},400
 	except Exception as e:
-		return {"Exception":e},500
+                print(e)
+                return {"Exception":str(e)},500
 
 @app.route('/book/<asin>',methods=['POST'])
 def add_review(asin):
@@ -111,9 +115,48 @@ def add_review(asin):
 		else:
 			return {},500
 	except KeyError as e:
-		return {"keyError":e},400
+                print(e)
+                return {"keyError":str(e)},400
 	except Exception as e:
-		return {"Exception":e},500
+                print(e)
+                return {"Exception":str(e)},500
+
+@app.route('/reviews/helpful/<asin>',methods=["POST"])
+def helpful(asin):
+    #json_post will give me reviewerID & helpful
+    #helpful should be 1 if review was helpful, 0 if not helpful
+    json_post = request.get_json()
+    try:
+        helpful = json_post["helpful"]
+        reviewerID = json_post["reviewerID"]
+        review = reviews.get_review_by_id(asin,reviewerID)
+        helpfulness =  review[0]["helpful"]
+        if(helpful == "1"):
+            comma = helpfulness.find(",")
+            helpful_digit = helpfulness[1:comma]
+            helpful_int = int(helpful_digit)
+            helpful_int += 1
+            final_rating = helpfulness[0]+str(helpful_int)+helpfulness[comma:]
+        if(helpful == "0"):
+            comma = helpfulness.find(",")
+            helpful_digit = helpfulness[comma+2:comma+3]
+            helpful_int = int(helpful_digit)
+            helpful_int += 1
+            final_rating = helpfulness[:comma+2]+str(helpful_int)+"]"
+        else:
+            return ("helpful value not equals to 1 or 0")
+        reviews.update_helpful(asin,reviewerID,final_rating) 
+        review = reviews.get_review_by_id(asin,reviewerID)
+        return review[0]
+    except KeyError as e:
+                print(e)
+                return {"keyError":str(e)},400
+    except Exception as e:
+                print(e)
+                return {"Exception":str(e)},500
+
+    
+
 
 
 if __name__ == '__main__':
