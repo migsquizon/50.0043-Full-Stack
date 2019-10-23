@@ -21,7 +21,7 @@ function BookCarousel(props) {
         autoPlaySpeed={3000}
         centerMode={false}
         className=""
-        containerClass="container"
+        containerClass="carousel-container-class"
         dotListClass=""
         draggable
         focusOnSelect={false}
