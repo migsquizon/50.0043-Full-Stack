@@ -3,14 +3,12 @@ import logo from './logo.svg';
 import BookCard from './BookCard.js';
 import './App.css';
 import BookCarousel from './BookCarousel';
+import BookInfo from './BookInfo';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-       
-        <BookCarousel/>
-      </header>
+      <BookInfo />
     </div>
   );
 }
