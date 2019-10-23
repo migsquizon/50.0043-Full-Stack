@@ -36,38 +36,44 @@ function Reviews(props) {
         <Col xs={2}> */}
       <div className="ratings-info-container">
         <div className="ratings-container">
-            
-            <CircularProgressbar 
-              value={percentage} 
-              text={data.rating} 
-              strokeWidth={5}
-              styles={buildStyles({
-                pathColor:'#F8CF46',
-                textSize:'40px',
-                fontFamily:'Lato',
-                textColor:'#3B5260',
-              })}
-            />
-          </div>
+
+          <CircularProgressbar
+            value={percentage}
+            text={data.rating}
+            strokeWidth={5}
+            styles={buildStyles({
+              pathColor: '#F8CF46',
+              textSize: '40px',
+              fontFamily: 'Lato',
+              textColor: '#3B5260',
+            })}
+          />
+        </div>
         <div className="write-review-container">
           <Button className="add-reading-list-button">Write a review</Button>
+
         </div>
+        <div className="catergories">
+          hi
+        </div>
+
       </div>
-        <div className="review-container">
-          {data.reviews.map((review) => (
-              <EachReview
-                username={review.username}
-                rating={review.rating}
-                review_title={review.review_title}
-                date={review.date}
-                review={review.review}
-                helpful={review.helpful}
-              />
-            ))}
-        </div>
-        {/* </Col>
+
+      <div className="review-container">
+        {data.reviews.map((review) => (
+          <EachReview
+            username={review.username}
+            rating={review.rating}
+            review_title={review.review_title}
+            date={review.date}
+            review={review.review}
+            helpful={review.helpful}
+          />
+        ))}
+      </div>
+      {/* </Col>
         <Col xs={10}> */}
-        {/* </Col>
+      {/* </Col>
       </Row> */}
     </div>
   )

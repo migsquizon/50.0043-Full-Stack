@@ -114,3 +114,21 @@
     padding-top: 30px;
     
 }
+
+
+.react-multiple-carousel__arrow--right {
+    right: calc(0% + 1px);
+}
+.react-multiple-carousel__arrow--left {
+    left: calc(0% + 1px);
+}
+
+.react-multiple-carousel__arrow {
+    min-width: 41px;
+    min-height: 90px;
+}
+
+.react-multi-carousel-track {
+    list-style: none;
+    padding: 0;
+}

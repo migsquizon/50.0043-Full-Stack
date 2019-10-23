@@ -12,7 +12,7 @@
 
 .book-summary-content {
     display: block;
-    float: left;
+    float: right;
 }
 
 .book-img-container {
@@ -36,9 +36,6 @@
     max-width: 150px;
 }
 
-.react-multiple-carousel__arrow--left {
-    left: calc(0% + 1px);
-}
 .book-card-title {
     padding-top: 10px;
     float: left;
@@ -57,13 +54,4 @@
 
 }
 
-.react-multiple-carousel__arrow--right {
-    right: calc(0% + 1px);
-}
-
-element.style {
-    flex: 1 1 auto;
-    position: relative;
-    width: 213px;
-}
 
