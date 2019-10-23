@@ -12,14 +12,14 @@ function BookCard(props) {
       </div>
       <div className="book-summary-content">
         <div className="book-card-title">
-          <Truncate lines={1} ellipsis={<span>...</span>}>
+          <Truncate lines={1} ellipsis={<span>...</span>} trimWhitespace="true">
             {props.title}
           </Truncate>      
         </div>
         <div className="book-card-author">
-          <Truncate lines={1} ellipsis={<span>...</span>}>
+          {/* <Truncate lines={1} ellipsis={<span>...</span>}> */}
             {props.author}
-          </Truncate>     
+          {/* </Truncate>      */}
         </div>
         <div className="book-card-ratings">
           <span>

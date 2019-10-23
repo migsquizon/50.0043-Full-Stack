@@ -13,7 +13,7 @@ const data = {
   "rating": 4.3,
   "num_ratings": 35,
   "price": 3.17,
-  "imUrl": "http://ecx.images-amazon.com/images/I/51fAmVkTbyL._SY300_.jpg",
+  "imUrl": "https://images-na.ssl-images-amazon.com/images/I/41F5kmyiPsL._SX329_BO1,204,203,200_.jpg",
   "related":
   {
     "also_bought": ["B00JHONN1S", "B002BZX8Z6", "B00D2K1M3O", "0000031909", "B00613WDTQ", "B00D0WDS9A", "B00D0GCI8S", "0000031895", "B003AVKOP2", "B003AVEU6G", "B003IEDM9Q", "B002R0FA24", "B00D23MC6W", "B00D2K0PA0", "B00538F5OK", "B00CEV86I6", "B002R0FABA", "B00D10CLVW", "B003AVNY6I", "B002GZGI4E", "B001T9NUFS", "B002R0F7FE", "B00E1YRI4C", "B008UBQZKU", "B00D103F8U", "B007R2RM8W"],
@@ -22,46 +22,48 @@ const data = {
   },
   "salesRank": {"Toys & Games": 211836},
   "brand": "Coxlures",
-  "categories": [["Sports & Outdoors", "Other Sports", "Dance"]]
+  "categories": [["Sports & Outdoors", "Other Sports", "Dance"]],
+  "top_review": "Another fascinating and eye opening read by my favorite anchor/reporter/ hero. An important addition to her previous book this one focuses on the oil and gas industries. Russia, Tillerson Exon Mobil are all exposed and it’s a mouth gaping account of corporate greed, lies and how we need to act now, before it’s too late.",
+  "top_review_username": "noobkenneth",
 }
 
 function BookInfo(props) {
   return (
     <div className="book-info-page-container">
       <div className="book-main-info-container">
-        {/* <Row>
-          <Col xs={2}> */}
-            <div className="book-img-container-lg">
-              <img src={data.imUrl} fluid />
-            </div>
-          {/* </Col>
-          <Col xs={10}> */}
-            <div className="book-info-container">
-              <div className="book-info-title-container">
-                <span className="book-info-title">{data.title}</span>
-                <span><Button className="btn-sm add-reading-list-button">Add to reading list</Button></span>
-              </div>
-              <div className="book-info-author">
-                <span style={{'color':'#B9C6CE'}}>by&nbsp;</span><span style={{'color':'#1D72A7'}}>{data.author}</span>
-              </div>
-              <div className="book-info-ratings">
-                <span>
-                  <Ratings
-                    rating={data.rating}
-                    starDimension='15px'
-                  />
-                </span>
-                <span>&nbsp;{data.num_ratings} Ratings</span>
-              </div>
-              <div className="buy-amazon-container">
-                <Button className="buy-amazon-button">
-                  <div>Buy on Amazon</div>
-                  <div style={{'color':'#831313', 'float': 'left'}}>${data.price}</div>
-                </Button>
-              </div>
-            </div>
-          {/* </Col>
-        </Row> */}
+        <div className="book-img-container-lg">
+          <img src={data.imUrl} fluid />
+        </div>
+        <div className="book-info-container">
+          <div className="book-info-title-container">
+            <span className="book-info-title">{data.title}</span>
+            <span><Button className="btn-sm add-reading-list-button">Add to reading list</Button></span>
+          </div>
+          <div className="book-info-author">
+            <span style={{'color':'#B9C6CE'}}>by&nbsp;</span><span style={{'color':'#1D72A7'}}>{data.author}</span>
+          </div>
+          <div className="book-info-ratings">
+            <span>
+              <Ratings
+                rating={data.rating}
+                starDimension='15px'
+              />
+            </span>
+            <span>&nbsp;{data.num_ratings} Ratings</span>
+          </div>
+          <div className="buy-amazon-container">
+            <Button className="buy-amazon-button">
+              <div style={{'color': '#000000'}}>Buy on Amazon</div>
+              <div style={{'color':'#831313', 'float': 'left', 'font-size':'16px'}}><b>${data.price}</b></div>
+            </Button>
+          </div>
+          <div className="top-review">
+            "{data.top_review}"
+          </div>
+          <div className="top-review-username">
+            &#8212;<i>{data.top_review_username}, top review for {data.title}</i>
+          </div>
+        </div>
       </div>
       <hr/>
       <div className="readers-also-viewed">Readers also viewed</div>

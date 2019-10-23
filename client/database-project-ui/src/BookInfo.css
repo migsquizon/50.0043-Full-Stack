@@ -7,16 +7,16 @@
     border-color:#ffffff;
     box-sizing: border-box;
     border-radius: 1%;
-    padding: 20px 0 0 30px;
+    padding: 20px 0 0 40px;
 }
 
 .book-img-container-lg img {
-    max-width: 150px;
+    max-width: 220px;
 }
 
 .book-info-container {
     height: 150px;
-    justify-content: flex-start;
+    max-width: 50%;
     padding: 0 0 0 50px;
 }
 
@@ -44,8 +44,10 @@
 }
 
 .book-info-title {
-    color: #3B5260; 
+    /* color: #3B5260;  */
+    color: #000000;
     padding-right: 20px;
+    font-size: 30px;
 }
 
 .book-info-author {
@@ -77,6 +79,25 @@
     padding: 5px 0 10px 0;
 }
 
+.top-review {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    padding: 5px 0 10px 0;
+    text-align: justify;
+}
+
+.top-review-username {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    padding: 5px 0 10px 0;
+}
+
 .add-reading-list-button {
     background-color: rgba(159, 159, 189, 0.2) !important;
     border: 2px solid !important;
@@ -94,10 +115,11 @@
     border-radius: 5px !important;
     border-color: rgba(252, 136, 0, 0.66)!important;
     color: #3B5260 !important;
-    padding: 3px 5px !important;
+    padding: 3px 5px 3px 10px !important;
     line-height: 22px !important;
-    text-align: center !important;
+    text-align: left !important;
     font-size: 16px !important;
+    width: 170px !important;
 }
 
 .readers-also-viewed {
