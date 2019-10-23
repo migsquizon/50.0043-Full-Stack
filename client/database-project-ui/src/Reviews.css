@@ -31,7 +31,6 @@
 }
 
 .write-review-container {
-    display: flex;
     flex: 1;
     flex-direction: row;
     padding-top: 50px;
