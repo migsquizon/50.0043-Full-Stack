@@ -112,6 +112,7 @@
 .carousel-container {
     display: block;
     padding-top: 30px;
+    text-align: -webkit-center;
     
 }
 
@@ -126,9 +127,16 @@
 .react-multiple-carousel__arrow {
     min-width: 41px;
     min-height: 90px;
+    border-radius: 10px;
+    z-index: 1000;
+    border: 0;
+    background: rgba(0, 0, 0, 0.12);
+    position: absolute;
+    transform: translateY(-25%);
 }
 
 .react-multi-carousel-track {
     list-style: none;
     padding: 0;
 }
+

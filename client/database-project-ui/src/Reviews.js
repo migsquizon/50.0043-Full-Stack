@@ -53,8 +53,8 @@ function Reviews(props) {
           <Button className="add-reading-list-button">Write a review</Button>
 
         </div>
-        <div className="catergories">
-          hi
+        <div className="write-review-container">
+          Categories:
         </div>
 
       </div>

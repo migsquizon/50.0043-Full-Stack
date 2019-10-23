@@ -23,10 +23,11 @@ function BookCarousel(props) {
         className=""
         containerClass="container"
         dotListClass=""
-        draggable
+        draggable={true}
         focusOnSelect={false}
         infinite={false}
         itemClass=""
+        infinite={true}
         keyBoardControl
         minimumTouchDrag={80}
         renderButtonGroupOutside={false}
