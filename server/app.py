@@ -3,16 +3,33 @@ from pymongo import MongoClient
 import mysql.connector as db
 from bson import Binary, Code
 from bson.json_util import dumps, loads
+from functools import wraps
+import jwt
 import reviews
 import metadata
+import users
 app = Flask(__name__)
 
 mongo = MongoClient("mongodb://18.139.174.176:27017",username = 'Admin',password = 'yckcmkg')
 
 sql = db.connect(host="18.139.174.176", user="root", password='yckcmkg', db="Reviews")
 
+app.config['SECRET_KEY'] = 'yckcmkg'
+
+
+def token_required(f):
+	@wraps(f)
+	def wrapper(*args,**kwargs):
+		token = request.args.get('token')
+		try:
+			jwt.decode(token,app.config['SECRET_KEY'])
+			return f(*args,**kwargs)
+		except:
+			return 'Error: need a valid token for request',401
+	return wrapper
 
 @app.route('/mongo')
+@token_required
 def test_mongo():
 	metadata = mongo['Kindle']['Metadata'] ## First is db name, second is metadata
 	print('database connected')
@@ -156,6 +173,57 @@ def helpful(asin):
                 return {"Exception":str(e)},500
 
     
+
+
+
+@app.route('/signup',methods=['POST'])
+def sign_up():
+	"""
+	POST
+	user sign up, adds the user data into the mongodb
+	returns status code
+	"""
+	user_json = request.get_json()
+	try:
+		if(users.get_user_details(user_json['username']) is not None):
+			print('username is taken')
+			return 'Sorry, the username {} has been taken'.format(user_json['username']), 400
+		users.add_user(user_json)
+		return {},200
+	except KeyError as e:
+		return {"keyError":str(e)},400
+	except Exception as e:
+		print(e)
+		return {"Exception":str(e)},500
+
+@app.route('/signin',methods=['POST'])
+def sign_in():
+	"""
+	POST
+	user sign in, verification of user data. Once verified, sign in -> token acquired
+	returns jwt token
+	"""
+	sign_in_json = request.get_json()
+	user_data = users.get_user_details(sign_in_json['username'])
+	if (user_data is None):
+		return 'Sorry, you need a valid account to sign in. This username has not been registered.' , 400
+	try:
+		if not (users.verify_user_password(sign_in_json['password'],user_data['password'])):
+			print('failed verification')
+			return 'Sorry but you have given the wrong password', 400
+		token = jwt.encode({},app.config['SECRET_KEY'],algorithm='HS256')
+		return token.decode('utf-8'),200
+	except KeyError as e:
+		return {"keyError":str(e)},400
+	except Exception as e:
+		print(e)
+		return {"Exception":str(e)},500
+
+
+
+
+
+
 
 
 
