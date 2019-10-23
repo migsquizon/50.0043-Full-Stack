@@ -10,18 +10,27 @@ function BookCard(props) {
       <div className="book-img-container">
         <img src={props.imUrl} fluid />
       </div>
-      <Truncate lines={2} ellipsis={<span>...</span>}>
-        {props.title}
-      </Truncate>
-      <Truncate lines={1} ellipsis={<span>...</span>}>
-        {props.author}
-      </Truncate>
-      <Ratings
-        rating={props.rating}
-        starDimension='12px'
-      />
-      {props.num_ratings}
-
+      <div className="book-summary-content">
+        <div className="book-card-title">
+          <Truncate lines={1} ellipsis={<span>...</span>}>
+            {props.title}
+          </Truncate>      
+        </div>
+        <div className="book-card-author">
+          <Truncate lines={1} ellipsis={<span>...</span>}>
+            {props.author}
+          </Truncate>     
+        </div>
+        <div className="book-card-ratings">
+          <span>
+            <Ratings
+              rating={props.rating}
+              starDimension='12px'
+            />
+          </span>
+          <span style={{'color': '#3B5260', 'font-size':'0.85rem'}}>&nbsp;{props.num_ratings}</span>
+        </div>
+      </div>
     </div>
   )
 }

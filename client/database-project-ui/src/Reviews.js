@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import EachReview from './EachReview';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import './Reviews.css';
 import 'react-circular-progressbar/dist/styles.css';
 
 const data = {
@@ -31,30 +32,43 @@ const percentage = data.rating / 5 * 100;
 function Reviews(props) {
   return (
     <div className="reviews-container">
-      <Row>
-        <Col xs={2}>
-        <CircularProgressbar 
-          value={percentage} 
-          text={data.rating} 
-          styles={buildStyles({
-            pathColor:'#F8CF46',
-          })}
-        />
-        <Button variant="light">Write a review</Button>
-        </Col>
-        <Col xs={10}>
-          {data.reviews.map((review) => (
-            <EachReview
-              username={review.username}
-              rating={review.rating}
-              review_title={review.review_title}
-              date={review.date}
-              review={review.review}
-              helpful={review.helpful}
+      {/* <Row>
+        <Col xs={2}> */}
+      <div className="ratings-info-container">
+        <div className="ratings-container">
+            
+            <CircularProgressbar 
+              value={percentage} 
+              text={data.rating} 
+              strokeWidth={5}
+              styles={buildStyles({
+                pathColor:'#F8CF46',
+                textSize:'40px',
+                fontFamily:'Lato',
+                textColor:'#3B5260',
+              })}
             />
-          ))}
-        </Col>
-      </Row>
+          </div>
+        <div className="write-review-container">
+          <Button className="add-reading-list-button">Write a review</Button>
+        </div>
+      </div>
+        <div className="review-container">
+          {data.reviews.map((review) => (
+              <EachReview
+                username={review.username}
+                rating={review.rating}
+                review_title={review.review_title}
+                date={review.date}
+                review={review.review}
+                helpful={review.helpful}
+              />
+            ))}
+        </div>
+        {/* </Col>
+        <Col xs={10}> */}
+        {/* </Col>
+      </Row> */}
     </div>
   )
 }

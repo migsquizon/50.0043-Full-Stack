@@ -64,15 +64,18 @@ function BookInfo(props) {
         </Row> */}
       </div>
       <hr/>
-      <div className="readers-viewed-container">
-        <div>Readers also viewed</div>
+      <div className="readers-also-viewed">Readers also viewed</div>
+      <div className="carousel-container">
         <BookCarousel/>
       </div>
       <hr/>
-      <Reviews/>
+      <div className="readers-also-viewed">Reviews</div>
+      <div className="review-container-main-page">
+        <Reviews />
+      </div>
       <hr/>
-      <div className="readers-viewed-container">
-        <div>Because you viewed this book</div>
+      <div className="readers-also-viewed">Because you viewed this book</div>
+      <div className="carousel-container">
         <BookCarousel/>
       </div>
  

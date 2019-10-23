@@ -1,17 +1,21 @@
-.book-summary-container{
+.book-summary-container {
     display: block;
-    max-width: 102px;
-    font-size: 1rem;
-    
+    max-width: 152px;
+    font-family: 'AcuminProRegular';   
 }
 
-.book-summary-container:hover{
+.book-summary-container:hover {
     display: block;
-    max-width: 102px;
+    max-width: 152px;
     font-size: 1rem;
 }
 
-.book-img-container{
+.book-summary-content {
+    display: block;
+    float: left;
+}
+
+.book-img-container {
     display: block;
     border: 1px solid;
     border-color:#ffffff;
@@ -19,7 +23,7 @@
     border-radius: 1%;
 }
 
-.book-img-container:hover{
+.book-img-container:hover { 
     display: block;
     border: 1px solid;
     box-sizing: border-box;
@@ -27,8 +31,25 @@
     border-radius: 1%;
 }
 
-.book-img-container img{
+.book-img-container img {
     /* border-radius: 1%; */
-    max-width: 100px;
+    max-width: 150px;
+}
+
+.book-card-title {
+    padding-top: 10px;
+    float: left;
+    font-size: 16px;
+    color: #3B5260;
+}
+
+.book-card-author {
+    float: left;
+    font-size: 0.8rem;
+    color: #7E8990;
+}
+
+.book-card-ratings {
+    float: left;
 }
 

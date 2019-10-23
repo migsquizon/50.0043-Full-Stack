@@ -1,27 +1,29 @@
 import React from 'react';
-import StarRatings from 'react-star-ratings';
+import Ratings from './Ratings';
 import Truncate from 'react-truncate';
+import './EachReview.css';
 
 function EachReview(props) {
   return (
-    <div>
-      {props.username}
+    <div className="each-review-container">
+      <div className="review-username">
+        {props.username}   
+      </div>
       <div className="review-rating">
         <span>
-          <StarRatings
-            name="book-rating"
+          <Ratings
             rating={props.rating}
-            numberOfStars={5}
-            starRatedColor="#F8CF46"
-            starEmptyColor="#D0CDC6"
-            starDimension="15px"
-            starSpacing="2px"
+            starDimension='12px'
           />
         </span>
-        <span>{props.review_title}</span>
-        {props.date}
-        <Truncate lines={10} ellipsis={<span>read more</span>}>
-        {props.review}
+        <span style={{'padding-left':'10px'}}>{props.review_title}</span>
+      </div>
+      <div className="review-date">
+        {props.date} 
+      </div>
+      <div className="review-content">
+        <Truncate lines={5} ellipsis={<p style={{'color':'#1D72A7'}}>read more</p>}>
+          {props.review}
         </Truncate>
       </div>
       <div className="review-helpful">
