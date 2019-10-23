@@ -22,9 +22,9 @@ function EachReview(props) {
         {props.date} 
       </div>
       <div className="review-content">
-        <Truncate lines={5} ellipsis={<p style={{'color':'#1D72A7'}}>read more</p>}>
+        {/* <Truncate lines={5} ellipsis={<p style={{'color':'#1D72A7'}}>read more</p>}> */}
           {props.review}
-        </Truncate>
+        {/* </Truncate> */}
       </div>
       <div className="review-helpful">
         {props.helpful} people found this helpful
