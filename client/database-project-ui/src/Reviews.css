@@ -1,0 +1,45 @@
+.reviews-container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    font-size: 20px;
+    padding: 5px 50px 10px;
+}
+
+.review-container {
+    display: block;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 6;
+    justify-content: flex-start;
+    padding-left: 80px;
+}
+
+.add-reading-list-button {
+    padding: 0px !important;
+}
+
+.ratings-container {
+    display: flex;
+    flex-direction: row;
+    flex-basis: 100%;
+    flex: 4;
+    justify-content: flex-start;
+    
+}
+
+.write-review-container {
+    flex: 1;
+    flex-direction: row;
+    padding-top: 50px;
+}
+
+.ratings-info-container {
+    display: flex;
+    width: 300px;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+}

@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
-// import logo from './logo.svg';
-// import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
+import React from 'react';
+import logo from './logo.svg';
+import BookCard from './BookCard.js';
+import './App.css';
+import BookCarousel from './BookCarousel';
+import BookInfo from './BookInfo';
 
-class App extends Component {
-  render() {
-    return (
-      "hi"
-    );
-  }
+function App() {
+  return (
+    <div className="App">
+      <BookInfo />
+    </div>
+  );
 }
 
 export default App;
