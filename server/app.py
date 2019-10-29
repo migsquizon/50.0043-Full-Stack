@@ -55,8 +55,8 @@ def get_book_by_asin(asin):
 	3: return metadata and summary of suggested books 
 	"""
 	verbose = request.args.get('verbose',default=2,type=int)
-	also_bought = request.args.get('also_bought',default=1,type=int)
-	buy_after_viewing = request.args.get('buy_after_viewing',default=1,type=int)
+	also_bought = request.args.get('also_bought',default=3,type=int)
+	buy_after_viewing = request.args.get('buy_after_viewing',default=3,type=int)
 	num_reviews = request.args.get('num_reviews',default=5,type=int)
 	try:
 		if verbose == 1:
@@ -73,17 +73,11 @@ def get_book_by_asin(asin):
 			if 'related' in main_book:
 				if 'also_bought' in main_book['related']:
 					alsoboughtls = main_book['related']['also_bought']
-					length = min(len(alsoboughtls),also_bought,5)
-					ls = []
-					for i in range(length):
-						ls.append(metadata.get_book_summary(alsoboughtls[i]))
+					ls = list(metadata.get_book_summary_list(alsoboughtls,also_bought))
 					main_book['related']['also_bought'] = ls
 				if 'buy_after_viewing' in main_book['related']:
 					buyafterviewingls = main_book['related']['buy_after_viewing']
-					length1 = min(len(buyafterviewingls),buy_after_viewing,5)
-					ls1 = []
-					for i in range(length1):
-						ls1.append(metadata.get_book_summary(buyafterviewingls[i]))
+					ls1 = list(metadata.get_book_summary_list(buyafterviewingls,buy_after_viewing))
 					main_book['related']['buy_after_viewing'] = ls1
 				main_book['reviews'] = reviews.get_reviews(asin,num_reviews)
 			return dumps(main_book)
