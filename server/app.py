@@ -3,7 +3,7 @@ from pymongo import MongoClient
 import mysql.connector as db
 from bson import Binary, Code
 from bson.json_util import dumps, loads
-from functools import wraps
+from functools import wraps, lru_cache
 import jwt
 import reviews
 import metadata
@@ -47,6 +47,7 @@ def test_sql():
 
 ## to be completed for parameterized
 @app.route('/book/<asin>',methods=['GET'])
+@lru_cache(maxsize=None)## Might cause some bugs to be undiscovered
 def get_book_by_asin(asin):
 	"""
 	verbose
