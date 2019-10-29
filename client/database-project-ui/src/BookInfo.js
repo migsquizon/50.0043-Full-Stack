@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import StarRatings from 'react-star-ratings';
 import { Row, Col, Button } from 'react-bootstrap';
 import BookCarousel from './BookCarousel';
 import Reviews from './Reviews';
 import Ratings from './Ratings';
+import axios from 'axios';
 import './BookInfo.css';
+
+var API_URL= "http://13.229.185.245:5000/book/B009EALX3K?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
+var payload = [];
 
 const data = {
   "asin": "0000031852",
@@ -28,60 +32,111 @@ const data = {
 }
 
 function BookInfo(props) {
+
+  const [asin, setAsin] = useState("");
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [description, setDescription] = useState("");
+  const [imUrl, setImUrl] = useState("");
+  const [rating, setRating] = useState(0);
+  const [num_rating, setNumRating] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [reviews, setReviews] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [related, setRelated] = useState([]);
+
+  useEffect(async () => {
+    payload = await axios(API_URL);
+    console.log(payload);
+    console.log("HELLO");
+
+    if (payload.title) {
+      setTitle(payload.title);
+    }
+
+    if (payload.author) {
+      setAuthor(payload.author);
+    }
+
+    if (payload.description) {
+      setAuthor(payload.description);
+    }
+
+    if (payload.rating) {
+      setRating(payload.rating);
+    }
+
+    if (payload.num_rating) {
+      setNumRating(payload.num_rating);
+    }
+
+    setAsin(payload.asin);
+    setImUrl(payload.imUrl);
+    setPrice(payload.price);
+    setReviews(payload.reviews);
+    setCategories(payload.categories);
+    setRelated(payload.related);
+  }, []);
+
+  if (payload.length > 0) {
+    return (
+      <div className="book-info-page-container">
+        <div className="book-main-info-container">
+          <div className="book-img-container-lg">
+            <img src={imUrl} fluid />
+          </div>
+          <div className="book-info-container">
+            <div className="book-info-title-container">
+              <span className="book-info-title">{asin}</span>
+              <span><Button className="btn-sm add-reading-list-button">Add to reading list</Button></span>
+            </div>
+            <div className="book-info-author">
+              <span style={{'color':'#B9C6CE'}}>by&nbsp;</span><span style={{'color':'#1D72A7'}}>{data.author}</span>
+            </div>
+            <div className="book-info-ratings">
+              <span>
+                <Ratings
+                  rating={data.rating}
+                  starDimension='15px'
+                />
+              </span>
+              <span>&nbsp;{data.num_ratings} Ratings</span>
+            </div>
+            <div className="buy-amazon-container">
+              <Button className="buy-amazon-button">
+                <div style={{'color': '#000000'}}>Buy on Amazon</div>
+                <div style={{'color':'#831313', 'float': 'left', 'font-size':'16px'}}><b>${data.price}</b></div>
+              </Button>
+            </div>
+            <div className="top-review">
+              "{data.top_review}"
+            </div>
+            <div className="top-review-username">
+              &#8212;<i>{data.top_review_username}, top review for {data.title}</i>
+            </div>
+          </div>
+        </div>
+        <hr/>
+        <div className="readers-also-viewed">Readers also viewed</div>
+        <div className="carousel-container">
+          <BookCarousel/>
+        </div>
+        <hr/>
+        <div className="readers-also-viewed">Reviews</div>
+        <div className="review-container-main-page">
+          <Reviews />
+        </div>
+        <hr/>
+        <div className="readers-also-viewed">Because you viewed this book</div>
+        <div className="carousel-container">
+          <BookCarousel/>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <div className="book-info-page-container">
-      <div className="book-main-info-container">
-        <div className="book-img-container-lg">
-          <img src={data.imUrl} fluid />
-        </div>
-        <div className="book-info-container">
-          <div className="book-info-title-container">
-            <span className="book-info-title">{data.title}</span>
-            <span><Button className="btn-sm add-reading-list-button">Add to reading list</Button></span>
-          </div>
-          <div className="book-info-author">
-            <span style={{'color':'#B9C6CE'}}>by&nbsp;</span><span style={{'color':'#1D72A7'}}>{data.author}</span>
-          </div>
-          <div className="book-info-ratings">
-            <span>
-              <Ratings
-                rating={data.rating}
-                starDimension='15px'
-              />
-            </span>
-            <span>&nbsp;{data.num_ratings} Ratings</span>
-          </div>
-          <div className="buy-amazon-container">
-            <Button className="buy-amazon-button">
-              <div style={{'color': '#000000'}}>Buy on Amazon</div>
-              <div style={{'color':'#831313', 'float': 'left', 'font-size':'16px'}}><b>${data.price}</b></div>
-            </Button>
-          </div>
-          <div className="top-review">
-            "{data.top_review}"
-          </div>
-          <div className="top-review-username">
-            &#8212;<i>{data.top_review_username}, top review for {data.title}</i>
-          </div>
-        </div>
-      </div>
-      <hr/>
-      <div className="readers-also-viewed">Readers also viewed</div>
-      <div className="carousel-container">
-        <BookCarousel/>
-      </div>
-      <hr/>
-      <div className="readers-also-viewed">Reviews</div>
-      <div className="review-container-main-page">
-        <Reviews />
-      </div>
-      <hr/>
-      <div className="readers-also-viewed">Because you viewed this book</div>
-      <div className="carousel-container">
-        <BookCarousel/>
-      </div>
- 
-    </div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" />
   )
 }
 
