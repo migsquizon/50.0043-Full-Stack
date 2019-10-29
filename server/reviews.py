@@ -4,11 +4,20 @@ from datetime import date
 sql = db.connect(host="18.139.174.176", user="root",
                  password='yckcmkg', db="Reviews")
 
+def keep_alive():
+    """
+    Connect sql again if connection drops
+    """
+    global sql
+    if not sql.is_connected():
+        sql = db.connect(host="18.139.174.176", user="root",
+                 password='yckcmkg', db="Reviews")
 
 def get_reviews(asin,num=5):
     """
     Get all reviews with a given asin
     """
+    keep_alive()
     cursor = sql.cursor(dictionary=True)
     cursor.execute("""SELECT * FROM `Reviews` where asin = %s LIMIT %s""", (asin,num))
     result = cursor.fetchall()
@@ -18,12 +27,14 @@ def get_review_by_id(asin,reviewerID):
     """
     Get the review with a given asin and reviewerID
     """
+    keep_alive()
     cursor = sql.cursor(dictionary=True)
     cursor.execute("""SELECT * FROM `Reviews` where reviewerID = %s and asin = %s LIMIT %s""", (reviewerID,asin,1))
     result = cursor.fetchall()
     return result
 
 def update_helpful(asin,reviewerID,helpful):
+    keep_alive()
     cursor = sql.cursor()
     cursor.execute("""UPDATE Reviews SET helpful = %s WHERE asin = %s and reviewerID = %s """,(helpful,asin,reviewerID))
     sql.commit
@@ -37,6 +48,7 @@ def add_review(asin, json):
     Returns:
         bool: True if suceeded false otherwise
     """
+    keep_alive()
     cursor = sql.cursor()
     reviews = ("INSERT INTO Reviews "
                "(asin, helpful, overall, reviewText, reviewTime,reviewerID, reviewerName, summary, unixReviewTime) "
@@ -67,5 +79,3 @@ def add_review(asin, json):
 #     "reviewerID":"GHJKGMHHGFFGB",
 #     "summary": "book was awesome",
 # })
-
-print(get_reviews("B000F83SZ"))
