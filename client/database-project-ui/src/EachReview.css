@@ -1,0 +1,46 @@
+.each-review-container {
+    display: flex;
+    flex-direction: column;
+    font-family: "AcuminProRegular";
+    flex-basis: 100%;
+    color: #3B5260; 
+    font-size: 16px;
+    padding-bottom: 30px;
+}
+
+.review-username {
+    display: flex;
+    text-align: left;
+    padding-bottom: 5px;
+}
+
+.review-rating {
+    display: flex;
+    text-align: left;
+    color: #141D22;
+    padding-bottom: 5px;
+}
+
+.review-date {
+    display: flex;
+    text-align: left;
+    color: #7E8990;
+    padding-bottom: 8px;
+}
+
+.review-content {
+    display: flex;
+    overflow: hidden;
+    text-align: justify;
+}
+
+.review-content > span {
+    white-space: nowrap;
+}
+
+.review-helpful {
+    display: flex;
+    text-align: left;
+    color: #7E8990;
+    padding-top: 10px;
+}

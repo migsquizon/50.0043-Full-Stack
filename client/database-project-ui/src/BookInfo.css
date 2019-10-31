@@ -1,0 +1,164 @@
+.book-info-page-container {
+    padding-top: 30px;
+}
+
+.book-img-container-lg {
+    border: 1px solid;
+    border-color:#ffffff;
+    box-sizing: border-box;
+    border-radius: 1%;
+    padding: 20px 0 0 40px;
+}
+
+.book-img-container-lg img {
+    max-width: 220px;
+}
+
+.book-info-container {
+    height: 150px;
+    max-width: 50%;
+    padding: 0 0 0 50px;
+}
+
+.book-main-info-container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    font-size: 1rem;
+    font-family: 'AcuminProRegular';
+    justify-content: flex-start;
+    color: #3B5260;
+   
+   
+}
+
+.book-info-title-container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    font-size: 25px; 
+}
+
+.book-info-title {
+    /* color: #3B5260;  */
+    color: #000000;
+    padding-right: 20px;
+    font-size: 30px;
+}
+
+.book-info-author {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    font-size: 20px;
+}
+
+.book-info-ratings {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    font-size: 20px;
+    padding: 5px 0 5px 0;
+}
+
+.buy-amazon-container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    font-size: 20px;
+    padding: 5px 0 10px 0;
+}
+
+.top-review {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    padding: 5px 0 10px 0;
+    text-align: justify;
+}
+
+.top-review-username {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    padding: 5px 0 10px 0;
+}
+
+.add-reading-list-button {
+    background-color: rgba(159, 159, 189, 0.2) !important;
+    border: 2px solid !important;
+    border-radius: 5px !important;
+    border-color: #9F9FBD !important;
+    color: #3B5260 !important;
+    padding: 3px 5px !important;
+    line-height: 22px !important;
+    text-align: center !important;
+}
+
+.buy-amazon-button {
+    background-color: rgba(250, 219, 168, 0.2) !important;
+    border: 2px solid !important;
+    border-radius: 5px !important;
+    border-color: rgba(252, 136, 0, 0.66)!important;
+    color: #3B5260 !important;
+    padding: 3px 5px 3px 10px !important;
+    line-height: 22px !important;
+    text-align: left !important;
+    font-size: 16px !important;
+    width: 170px !important;
+}
+
+.readers-also-viewed {
+    display: block;
+    font-family: 'AcuminProRegular';
+    text-align: left;
+    padding:10px 0 0 30px;
+    color: #3B5260;
+    font-size: 20px;
+}
+
+.carousel-container {
+    display: block;
+    padding-top: 30px;
+    text-align: -webkit-center;
+    
+}
+
+
+.react-multiple-carousel__arrow--right {
+    right: calc(0% + 1px);
+}
+.react-multiple-carousel__arrow--left {
+    left: calc(0% + 1px);
+}
+
+.react-multiple-carousel__arrow {
+    min-width: 41px;
+    min-height: 90px;
+    border-radius: 10px;
+    z-index: 1000;
+    border: 0;
+    background: rgba(0, 0, 0, 0.12);
+    position: absolute;
+    transform: translateY(-25%);
+}
+
+.react-multi-carousel-track {
+    list-style: none;
+    padding: 0;
+}
+
