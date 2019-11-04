@@ -80,7 +80,7 @@ function BookInfo(props) {
     })();
   }, []);
 
-  if (payload.length > 0) {
+  if (payload) {
     return (
       <div className="book-info-page-container">
         <div className="book-main-info-container">
