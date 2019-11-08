@@ -8,6 +8,7 @@ import jwt
 import reviews
 import metadata
 import users
+from flask_cors import CORS
 app = Flask(__name__)
 
 mongo = MongoClient("mongodb://18.139.174.176:27017",username = 'Admin',password = 'yckcmkg')
@@ -223,4 +224,4 @@ def sign_in():
 
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run(debug=True,host='0.0.0.0')
