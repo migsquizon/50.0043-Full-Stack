@@ -1,8 +1,10 @@
 # Flask API
 **IMPLEMENTED**\
 [**POST** /book/&lt;asin&gt;](#post-bookasin) -> Add reviews\
-[**GET** /book/&lt;asin&gt;](#get-bookasin) -> Get book metadata and reviews\
 [**POST** /add/book](#post-addbook) -> Add a new book\
+[**POST** /signin](#post-signin) -> Sign in as an existing user
+[**POST** /signup](#post-signup) -> Sign up as a new user
+[**GET** /book/&lt;asin&gt;](#get-bookasin) -> Get book metadata and reviews\
 **NOT IMPLEMENTED**\
 **POST** /book/&lt;asin&gt;/helpful;
 ## **POST** /book/&lt;asin&gt;
@@ -62,6 +64,53 @@ fetch("http://localhost:5000/add/book", {
     "description": "this is a test",
     "imUrl":"www.picture.com",
     "categories": ["anime","manga"]
+  }
+})
+```
+Expected Response: 200
+## **POST** /signin;
+Sign in as an existing user. \
+Content-Type: application/json
+### Input
+```
+{
+  "username" : "username1",
+  "password" : "password1"
+}
+```
+```
+fetch("http://localhost:5000/signin", {
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "body": {
+    "username" : "username1",
+    "password" : "password1"
+  }
+})
+```
+Expected Response: 200
+Returns: JWT Token for token-required APIs.
+## **POST** /signup;
+Sign up as a new user. \
+Content-Type: application/json
+### Input
+```
+{
+  "username" : "username1",
+  "password" : "password1"
+}
+```
+```
+fetch("http://localhost:5000/signin", {
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "body": {
+    "username" : "username1",
+    "password" : "password1"
   }
 })
 ```

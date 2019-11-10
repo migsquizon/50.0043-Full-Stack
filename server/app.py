@@ -197,7 +197,7 @@ def sign_in():
 	"""
 	POST
 	user sign in, verification of user data. Once verified, sign in -> token acquired
-	returns jwt token
+	returns jwt token, and status code
 	"""
 	sign_in_json = request.get_json()
 	user_data = users.get_user_details(sign_in_json['username'])
