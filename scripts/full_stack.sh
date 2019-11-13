@@ -23,25 +23,10 @@ pip3 --version
 pip3 install -r requirements.txt
 
 #backend
-cd ..
-
-cd server
-
-python3 app.py nohup &
-
-yes
+sh backend.sh &
 
 #frontend
-cd ..
+sh frontend.sh &
 
-cd client
-
-cd database-project-ui
-
-npm install
-
-npm start nohup &
-
-yes
 
 exit 0
