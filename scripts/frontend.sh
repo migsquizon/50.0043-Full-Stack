@@ -14,5 +14,6 @@ cd database-project-ui
 
 npm install
 
-npm start
+npm start nohup &
+
 
