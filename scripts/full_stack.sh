@@ -29,7 +29,6 @@ cd server
 
 python3 app.py nohup &
 
-yes
 
 #frontend
 cd ..
@@ -42,6 +41,5 @@ npm install
 
 npm start nohup &
 
-yes
 
 exit 0
