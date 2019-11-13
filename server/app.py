@@ -1,14 +1,15 @@
 from flask import Flask, url_for, request, jsonify
 from pymongo import MongoClient
-import mysql.connector as db
 from bson import Binary, Code
 from bson.json_util import dumps, loads
 from functools import wraps, lru_cache
+from flask_cors import CORS
+import mysql.connector as db
 import jwt
 import reviews
 import metadata
 import users
-from flask_cors import CORS
+
 app = Flask(__name__)
 
 mongo = MongoClient("mongodb://18.139.174.176:27017",username = 'Admin',password = 'yckcmkg')
@@ -42,7 +43,6 @@ def test_sql():
 	cursor = sql.cursor()
 	cursor.execute("SELECT * FROM `Reviews` LIMIT 0, 10")
 	res = cursor.fetchall()
-	#print(res)
 	return jsonify(res)
 
 
@@ -87,24 +87,36 @@ def get_book_by_asin(asin):
                 print(e)
                 return {"Exception":str(e)},500
 
-@app.route('/reviews/<asin>')
-def get_reviews_by_asin(asin):
+@app.route('/reviews/<asin>',methods=['GET'])
+def get_review_count_by_asin(asin):
+	"""
+	GET
+	parameters: 
+	1. asin
+	returns -> count of reviews of book w/ asin
+	"""
 	try:
-		result = reviews.get_reviews(asin)
+		result = reviews.get_review_count(asin)
 	except Exception as e:
-                print(e)
-                return {"Exception": str(e)},500
-	return jsonify(result) , 200
+		print(e)
+		return {"Exception": str(e)},500
+	return jsonify(result), 200
 
 
 @app.route('/add/book',methods=['POST'])
 def add_new_book():
+	"""
+	POST
+	params in json:
+	asin, title, price(optional), imUrl, related(optional), brand(optional), categories, added_by
+	"""
 	json_dict = request.get_json()
 	try:
 		succeeded = metadata.add_book(json_dict)
 		if succeeded:
 			return {},200
 		else:
+			print("failed")
 			return {},500
 	except KeyError as e:
                 print(e)
@@ -117,7 +129,7 @@ def add_new_book():
 def add_review(asin):
 	"""
 	POST
-	params in json
+	params in json:
 	helpful(optional), overall, reviewText, reviewTime(optional), reviewerID, reviewerName, summary, unixReviewTime(optional)
 	"""
 	json_dict = request.get_json()
@@ -136,37 +148,44 @@ def add_review(asin):
 
 @app.route('/reviews/helpful/<asin>',methods=["POST"])
 def helpful(asin):
+	"""
+	POST
+	params in json_post body:
+	1. reviewerID
+	2. helpful
+	returns -> helpful = 1 if helpful, else 0
+	"""
     #json_post will give me reviewerID & helpful
     #helpful should be 1 if review was helpful, 0 if not helpful
-    json_post = request.get_json()
-    try:
-        helpful = json_post["helpful"]
-        reviewerID = json_post["reviewerID"]
-        review = reviews.get_review_by_id(asin,reviewerID)
-        helpfulness =  review[0]["helpful"]
-        if(helpful == "1"):
-            comma = helpfulness.find(",")
-            helpful_digit = helpfulness[1:comma]
-            helpful_int = int(helpful_digit)
-            helpful_int += 1
-            final_rating = helpfulness[0]+str(helpful_int)+helpfulness[comma:]
-        if(helpful == "0"):
-            comma = helpfulness.find(",")
-            helpful_digit = helpfulness[comma+2:comma+3]
-            helpful_int = int(helpful_digit)
-            helpful_int += 1
-            final_rating = helpfulness[:comma+2]+str(helpful_int)+"]"
-        else:
-            return ("helpful value not equals to 1 or 0")
-        reviews.update_helpful(asin,reviewerID,final_rating) 
-        review = reviews.get_review_by_id(asin,reviewerID)
-        return review[0]
-    except KeyError as e:
-                print(e)
-                return {"keyError":str(e)},400
-    except Exception as e:
-                print(e)
-                return {"Exception":str(e)},500
+	json_post = request.get_json()
+	try:
+		helpful = json_post["helpful"]
+		reviewerID = json_post["reviewerID"]
+		review = reviews.get_review_by_id(asin,reviewerID)
+		helpfulness =  review[0]["helpful"]
+		if(helpful == "1"):
+			comma = helpfulness.find(",")
+			helpful_digit = helpfulness[1:comma]
+			helpful_int = int(helpful_digit)
+			helpful_int += 1
+			final_rating = helpfulness[0]+str(helpful_int)+helpfulness[comma:]
+		if(helpful == "0"):
+			comma = helpfulness.find(",")
+			helpful_digit = helpfulness[comma+2:comma+3]
+			helpful_int = int(helpful_digit)
+			helpful_int += 1
+			final_rating = helpfulness[:comma+2]+str(helpful_int)+"]"
+		else:
+			return ("helpful value not equals to 1 or 0")
+		reviews.update_helpful(asin,reviewerID,final_rating) 
+		review = reviews.get_review_by_id(asin,reviewerID)
+		return review[0]
+	except KeyError as e:
+				print(e)
+				return {"keyError":str(e)},400
+	except Exception as e:
+				print(e)
+				return {"Exception":str(e)},500
 
     
 

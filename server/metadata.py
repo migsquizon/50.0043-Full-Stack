@@ -14,8 +14,9 @@ def get_book_summary_list(asin_list,limit=5):
 
 def add_book(json):
     metadata_collection = mongo['Kindle']['Metadata']
+    if "title" not in json or "imUrl" not in json or "asin" not in json or "categories" not in json or "added_by" not in json:
+        raise KeyError("Book credentials are insufficient")
     x = metadata_collection.insert_one(json)
-    #print("added")
     return True
 
 # print(list(get_book_summary_list(["B0002IQ15S","B000FA5RE4"])))
