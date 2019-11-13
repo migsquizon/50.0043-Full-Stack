@@ -11,7 +11,7 @@ import metadata
 import users
 
 app = Flask(__name__)
-
+CORS(app)
 mongo = MongoClient("mongodb://18.139.174.176:27017",username = 'Admin',password = 'yckcmkg')
 
 sql = db.connect(host="18.139.174.176", user="root", password='yckcmkg', db="Reviews")
