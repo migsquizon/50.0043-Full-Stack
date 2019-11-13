@@ -5,11 +5,13 @@ import BookCard from './BookCard.js';
 import './App.css';
 import BookCarousel from './BookCarousel';
 import BookInfo from './BookInfo';
+import Navbar from './Navbar.js';
 
 function App() {
   return (
     <div className="App">
-      <BookInfo />
+      <Navbar />
+      <BookInfo/>
     </div>
   );
 }

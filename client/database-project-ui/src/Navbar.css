@@ -1,0 +1,35 @@
+.nav-header {
+
+    padding: 0 0 10px; }
+    .nav-header .nav-container {
+      padding: 0px 15px 0;
+      margin-right: auto;
+      margin-left: auto; }
+  
+  .name {
+    float: left;
+    padding: 0;
+    border: 1px solid transparent;
+    font-family: 'AcuminProRegular';
+    font-size: 2rem;
+    color: #3B5260;}
+  
+  .nav-menu {
+    float: right; }
+    .nav-menu .nav-menu-list {
+      font-size: 1.25rem;
+      margin: 0;
+      padding: 10px 0 0;
+      list-style: none; }
+      .nav-menu .nav-menu-list .nav-item {
+        display: inline-block;
+        margin: 0;
+        vertical-align: top; }
+        .nav-menu .nav-menu-list .nav-item .nav-a {
+          font-family: 'AcuminProRegular';
+          display: block;
+          padding: 0 10px;
+          text-decoration: none;
+          color: #3B5260;
+          border: 1px solid transparent;
+          text-transform: uppercase; }
