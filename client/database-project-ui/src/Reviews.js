@@ -60,14 +60,15 @@ function Reviews(props) {
       </div>
 
       <div className="review-container">
-        {data.reviews.map((review) => (
+        {props.data.map((review) => (
           <EachReview
-            username={review.username}
-            rating={review.rating}
-            review_title={review.review_title}
-            date={review.date}
-            review={review.review}
-            helpful={review.helpful}
+            id={review.id}
+            reviewerName={review.reviewerName}
+            rating={review.overall}
+            review_title={review.summary}
+            date={review.reviewTime}
+            review={review.reviewText}
+            helpful={review.helpful[1]}
           />
         ))}
       </div>

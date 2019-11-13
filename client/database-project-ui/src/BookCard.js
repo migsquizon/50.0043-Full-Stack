@@ -13,7 +13,8 @@ function BookCard(props) {
       <div className="book-summary-content">
         <div className="book-card-title">
           <Truncate lines={1} ellipsis={<span>...</span>} trimWhitespace="true">
-            {props.title}
+            {props.asin} 
+            {/* using asin for now */}
           </Truncate>      
         </div>
         <div className="book-card-author">

@@ -13,6 +13,7 @@ const data = {
 
 
 function BookCarousel(props) {
+
   return (
     <div>
       <Carousel
@@ -63,48 +64,17 @@ function BookCarousel(props) {
         slidesToSlide={2}
         swipeable
       >
-        <BookCard
-          title={data.title}
-          imUrl={data.imUrl}
-          author={data.author}
-          rating={data.rating}
-          num_ratings={data.num_ratings}
-        />
-        <BookCard
-          title={data.title}
-          imUrl={data.imUrl}
-          author={data.author}
-          rating={data.rating}
-          num_ratings={data.num_ratings}
-        />
-        <BookCard
-          title={data.title}
-          imUrl={data.imUrl}
-          author={data.author}
-          rating={data.rating}
-          num_ratings={data.num_ratings}
-        />
-        <BookCard
-          title={data.title}
-          imUrl={data.imUrl}
-          author={data.author}
-          rating={data.rating}
-          num_ratings={data.num_ratings}
-        />
-        <BookCard
-          title={data.title}
-          imUrl={data.imUrl}
-          author={data.author}
-          rating={data.rating}
-          num_ratings={data.num_ratings}
-        />
-        <BookCard
-          title={data.title}
-          imUrl={data.imUrl}
-          author={data.author}
-          rating={data.rating}
-          num_ratings={data.num_ratings}
-        />
+        {props.data.map((book) => (
+          <BookCard
+            title={book.title}
+            asin={book.asin}
+            imUrl={book.imUrl}
+            author={book.author}
+            //A little cheating hehe
+            rating={Math.floor(Math.random() * 5) + 3}
+            num_ratings={Math.floor(Math.random() * 100) + 100}
+          />
+        ))}      
       </Carousel>
     </div>
   )

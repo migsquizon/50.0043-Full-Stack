@@ -43,26 +43,32 @@ function BookInfo(props) {
   const [price, setPrice] = useState(0);
   const [reviews, setReviews] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [related, setRelated] = useState([]);
+  const [also_bought, setAlsoBought] = useState([]);
+  const [buy_after_viewing, setBuyAfterViewing] = useState([]);
 
   useEffect(() => {
     (async () => {
       payload = await axios(API_URL);
       console.log(payload);
+      console.log(payload.data.asin);
       console.log("HELLO");
+      {payload.data.related.also_bought.map((book) => (
+        console.log(book.asin)
+      ))}
 
       if (payload.title) {
-        setTitle(payload.title);
+        setTitle(payload.data.title);
       }
 
       if (payload.author) {
-        setAuthor(payload.author);
+        setAuthor(payload.data.author);
       }
 
       if (payload.description) {
-        setAuthor(payload.description);
+        setAuthor(payload.data.description);
       }
 
+      //NOT YET IMPLEMENTED
       if (payload.rating) {
         setRating(payload.rating);
       }
@@ -71,12 +77,13 @@ function BookInfo(props) {
         setNumRating(payload.num_rating);
       }
 
-      setAsin(payload.asin);
-      setImUrl(payload.imUrl);
-      setPrice(payload.price);
-      setReviews(payload.reviews);
-      setCategories(payload.categories);
-      setRelated(payload.related);
+      setAsin(payload.data.asin);
+      setImUrl(payload.data.imUrl);
+      setPrice(payload.data.price);
+      setReviews(payload.data.reviews);
+      setCategories(payload.data.categories);
+      setAlsoBought(payload.data.related.also_bought);
+      setBuyAfterViewing(payload.data.related.buy_after_viewing);
     })();
   }, []);
 
@@ -107,7 +114,7 @@ function BookInfo(props) {
             <div className="buy-amazon-container">
               <Button className="buy-amazon-button">
                 <div style={{ 'color': '#000000' }}>Buy on Amazon</div>
-                <div style={{ 'color': '#831313', 'float': 'left', 'font-size': '16px' }}><b>${data.price}</b></div>
+                <div style={{ 'color': '#831313', 'float': 'left', 'fontSize': '16px' }}><b>${price}</b></div>
               </Button>
             </div>
             <div className="top-review">
@@ -121,17 +128,23 @@ function BookInfo(props) {
         <hr />
         <div className="readers-also-viewed">Readers also viewed</div>
         <div className="carousel-container">
-          <BookCarousel />
+          <BookCarousel 
+            data={also_bought}
+          />
         </div>
         <hr />
         <div className="readers-also-viewed">Reviews</div>
         <div className="review-container-main-page">
-          <Reviews />
+          <Reviews 
+            data={reviews}
+          />
         </div>
         <hr />
         <div className="readers-also-viewed">Because you viewed this book</div>
         <div className="carousel-container">
-          <BookCarousel />
+          <BookCarousel 
+            data={buy_after_viewing}
+          />
         </div>
       </div>
     )
