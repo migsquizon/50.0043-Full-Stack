@@ -5,6 +5,7 @@
 [**POST** /signin](#post-signin) -> Sign in as an existing user
 [**POST** /signup](#post-signup) -> Sign up as a new user
 [**GET** /book/&lt;asin&gt;](#get-bookasin) -> Get book metadata and reviews\
+[**GET** /reviews/&lt;asin&gt;](#get-review-count-asin) -> Get book metadata and reviews\
 **NOT IMPLEMENTED**\
 **POST** /book/&lt;asin&gt;/helpful;
 ## **POST** /book/&lt;asin&gt;
@@ -260,5 +261,17 @@ Show number of summaries in also_bought and buyafterviewing \
       "unixReviewTime": 1399248000
     }
   ]
+}
+
+```
+## **GET** /reviews/&lt;asin&gt;
+
+**GET** reviews/B000F83SZQ
+
+### Sample response
+**GET** http://localhost:5000/reviews/B000F83SZQ
+```
+{
+  "count": 7
 }
 ```
