@@ -7,7 +7,7 @@ function EachReview(props) {
   return (
     <div className="each-review-container">
       <div className="review-username">
-        {props.username}   
+        {props.reviewerName}   
       </div>
       <div className="review-rating">
         <span>
