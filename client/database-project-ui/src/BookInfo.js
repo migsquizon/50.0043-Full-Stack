@@ -146,6 +146,7 @@ function BookInfo(props) {
             data={buy_after_viewing}
           />
 
+
         </div>
       </div>
     )
