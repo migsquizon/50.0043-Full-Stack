@@ -20,6 +20,8 @@ sudo apt install python3-pip
 
 pip3 --version
 
+export LC_ALL=C
+
 pip3 install -r requirements.txt
 
 #backend
