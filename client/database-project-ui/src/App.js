@@ -6,12 +6,15 @@ import './App.css';
 import BookCarousel from './BookCarousel';
 import BookInfo from './BookInfo';
 import Navbar from './Navbar.js';
+import LoginPage from './Loginpage.js'
 
 function App() {
   return (
     <div className="App">
       <Navbar />
       <BookInfo/>
+      <LoginPage/>
+      
     </div>
   );
 }

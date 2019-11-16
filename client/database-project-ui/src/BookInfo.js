@@ -145,10 +145,9 @@ function BookInfo(props) {
           <BookCarousel 
             data={buy_after_viewing}
           />
-        </div>
 
+        </div>
       </div>
-      
     )
   }
 
@@ -156,5 +155,4 @@ function BookInfo(props) {
     <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" />
   )
 }
-
 export default BookInfo;
