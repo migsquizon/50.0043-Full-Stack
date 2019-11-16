@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-mongo = MongoClient("mongodb://18.139.174.176:27017",username = 'Admin',password = 'yckcmkg')
+mongo = MongoClient("mongodb://18.140.90.36:27017",username = 'Admin',password = 'yckcmkg')
 
 def get_book_by_asin(asin):
     return mongo['Kindle']['Metadata'].find_one({"asin":asin})
@@ -19,4 +19,6 @@ def add_book(json):
     x = metadata_collection.insert_one(json)
     return True
 
+def test_mongo():
+    return mongo['Kindle']['Metadata'].find_one()
 # print(list(get_book_summary_list(["B0002IQ15S","B000FA5RE4"])))

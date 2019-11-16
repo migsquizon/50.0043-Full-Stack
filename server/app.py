@@ -1,10 +1,8 @@
 from flask import Flask, url_for, request, jsonify
-from pymongo import MongoClient
 from bson import Binary, Code
 from bson.json_util import dumps, loads
 from functools import wraps, lru_cache
 from flask_cors import CORS
-import mysql.connector as db
 import jwt
 import reviews
 import metadata
@@ -12,10 +10,6 @@ import users
 
 app = Flask(__name__)
 CORS(app)
-mongo = MongoClient("mongodb://18.139.174.176:27017",username = 'Admin',password = 'yckcmkg')
-
-sql = db.connect(host="18.139.174.176", user="root", password='yckcmkg', db="Reviews")
-
 app.config['SECRET_KEY'] = 'yckcmkg'
 
 
@@ -30,23 +24,19 @@ def token_required(f):
 			return 'Error: need a valid token for request',401
 	return wrapper
 
-@app.route('/mongo')
+@app.route('/test_token')
 @token_required
+def test_token():
+	return "Success"
+
+@app.route('/mongo')
 def test_mongo():
-	metadata = mongo['Kindle']['Metadata'] ## First is db name, second is metadata
-	print('database connected')
-	print(mongo['Kindle'].list_collection_names())
-	return dumps(metadata.find_one())
+	return dumps(metadata.test_mongo())
 
 @app.route('/sql')
 def test_sql():
-	cursor = sql.cursor()
-	cursor.execute("SELECT * FROM `Reviews` LIMIT 0, 10")
-	res = cursor.fetchall()
-	return jsonify(res)
+	return dumps(reviews.test_sql())
 
-
-## to be completed for parameterized
 @app.route('/book/<asin>',methods=['GET'])
 @lru_cache(maxsize=None)## Might cause some bugs to be undiscovered
 def get_book_by_asin(asin):
