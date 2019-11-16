@@ -89,12 +89,12 @@ function BookInfo(props) {
 
   if (payload) {
     return (
-      <div className="book-info-page-container">
+      <div className="page-container">
         <div className="book-main-info-container">
           <div className="book-img-container-lg">
             <img src={imUrl} fluid />
           </div>
-          <div className="book-info-container">
+          <div className="book-page-container">
             <div className="book-info-title-container">
               <span className="book-info-title">{asin}</span>
               <span><Button className="btn-sm add-reading-list-button">Add to reading list</Button></span>
@@ -146,7 +146,9 @@ function BookInfo(props) {
             data={buy_after_viewing}
           />
         </div>
+
       </div>
+      
     )
   }
 

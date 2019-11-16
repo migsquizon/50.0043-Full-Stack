@@ -1,3 +1,8 @@
+.page-container{
+    padding: 0 50px;
+}
+
+
 .book-info-page-container {
     padding-top: 30px;
 }
@@ -21,11 +26,11 @@
 }
 
 .book-main-info-container {
-    display: -webkit-box;
+    /* display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
+    display: -webkit-flex; */
+    display: inline-flex;
     font-size: 1rem;
     font-family: 'AcuminProRegular';
     justify-content: flex-start;
@@ -70,9 +75,9 @@
 }
 
 .buy-amazon-container {
-    display: -webkit-box;
+    /* display: -webkit-box;
     display: -moz-box;
-    display: -ms-flexbox;
+    display: -ms-flexbox; */
     display: -webkit-flex;
     display: flex;
     font-size: 20px;
@@ -161,4 +166,9 @@
     list-style: none;
     padding: 0;
 }
+.react-multi-carousel-item {
+
+    padding-bottom: 15px;
+}
+
 
