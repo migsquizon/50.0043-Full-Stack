@@ -38,7 +38,7 @@ def test_sql():
 	return dumps(reviews.test_sql())
 
 @app.route('/book/<asin>',methods=['GET'])
-@lru_cache(maxsize=None)## Might cause some bugs to be undiscovered
+# @lru_cache(maxsize=None)## Might cause some bugs to be undiscovered
 def get_book_by_asin(asin):
 	"""
 	verbose
