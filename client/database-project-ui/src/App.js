@@ -10,7 +10,8 @@ import BookCard from './Book/BookCard.js';
 import BookCarousel from './Book/BookCarousel';
 import BookInfo from './Book/BookInfo';
 import Navbar from './Navbar/Navbar.js';
-import LoginPage from './Login/LoginPage.js'
+import Login from './Login/Login.js'
+import Register from './Register/Register.js'
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
       <Navbar />
       <BrowserRouter>
         <Route exact path='/' component={BookInfo}/>  
-        <Route path='/login' component={LoginPage}/>
+        <Route path='/login' component={Login}/>
+        <Route path='/register' component={Register}/>
       </BrowserRouter>
     </div>
   );

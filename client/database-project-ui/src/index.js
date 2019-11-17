@@ -5,6 +5,7 @@ import App from './App';
 import AddReview from "./containers/AddReview";
 import NavBar from "./containers/NavBar";
 import * as serviceWorker from './serviceWorker';
+import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

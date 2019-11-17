@@ -1,0 +1,77 @@
+.signup-container {
+    display: block;
+    padding-top: 3em;
+}
+
+.signup-info-box {
+    display: block;
+    padding-right: 30px;
+  
+}
+
+.signup-info-title {
+    border: 1px solid transparent;
+    font-family: "Mimi", serif;
+    font-size: 2rem;
+    color: #4B7CEC;
+    text-transform: lowercase;
+}
+
+.signup-info-body-title {
+    font-weight: 500;
+}
+
+.signup-info-body-content {
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.signup-info-text-container {
+    display: block;
+    margin: 20px 0;
+}
+
+.signup-box {
+    display: block;
+    max-width: 390px;
+    flex-grow: 1;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: white;
+    color: black;
+    border-radius: 4px;
+    box-shadow: 0 15px 35px 0 rgba(60,66,87, 0.1), 0 5px 15px 0 rgba(0, 0, 0, .07);
+    box-sizing: border-box;
+}
+
+.create-account-title {
+    display: block;
+    font-weight: 400;
+    font-size: 20px;
+    color: #1a1f36;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.create-account-form-body {
+    display: block;
+    box-sizing: border-box;
+    padding: 20px 32px 32px 32px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    
+}
+
+.signup-button {
+    display: block;
+    padding-top: 20px;
+    align-content: center;
+}
+
+.signup-button-content {
+    display: inline-flex;
+    padding: 5px 35px;
+    font-weight: 500;
+    font-size: 16px;
+}
