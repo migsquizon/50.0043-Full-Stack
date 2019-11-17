@@ -1,7 +1,7 @@
 import React from 'react';
 import StarRatings from 'react-star-ratings';
 import Truncate from 'react-truncate';
-import Ratings from './Ratings'
+import Ratings from '../Extras/Ratings';
 import './BookCard.css';
 
 function BookCard(props) {

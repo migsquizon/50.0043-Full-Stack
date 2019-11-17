@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import StarRatings from 'react-star-ratings';
 import { Row, Col, Button } from 'react-bootstrap';
 import BookCarousel from './BookCarousel';
-import Reviews from './Reviews';
-import Ratings from './Ratings';
+import Reviews from '../Reviews/Reviews';
+import Ratings from '../Extras/Ratings';
 import axios from 'axios';
 import './BookInfo.css';
 
