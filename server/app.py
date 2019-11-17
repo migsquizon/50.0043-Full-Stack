@@ -3,6 +3,8 @@ from bson import Binary, Code
 from bson.json_util import dumps, loads
 from functools import wraps, lru_cache
 from flask_cors import CORS
+import logging
+import logs
 import jwt
 import reviews
 import metadata
