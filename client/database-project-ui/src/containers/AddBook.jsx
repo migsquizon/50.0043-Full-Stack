@@ -1,21 +1,20 @@
 import React, { Component } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import './AddReview.css';
-import NavBar from "./NavBar";
+import './AddBook.css';
 import axios from 'axios';
 
 
 
-class AddReview extends Component {
+class AddBook extends Component {
   constructor(props){
     super(props);
     this.state = {
       title:"",
-      summary:"",
-      rating:"",
+      author:"",
+      publisher:"",
       genre:"",
-      review:""
+      synopsis:""
     };
   }
 
@@ -28,15 +27,15 @@ class AddReview extends Component {
   handleSubmit = async event => {
     event.preventDefault();
 
-    const bookreview = {
+    const book = {
       title:this.state.title,
-      summary:this.state.summary,
-      rating:this.state.rating,
+      author:this.state.author,
+      publisher:this.state.publisher,
       genre:this.state.genre,
-      review:this.state.review
+      description:this.state.description
     };
 
-    axios.post(`url.com`, { bookreview })
+    axios.post(`url.com`, { book })
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -48,25 +47,19 @@ class AddReview extends Component {
       <div>
         {/* <NavBar/> */}
         <div className="col-6 offset-3">
-        <h1 className='title'> Add New Review </h1>
+        <h1 className='title'> Add New Book </h1>
         <Form onSubmit={this.handleSubmit}>
             <Form.Group controlId="exampleForm.ControlInput1">
               <Form.Label>Enter Book Title/ASIN Number:</Form.Label>
               <Form.Control type="text" placeholder="Book Title" name="title" value={this.state.title} onChange={this.handleInput} />
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlInput1">
-              <Form.Label>Enter Review Title:</Form.Label>
-              <Form.Control type="text" placeholder="Review Title" name="summary" value={this.state.summary} onChange={this.handleInput}/>
+              <Form.Label>Enter Author's Name:</Form.Label>
+              <Form.Control type="text" placeholder="Author Name" name="author" value={this.state.author} onChange={this.handleInput}/>
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlSelect2">
-              <Form.Label>Rating (Out of 5 Stars):</Form.Label>
-              <Form.Control as="select" name="rating" value={this.state.rating} onChange={this.handleInput}>
-                <option value="" selected disabled>Please select</option>
-                <option>★</option>
-                <option>★★</option>
-                <option>★★★</option>
-                <option>★★★★</option>
-                <option>★★★★★</option>
+              <Form.Label>Enter Book Publisher:</Form.Label>
+              <Form.Control type="text" placeholder="Publisher" name="publisher" value={this.state.publisher} onChange={this.handleInput}>
               </Form.Control>
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlSelect1">
@@ -81,8 +74,8 @@ class AddReview extends Component {
               </Form.Control>
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Review:</Form.Label>
-              <Form.Control as="textarea" rows="5" placeholder="Write your review!" name="review" value={this.state.review} onChange={this.handleInput}/>
+              <Form.Label>Enter Book Description</Form.Label>
+              <Form.Control as="textarea" rows="5" placeholder="Book Description" name="description" value={this.state.description} onChange={this.handleInput}/>
             </Form.Group>
             <Button variant="secondary" type='submit'>
               Submit
@@ -95,4 +88,4 @@ class AddReview extends Component {
 }
 
 
-export default AddReview;
+export default AddBook;
