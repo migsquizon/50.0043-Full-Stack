@@ -1,17 +1,26 @@
 import React from 'react';
+import { Button, Form, FormControl, Row, Col } from 'react-bootstrap';
 import './Navbar.css';
 
 function Navbar(props) {
     return(
       <header className="nav-header">
         <nav className="nav-container">
-          <div className="row">
-            <div className="col-4">
+          <Row>
+            <Col sm={2}>
               <div className="name">
                 The Library
               </div>
-            </div>
-            <div className="col-8">
+            </Col>
+            <Col sm={5}>
+              <Form>
+                <Form.Control type="text" placeholder="Search" />
+              </Form>
+            </Col>
+            <Col sm={1}>
+              <Button variant="outline-success">Search</Button>
+            </Col>
+            <Col sm={4}>
               <div className="nav-menu">
                 <ul className="nav-menu-list">
                   <li className="nav-item">
@@ -25,8 +34,8 @@ function Navbar(props) {
                   </li>
                 </ul>
               </div>
-            </div>
-          </div>
+            </Col>
+          </Row>
         </nav>
     </header>
     );
