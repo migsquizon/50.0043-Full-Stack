@@ -12,6 +12,8 @@ import BookInfo from './Book/BookInfo';
 import Navbar from './Navbar/Navbar.js';
 import Login from './Login/Login.js'
 import Register from './Register/Register.js'
+import AddReview from './containers/AddReview'
+import AddBook from './containers/AddBook'
 
 function App() {
   return (

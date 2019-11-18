@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import './AddReview.css';
 import NavBar from "./NavBar";
 import axios from 'axios';
+import StarRatings from 'react-star-ratings';
 
 
 
@@ -13,9 +14,11 @@ class AddReview extends Component {
     this.state = {
       title:"",
       summary:"",
-      rating:"",
+      overall:0,
       genre:"",
-      review:""
+      reviewerName: "John",
+      reviewerID:"GHJKGMHHGFFGB",
+      reviewText:""
     };
   }
 
@@ -31,12 +34,15 @@ class AddReview extends Component {
     const bookreview = {
       title:this.state.title,
       summary:this.state.summary,
-      rating:this.state.rating,
+      overall:this.state.overall,
       genre:this.state.genre,
-      review:this.state.review
+      reviewText:this.state.reviewText,
+      reviewerName:this.state.reviewerName,
+      reviewerID:this.state.reviewerID
     };
+    console.log(bookreview)
 
-    axios.post(`url.com`, { bookreview })
+    axios.post(`http://13.229.185.245:5000/book/${bookreview.title}`,  bookreview )
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -59,15 +65,28 @@ class AddReview extends Component {
               <Form.Control type="text" placeholder="Review Title" name="summary" value={this.state.summary} onChange={this.handleInput}/>
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlSelect2">
-              <Form.Label>Rating (Out of 5 Stars):</Form.Label>
-              <Form.Control as="select" name="rating" value={this.state.rating} onChange={this.handleInput}>
+              <Form.Label>Rating (Out of 5 Stars):</Form.Label><br></br>
+              {/* <Form.Control as="select" name="overall" value={this.state.overall} onChange={this.handleInput}>
                 <option value="" selected disabled>Please select</option>
                 <option>★</option>
                 <option>★★</option>
                 <option>★★★</option>
                 <option>★★★★</option>
                 <option>★★★★★</option>
-              </Form.Control>
+              </Form.Control> */}
+              <StarRatings
+                // name="book-rating"
+                name="overall"
+                rating={this.state.overall}
+                starDimension='15px'
+                numberOfStars={5}
+                changeRating={(e)=>{this.setState({overall:e})}}
+                svgIconPath="M9.875,0.625C4.697,0.625,0.5,4.822,0.5,10s4.197,9.375,9.375,9.375S19.25,15.178,19.25,10S15.053,0.625,9.875,0.625"
+                svgIconViewBox="0 0 20 20"
+                starRatedColor="#F8CF46"
+                starEmptyColor="#D0CDC6"
+                starSpacing="3px"
+              />
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlSelect1">
               <Form.Label>Select Genre:</Form.Label>
@@ -82,7 +101,7 @@ class AddReview extends Component {
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlTextarea1">
               <Form.Label>Review:</Form.Label>
-              <Form.Control as="textarea" rows="5" placeholder="Write your review!" name="review" value={this.state.review} onChange={this.handleInput}/>
+              <Form.Control as="textarea" rows="5" placeholder="Write your review!" name="reviewText" value={this.state.reviewText} onChange={this.handleInput}/>
             </Form.Group>
             <Button variant="secondary" type='submit'>
               Submit

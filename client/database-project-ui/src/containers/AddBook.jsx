@@ -10,11 +10,12 @@ class AddBook extends Component {
   constructor(props){
     super(props);
     this.state = {
+      asin:"",
       title:"",
-      author:"",
-      publisher:"",
-      genre:"",
-      synopsis:""
+      imUrl:"",
+      categories:"",
+      description:"",
+      added_by:"John"
     };
   }
 
@@ -27,15 +28,19 @@ class AddBook extends Component {
   handleSubmit = async event => {
     event.preventDefault();
 
+    if (this.state.imUrl==""){this.setState({imUrl:'https://longreadsblog.files.wordpress.com/2019/07/beach-book.jpg?w=1200'})}
+      
+
     const book = {
       title:this.state.title,
-      author:this.state.author,
-      publisher:this.state.publisher,
-      genre:this.state.genre,
-      description:this.state.description
+      asin:this.state.asin,
+      imUrl:this.state.imUrl,
+      categories:this.state.categories,
+      description:this.state.description,
+      added_by:this.state.added_by
     };
 
-    axios.post(`url.com`, { book })
+    axios.post(`http://13.229.185.245:5000/add/book`,  book )
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -50,21 +55,21 @@ class AddBook extends Component {
         <h1 className='title'> Add New Book </h1>
         <Form onSubmit={this.handleSubmit}>
             <Form.Group controlId="exampleForm.ControlInput1">
-              <Form.Label>Enter Book Title/ASIN Number:</Form.Label>
-              <Form.Control type="text" placeholder="Book Title" name="title" value={this.state.title} onChange={this.handleInput} />
+              <Form.Label>Enter Book Title</Form.Label>
+              <Form.Control type="text" placeholder="Title" name="title" value={this.state.title} onChange={this.handleInput} />
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlInput1">
-              <Form.Label>Enter Author's Name:</Form.Label>
-              <Form.Control type="text" placeholder="Author Name" name="author" value={this.state.author} onChange={this.handleInput}/>
+              <Form.Label>Enter ASIN Number:</Form.Label>
+              <Form.Control type="text" placeholder="ASIN Number" name="asin" value={this.state.asin} onChange={this.handleInput}/>
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlSelect2">
-              <Form.Label>Enter Book Publisher:</Form.Label>
-              <Form.Control type="text" placeholder="Publisher" name="publisher" value={this.state.publisher} onChange={this.handleInput}>
+              <Form.Label>Enter Image URL</Form.Label>
+              <Form.Control type="text" placeholder="Image URL" name="imUrl" value={this.state.imUrl} onChange={this.handleInput}>
               </Form.Control>
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlSelect1">
               <Form.Label>Select Genre:</Form.Label>
-              <Form.Control as="select" name="genre" value={this.state.genre} onChange={this.handleInput}>
+              <Form.Control as="select" name="categories" value={this.state.categories} onChange={this.handleInput}>
                 <option value="" selected disabled>Please select</option>
                 <option>Horror</option>
                 <option>Sci-fi</option>
@@ -75,7 +80,7 @@ class AddBook extends Component {
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlTextarea1">
               <Form.Label>Enter Book Description</Form.Label>
-              <Form.Control as="textarea" rows="5" placeholder="Book Description" name="description" value={this.state.description} onChange={this.handleInput}/>
+              <Form.Control as="textarea" rows="5" placeholder="Description" name="description" value={this.state.description} onChange={this.handleInput}/>
             </Form.Group>
             <Button variant="secondary" type='submit'>
               Submit
