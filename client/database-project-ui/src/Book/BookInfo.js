@@ -31,6 +31,10 @@ const data = {
   "top_review_username": "noobkenneth",
 }
 
+function getTopReview() {
+  
+}
+
 function BookInfo(props) {
 
   const [asin, setAsin] = useState("");
