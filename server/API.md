@@ -15,7 +15,7 @@ NONE
 Returns array of JSON\
 first 20 books that mongo gets might not be the same everytime\
 optional params number -> how many books to return default 20
-## **GET** /home/category/<category>
+## **GET** /home/category/&lt;category&gt;
 Returns array of JSON\
 metadata of books related to category
 Case insensitive
