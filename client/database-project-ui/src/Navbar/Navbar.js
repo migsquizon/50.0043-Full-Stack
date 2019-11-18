@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, Form, FormControl, Row, Col } from 'react-bootstrap';
 import './Navbar.css';
 
+
+
 function Navbar(props) {
     return(
       <header className="nav-header">
@@ -18,7 +20,7 @@ function Navbar(props) {
               </Form>
             </Col>
             <Col sm={1}>
-              <Button variant="outline-success">Search</Button>
+              <Button variant="outline-success" type='submit'>Search</Button>
             </Col>
             <Col sm={4}>
               <div className="nav-menu">
