@@ -28,7 +28,7 @@ def get_reviews(asin,num=5):
     """
     keep_alive()
     cursor = sql.cursor(dictionary=True)
-    cursor.execute("""SELECT * FROM `Reviews` where asin = %s LIMIT %s ORDER BY overall DESC""", (asin,num))
+    cursor.execute("""SELECT * FROM `Reviews` where asin = %s ORDER BY overall DESC LIMIT %s """, (asin,num))
     result = cursor.fetchall()
     return result
 
