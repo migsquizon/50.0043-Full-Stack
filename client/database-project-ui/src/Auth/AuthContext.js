@@ -11,8 +11,6 @@ Axios.interceptors.request.use((config)=>{
 
 const AuthContext = React.createContext();
 
-//var API_URL = 'http://10.12.185.9:3000/'
-
 export class AuthProvider extends Component {
 
   constructor() {
@@ -20,9 +18,7 @@ export class AuthProvider extends Component {
     this.state = { 
       user: (localStorage.getItem("user") || {}),
       token: (localStorage.getItem("token") || ""),
-      admin: false,
       user: false,
-      sidebar: 'dashboard'
     }
     
     this.login = this.login.bind(this);
@@ -35,25 +31,27 @@ export class AuthProvider extends Component {
   //   localStorage.removeItem("admin");
   // }
 
-  login = (credentials) => {
-    this.setState({
-      user: true
-    });
-  }
+//   login = (credentials) => {
+//     return axios.post('http://13.229.185.245:5000/signin', credentials)
+//         .then(response => {
+//             const {token, user } = response.data;
+//             localStorage.setItem("token", token);
+//             localStorage.setItem("user", JSON.stringify(user));
+//             this.setState({
+//                 user,
+//                 token,
+//             });
+//             return response;
+//         })
+//   }
 
-  // login = (credentials) => {
-  //   return axios.post('http://10.12.185.9:3000/auth/login', credentials)
-  //     .then(response => {
-  //       const { token, user } = response.data;
-  //       localStorage.setItem("token", token);
-  //       localStorage.setItem("user", JSON.stringify(user));
-  //       this.setState({
-  //         user,
-  //         token,
-  //       });
-  //       return response;
-  //   })
-  // }
+    login = (credentials) => {
+        this.setState({
+        user: true
+        });
+    }
+
+
 
   logout = () => {
     localStorage.removeItem("user");
@@ -65,7 +63,7 @@ export class AuthProvider extends Component {
   }
 
   register = (userInfo) => {
-    return axios.post('http://10.12.185.9:3000/auth/signup', userInfo)
+    return axios.post('http://13.229.185.245:5000/signup', userInfo)
       .then(response => {
         const { user, token } = response.data;
         localStorage.setItem("token", token);
@@ -87,9 +85,8 @@ export class AuthProvider extends Component {
           login: this.login,
           logout: this.logout,
           register: this.register,
-          adminLogin: this.adminLogin,
-          goToDashboard: this.goToDashboard,
-          goToRequests: this.goToRequests,  
+          goToAddBook: this.goToAddBook,
+          goToAddReview: this.goToAddReview,  
           ...this.state}}
       >
         {this.props.children}

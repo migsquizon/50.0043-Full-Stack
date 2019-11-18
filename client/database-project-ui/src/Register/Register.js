@@ -90,7 +90,7 @@ class Register extends Component {
           <Col xs={4}>
             <div className="signup-info-box">
               <div className="signup-info-title">
-                sutd glassdoor
+                {/* sutd glassdoor */}
               </div>
               <div className="signup-info-body">
                 <div className="signup-info-text-container">
