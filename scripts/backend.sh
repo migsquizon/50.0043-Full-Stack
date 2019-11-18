@@ -2,4 +2,4 @@ cd ..
 
 cd server
 
-python3 app.py nohup &
+nohup python3 app.py &

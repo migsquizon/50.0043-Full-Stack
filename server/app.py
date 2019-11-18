@@ -3,6 +3,8 @@ from bson import Binary, Code
 from bson.json_util import dumps, loads
 from functools import wraps, lru_cache
 from flask_cors import CORS
+import logging
+import logs
 import jwt
 import reviews
 import metadata
@@ -38,6 +40,10 @@ def test_sql():
 	return dumps(reviews.test_sql())
 
 @app.route('/book/<asin>',methods=['GET'])
+<<<<<<< HEAD
+=======
+# @lru_cache(maxsize=None)## Might cause some bugs to be undiscovered
+>>>>>>> a85dd61cd7f8b4b5498970898ce427d8156e812c
 def get_book_by_asin(asin):
 	"""
 	verbose
