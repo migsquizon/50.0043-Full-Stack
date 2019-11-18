@@ -1,7 +1,8 @@
 
 import React from 'react';
 import logo from './logo.svg';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { AuthProvider } from './Auth/AuthContext';
 import './App.css';
 
 
@@ -18,12 +19,16 @@ import AddBook from './containers/AddBook'
 function App() {
   return (
     <div className="App">
-      <Navbar />
-      <BrowserRouter>
-        <Route exact path='/' component={BookInfo}/>  
-        <Route path='/login' component={Login}/>
-        <Route path='/register' component={Register}/>
-      </BrowserRouter>
+      <AuthProvider>
+        <Navbar />
+        <Router>
+          <Switch>
+            <Route exact path='/' component={BookInfo}/>  
+            <Route path='/login' component={Login}/>
+            <Route path='/register' component={Register}/>
+          </Switch>
+        </Router>
+      </AuthProvider>
     </div>
   );
 }
