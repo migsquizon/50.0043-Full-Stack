@@ -28,7 +28,7 @@ def get_reviews(asin,num=5):
     """
     keep_alive()
     cursor = sql.cursor(dictionary=True)
-    cursor.execute("""SELECT * FROM `Reviews` where asin = %s LIMIT %s""", (asin,num))
+    cursor.execute("""SELECT * FROM `Reviews` where asin = %s LIMIT %s ORDER BY overall DESC""", (asin,num))
     result = cursor.fetchall()
     return result
 
@@ -58,7 +58,7 @@ def update_helpful(asin,reviewerID,helpful):
     keep_alive()
     cursor = sql.cursor()
     cursor.execute("""UPDATE Reviews SET helpful = %s WHERE asin = %s and reviewerID = %s """,(helpful,asin,reviewerID))
-    sql.commit
+    sql.commit()
     return True
 
 def add_review(asin, json):

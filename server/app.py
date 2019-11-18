@@ -39,6 +39,24 @@ def test_mongo():
 def test_sql():
 	return dumps(reviews.test_sql())
 
+@app.route('/home')
+def home():
+	"""
+	returns first 20 books that mongo gets might not be the same everytime
+	"""
+	number = request.args.get('number',default=20,type=int)
+	return dumps(metadata.get_summaries(number))
+
+@app.route('/home/category/<category>')
+def home_category(category):
+	"""
+	Returns metadata of books related to category
+	Case insensitive
+	matches anywhere in the word
+	"""
+	number = request.args.get('number',default=20,type=int)
+	return dumps(metadata.get_books_by_category(category,number))
+
 @app.route('/book/<asin>',methods=['GET'])
 def get_book_by_asin(asin):
 	"""
@@ -153,14 +171,14 @@ def helpful(asin):
 		helpful = json_post["helpful"]
 		reviewerID = json_post["reviewerID"]
 		review = reviews.get_review_by_id(asin,reviewerID)
-		helpfulness =  review[0]["helpful"]
-		if(helpful == "1"):
+		helpfulness =  review[0]["helpful"] # can do this because each person suppose to have only 1 review per book
+		if(helpful == 1):
 			comma = helpfulness.find(",")
 			helpful_digit = helpfulness[1:comma]
 			helpful_int = int(helpful_digit)
 			helpful_int += 1
 			final_rating = helpfulness[0]+str(helpful_int)+helpfulness[comma:]
-		if(helpful == "0"):
+		elif(helpful == 0):
 			comma = helpfulness.find(",")
 			helpful_digit = helpfulness[comma+2:comma+3]
 			helpful_int = int(helpful_digit)
@@ -174,14 +192,14 @@ def helpful(asin):
 	except KeyError as e:
 				print(e)
 				return {"keyError":str(e)},400
+	except IndexError as e:
+		print(e)
+		return {'Index Error':str(e),'description':'No review for reviewer'},400
 	except Exception as e:
 				print(e)
 				return {"Exception":str(e)},500
 
     
-
-
-
 @app.route('/signup',methods=['POST'])
 def sign_up():
 	"""

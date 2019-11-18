@@ -1,13 +1,26 @@
 # Flask API
 **IMPLEMENTED**\
+[**GET** /home](#get-home) -> get 20 book summaries for home page\
+[**GET** /home/category/&lt;category&gt;](#get-homecategorycategory) -> get 20 book summaries for category\
 [**POST** /book/&lt;asin&gt;](#post-bookasin) -> Add reviews\
 [**POST** /add/book](#post-addbook) -> Add a new book\
-[**POST** /signin](#post-signin) -> Sign in as an existing user
-[**POST** /signup](#post-signup) -> Sign up as a new user
+[**POST** /signin](#post-signin) -> Sign in as an existing user\
+[**POST** /signup](#post-signup) -> Sign up as a new user\
 [**GET** /book/&lt;asin&gt;](#get-bookasin) -> Get book metadata and reviews\
-[**GET** /reviews/&lt;asin&gt;](#get-review-count-asin) -> Get book metadata and reviews\
+[**GET** /reviews/&lt;asin&gt;](#get-reviewsasin) -> Get book metadata and reviews\
+[**POST** /reviews/helpful/&lt;asin&gt;](#post-reviewshelpfulasin)\
 **NOT IMPLEMENTED**\
-**POST** /book/&lt;asin&gt;/helpful;
+NONE
+## **GET** /home
+Returns array of JSON\
+first 20 books that mongo gets might not be the same everytime\
+optional params number -> how many books to return default 20
+## **GET** /home/category/<category>
+Returns array of JSON\
+metadata of books related to category
+Case insensitive
+matches anywhere in the word
+optional params number -> how many books to return default 20
 ## **POST** /book/&lt;asin&gt;
 Add a review by ASIN from the book\
 Content-Type: application/json
@@ -273,5 +286,25 @@ Show number of summaries in also_bought and buyafterviewing \
 ```
 {
   "count": 7
+}
+```
+
+## **POST** /reviews/helpful/&lt;asin&gt;
+```
+{"reviewerID":"ID","helpful":0}
+```
+### Sample response
+```
+{
+  "asin": "B009EALX3K",
+  "helpful": "[3, 2]",
+  "id": 308160,
+  "overall": 4,
+  "reviewText": "Maybe kind of a modern knockoff ofEnjoyed this book. kind of a modern day version of Edgar Rice Burroughs &#34;Land that Time Forgot&#34; plain crash in the Andes with lots of Dinos and adventure.,\"02 23",
+  "reviewTime": " 2013\"",
+  "reviewerID": "A25UIL96NVXBKD",
+  "reviewerName": "Norman W. Snider",
+  "summary": "Good Book",
+  "unixReviewTime": 1361577600
 }
 ```
