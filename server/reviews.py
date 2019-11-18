@@ -44,6 +44,21 @@ def get_review_count(asin):
     result = cursor.fetchall()
     return result
 
+def get_overall_review(asin):
+    """
+    Get review count with a given asin
+    had to do asin = '%s' because of python string concatenation
+    """
+    keep_alive()
+    val = 0
+    cursor = sql.cursor(dictionary=True)
+    cursor.execute("""SELECT overall FROM `Reviews` WHERE asin = '%s' """ % asin)
+    result = cursor.fetchall()
+    for dic in result:
+        val += dic['overall']
+    val = val/len(result)
+    return val
+
 def get_review_by_id(asin,reviewerID):
     """
     Get the review with a given asin and reviewerID
@@ -100,3 +115,7 @@ def add_review(asin, json):
 #     "reviewerID":"GHJKGMHHGFFGB",
 #     "summary": "book was awesome",
 # })
+
+
+
+# print((get_overall_review('B000F83SZQ')))

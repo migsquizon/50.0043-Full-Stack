@@ -17,6 +17,8 @@ def add_book(json):
     metadata_collection = mongo['Kindle']['Metadata']
     if "title" not in json or "imUrl" not in json or "asin" not in json or "categories" not in json or "added_by" not in json:
         raise KeyError("Book credentials are insufficient")
+    if not (json["title"] and json["imUrl"] and json["asin"] and json["categories"] and json['added_by'] ):
+        raise KeyError("Missing required fields for add book : FIELD IS EMPTY")
     x = metadata_collection.insert_one(json)
     return True
 

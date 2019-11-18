@@ -103,13 +103,21 @@ def get_review_count_by_asin(asin):
 	parameters: 
 	1. asin
 	returns -> count of reviews of book w/ asin
+	2. verbose -> 
+		- 0 if you want count
+		- 1 if you want overall review/rating
 	"""
 	try:
-		result = reviews.get_review_count(asin)
+		verbose = request.args.get('verbose',default=0,type=int)
+		if verbose == 0:
+			result = reviews.get_review_count(asin)
+		else:
+			result = reviews.get_overall_review(asin)
+		return jsonify(result), 200
 	except Exception as e:
 		print(e)
 		return {"Exception": str(e)},500
-	return jsonify(result), 200
+	
 
 
 @app.route('/add/book',methods=['POST'])
@@ -235,18 +243,15 @@ def sign_in():
 		if not (users.verify_user_password(sign_in_json['password'],user_data['password'])):
 			print('failed verification')
 			return 'Sorry but you have given the wrong password', 400
-		token = jwt.encode({},app.config['SECRET_KEY'],algorithm='HS256')
-		return token.decode('utf-8'),200
+		token = jwt.encode(user_data,app.config['SECRET_KEY'],algorithm='HS256')
+		token = token.decode('utf-8')
+		user_data['token'] = token
+		return  dumps(user_data),200#token.decode('utf-8'),200
 	except KeyError as e:
 		return {"keyError":str(e)},400
 	except Exception as e:
 		print(e)
 		return {"Exception":str(e)},500
-
-
-
-
-
 
 
 
