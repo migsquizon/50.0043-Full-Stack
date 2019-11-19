@@ -21,13 +21,14 @@ function App() {
     <div className="App">
       <AuthProvider>
         <Navbar />
-        <Router>
+        {/* <Router>
           <Switch>
             <Route exact path='/' component={BookInfo}/>  
             <Route path='/login' component={Login}/>
             <Route path='/register' component={Register}/>
           </Switch>
-        </Router>
+        </Router> */}
+        <AddBook/>
       </AuthProvider>
     </div>
   );
