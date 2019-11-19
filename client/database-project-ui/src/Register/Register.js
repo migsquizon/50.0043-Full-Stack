@@ -12,13 +12,15 @@ import checkSvg from './checked.svg'
 var CAPTCHA_SITE_KEY = "6LdubLIUAAAAAAoBktfc0ZhDebacKayNIdqa0e3L";
 
 const schema = yup.object({
-  fullName: yup
+  firstName: yup
     .string()
     .required(),
-  email: yup
+  lastName: yup
     .string()
-    .email()
-    .required('Email is required'),
+    .required(),
+  username: yup
+    .string()
+    .required('Username is required'),
   password: yup
     .string()
     .min(8, 'Password must be at least 8 characters long')
@@ -36,23 +38,23 @@ class Register extends Component {
     super(props);
     this.state = {first_name: '',
                   last_name: '',
-                  email: '',
+                  username: '',
                   password: ''};
     
     this.handleChange = this.handleChange.bind(this);
     this.onRegister = this.onRegister.bind(this);
   }
 
-  componentDidMount() {
-    document.body.style.background = "#F9FAFC";
-    console.log(this.props.location.pathname);
-   }
+  // componentDidMount() {
+  //   document.body.style.background = "#F9FAFC";
+  //   console.log(this.props.location.pathname);
+  //  }
   
   handleChange(event) {
     this.setState({firstName: event.target.firstName,
-                   lastName: event.target.email,
-                   email: event.target.email,
-                   password: event.target.email})
+                   lastName: event.target.lastName,
+                   username: event.target.username,
+                   password: event.target.password})
   }
   
   onRegister(event) {
@@ -61,7 +63,7 @@ class Register extends Component {
     var particulars = {
       "first_name" : this.state.first_name,
       "last_name" : this.state.last_name,
-      "email" : this.state.email,
+      "username" : this.state.username,
       "password" : this.state.password
     }
     axios.post(API_URL, particulars)
@@ -100,7 +102,7 @@ class Register extends Component {
                     </Col>
                     <Col xs={7}>
                       <div className="signup-info-body-title">Quick and free sign-up</div>
-                      <div className="signup-info-body-content">Enter your email address to create an account.</div>
+                      <div className="signup-info-body-content">Enter your username to create an account.</div>
                     </Col> 
                     <Col xs={3}/> 
                   </Row>              
@@ -111,8 +113,8 @@ class Register extends Component {
                       <img src={checkSvg} width={15} />
                     </Col>
                     <Col xs={7}>
-                      <div className="signup-info-body-title">Browse Companies</div>
-                      <div className="signup-info-body-content">Get access to reviews written by your schoolmates.</div>
+                      <div className="signup-info-body-title">Browse Books</div>
+                      <div className="signup-info-body-content">Get access to reviews written by others</div>
                     </Col> 
                     <Col xs={3}/> 
                   </Row>
@@ -124,7 +126,7 @@ class Register extends Component {
                     </Col>
                     <Col xs={7}>
                       <div className="signup-info-body-title">Write a Review</div>
-                      <div className="signup-info-body-content">Had an interesting experience to share? Create an account to leave a review.</div>
+                      <div className="signup-info-body-content">Had an interesting book to share? Create an account to leave a review.</div>
                     </Col>
                     <Col xs={3}/> 
                   </Row>
@@ -137,8 +139,9 @@ class Register extends Component {
               validationSchema={schema}
               onSubmit={console.log}
               initialValues={{
-                fullName: '',
-                email: '',
+                firstName: '',
+                lastName: '',
+                username: '',
               }}
             >
               {({
@@ -156,30 +159,42 @@ class Register extends Component {
                       <span>Create your account now</span> 
                     </div>
                     <div className="create-account-form-body">
-                      <Form.Group controlId="formGroupEmail">
-                        <Form.Label>Email</Form.Label>
+                      <Form.Group controlId="formGroupUsername">
+                        <Form.Label>Username</Form.Label>
                         <Form.Control 
-                          type="email" 
-                          name="email"
-                          value={values.email}
+                          type="username" 
+                          name="username"
+                          value={values.username}
                           onChange={handleChange}
-                          isValid={touched.email && !errors.email}
-                          isInvalid={!!errors.email}
+                          isValid={touched.username && !errors.username}
+                          isInvalid={!!errors.username}
                         />
                         <Form.Control.Feedback type="valid">Looks good!</Form.Control.Feedback>
                         <Form.Control.Feedback type="invalid">
-                          {errors.email}
+                          {errors.username}
                         </Form.Control.Feedback>
                       </Form.Group>
 
-                      <Form.Group controlId="formGroupFullName">
-                        <Form.Label>Full Name</Form.Label>
+                      <Form.Group controlId="formGroupFirstName">
+                        <Form.Label>First Name</Form.Label>
                         <Form.Control 
-                          type="fullName" 
-                          name="fullName"
-                          value={values.fullName}
+                          type="firstName" 
+                          name="firstName"
+                          value={values.firstName}
                           onChange={handleChange}
-                          isValid={touched.fullName && !errors.fullName}
+                          isValid={touched.firstName && !errors.firstName}
+                        />
+                        <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                      </Form.Group>
+
+                      <Form.Group controlId="formGroupFirstName">
+                        <Form.Label>Last Name</Form.Label>
+                        <Form.Control 
+                          type="lastName" 
+                          name="lastName"
+                          value={values.lastName}
+                          onChange={handleChange}
+                          isValid={touched.lastName && !errors.lastName}
                         />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                       </Form.Group>

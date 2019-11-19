@@ -10,10 +10,9 @@ import { withRouter } from 'react-router-dom';
 import * as yup from 'yup';
 
 const schema = yup.object({
-  email: yup
+  username: yup
     .string()
-    .email()
-    .required('Please enter your email'),
+    .required('Please enter your username'),
   password: yup
     .string()
     .required('Please enter your password'),
@@ -23,7 +22,7 @@ class Login extends Component {
   
   constructor(props) {
     super(props);
-    this.state = {email: '',
+    this.state = {username: '',
                   password: ''};
     
     this.handleChange = this.handleChange.bind(this);
@@ -37,7 +36,7 @@ class Login extends Component {
 
    onLogin = (e) => {
      const payload = {
-       loginEmail: this.state.email,
+       loginUsername: this.state.username,
        loginPassword: this.state.password
      }
      e.preventDefault();
@@ -70,8 +69,8 @@ class Login extends Component {
 //   }
   
   handleChange(event) {
-    this.setState({email: event.target.email,
-                   password: event.target.email})
+    this.setState({username: event.target.username,
+                   password: event.target.password})
   }
 
   
@@ -89,7 +88,7 @@ class Login extends Component {
               onSubmit={console.log}
               initialValues={{
                 fullName: '',
-                email: '',
+                username: '',
               }}
             >
               {({
@@ -107,19 +106,19 @@ class Login extends Component {
                       <p>Welcome back!</p>         
                     </div>
                     <div className="login-form-body">
-                    <Form.Group controlId="formGroupEmail">
-                      <Form.Label>Email</Form.Label>
+                    <Form.Group controlId="formGroupUsername">
+                      <Form.Label>Username</Form.Label>
                       <Form.Control 
-                        type="email" 
-                        name="email"
-                        value={values.email}
+                        type="username" 
+                        name="username"
+                        value={values.username}
                         onChange={handleChange}
-                        isValid={touched.email && !errors.email}
-                        isInvalid={!!errors.email}
+                        isValid={touched.username && !errors.username}
+                        isInvalid={!!errors.username}
                       />
                       <Form.Control.Feedback type="valid">Looks good!</Form.Control.Feedback>
                       <Form.Control.Feedback type="invalid">
-                        {errors.email}
+                        {errors.username}
                       </Form.Control.Feedback>
                     </Form.Group>
 

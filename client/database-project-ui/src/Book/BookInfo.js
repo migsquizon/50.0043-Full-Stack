@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import StarRatings from 'react-star-ratings';
 import { Row, Col, Button } from 'react-bootstrap';
+import  { withContext } from '../Auth/AuthContext';
 import BookCarousel from './BookCarousel';
 import Reviews from '../Reviews/Reviews';
 import Ratings from '../Extras/Ratings';
 import axios from 'axios';
 import './BookInfo.css';
 
-var API_URL = "http://13.229.185.245:5000/book/B009EALX3K?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
+var API_URL = "http://13.229.185.245:5000/book/";
+//API_URL = "http://13.229.185.245:5000/book/B009EALX3K?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
 var payload = [];
 
 const data = {
@@ -50,9 +52,11 @@ function BookInfo(props) {
   const [also_bought, setAlsoBought] = useState([]);
   const [buy_after_viewing, setBuyAfterViewing] = useState([]);
 
-  useEffect(() => {
+  useEffect(() => { 
+    var query = props.getQuery();
+    URL = API_URL + query + "?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
     (async () => {
-      payload = await axios(API_URL);
+      payload = await axios(URL);
       console.log(payload);
       console.log(payload.data.asin);
       console.log("HELLO");
@@ -160,4 +164,4 @@ function BookInfo(props) {
     <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" />
   )
 }
-export default BookInfo;
+export default withContext(BookInfo);
