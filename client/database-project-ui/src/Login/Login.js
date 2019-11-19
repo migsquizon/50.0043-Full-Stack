@@ -39,6 +39,7 @@ class Login extends Component {
        loginUsername: this.state.username,
        loginPassword: this.state.password
      }
+     console.log("HELLO")
      e.preventDefault();
      this.props.login(payload);
      this.props.history.push("/");  

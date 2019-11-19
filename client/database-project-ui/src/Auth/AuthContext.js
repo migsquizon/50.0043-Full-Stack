@@ -27,6 +27,7 @@ export class AuthProvider extends Component {
     this.register = this.register.bind(this);
     this.sendQuery = this.sendQuery.bind(this);
     this.getQuery = this.getQuery.bind(this);
+    this.getUserData = this.getUserData.bind(this);
 
   }
 
@@ -59,10 +60,16 @@ export class AuthProvider extends Component {
   }
 
   login = (credentials) => {
-        // this.setState({
-        // user: true
-        // });
-        localStorage.setItem("user", true);
+    return axios.post('http://13.229.185.245:5000/signin', credentials)
+      .then(response => {
+       const { token, user } = response.data;
+       localStorage.setItem("token", token);
+       localStorage.setItem("user", true);
+       this.setState({
+         user: user
+       })
+      })
+    
     }
 
 
@@ -80,15 +87,22 @@ export class AuthProvider extends Component {
   register = (userInfo) => {
     return axios.post('http://13.229.185.245:5000/signup', userInfo)
       .then(response => {
-        const { user, token } = response.data;
-        localStorage.setItem("token", token);
-        localStorage.setItem("user", JSON.stringify(user));
-        this.setState({
-          user,
-          token
-        });
+        if (response.data.code === 200) {
+            const { user, token } = response.data;
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", true);
+            this.setState({
+              user: user
+            });
+        }
+
         return response;
     })
+  
+  }
+
+  getUserData = () => {
+      return this.state.user;
   }
 
 
@@ -102,6 +116,7 @@ export class AuthProvider extends Component {
           register: this.register,
           sendQuery: this.sendQuery,
           getQuery: this.getQuery,
+          getUserData: this.getUserData,
           goToAddBook: this.goToAddBook,
           goToAddReview: this.goToAddReview,  
           ...this.state}}

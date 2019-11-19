@@ -6,6 +6,7 @@ import Login from '../Login/Login';
 import './Register.css';
 import { Button, Form, Row, Col, InputGroup } from 'react-bootstrap';
 import ReCAPTCHA from "react-google-recaptcha";
+import { withContext } from '../Auth/AuthContext';
 import * as yup from 'yup';
 import checkSvg from './checked.svg'
 
@@ -36,8 +37,8 @@ class Register extends Component {
   
   constructor(props) {
     super(props);
-    this.state = {first_name: '',
-                  last_name: '',
+    this.state = {firstName: '',
+                  lastName: '',
                   username: '',
                   password: ''};
     
@@ -58,7 +59,8 @@ class Register extends Component {
   }
   
   onRegister(event) {
-    var API_URL = 'http://10.12.7.122:5000/auth/register';
+    console.log("HI")
+    var API_URL = 'http://13.229.185.245:5000/signup';
     var self = this;
     var particulars = {
       "first_name" : this.state.first_name,
@@ -83,6 +85,18 @@ class Register extends Component {
       console.log(error);
     });
   }
+
+  // onRegister = (e) => {
+  //   const payload = {
+  //     firstName: this.state.firstName,
+  //     lastName: this.state.lastName,
+  //     username: this.state.username,
+  //     password: this.state.password,
+  //   }
+  //   e.preventDefault();
+  //   this.props.register(payload);
+  //   this.props.history.push("/");
+  // }
   
   render() {
     return (
@@ -249,4 +263,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default withContext(Register);
