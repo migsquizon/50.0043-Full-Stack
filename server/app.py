@@ -12,6 +12,7 @@ import users
 
 app = Flask(__name__)
 CORS(app)
+# app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['SECRET_KEY'] = 'yckcmkg'
 
 
@@ -246,7 +247,9 @@ def sign_in():
 		token = jwt.encode(user_data,app.config['SECRET_KEY'],algorithm='HS256')
 		token = token.decode('utf-8')
 		user_data['token'] = token
-		return  dumps(user_data),200#token.decode('utf-8'),200
+		response = dumps(user_data)
+		response.headers.add('Access-Control-Allow-Origin', '*')
+		return  response,200#token.decode('utf-8'),200
 	except KeyError as e:
 		return {"keyError":str(e)},400
 	except Exception as e:
