@@ -92,7 +92,11 @@ class Navbar extends Component {
               </Form>
             </Col>
             <Col sm={1}>
+<<<<<<< HEAD
+              <Button variant="outline-success" type='submit'>Search</Button>
+=======
               <Button variant="outline-success" onClick={(event) => this.onSearch(event)}>Search</Button>
+>>>>>>> e801d5a0e0d9a9b2b7d5c08c9dce96179f559f23
             </Col>
             <Col sm={4}>
               <div className="nav-menu">
