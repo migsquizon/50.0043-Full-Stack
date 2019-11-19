@@ -32,8 +32,7 @@ function App() {
             <ProtectedRoute path='/add-book' component={AddBook}/>
             <ProtectedRoute path='/add-review' component={AddReview}/>
           </Switch>
-        </Router> */}
-        <AddBook/>
+        </Router> 
       </AuthProvider>
     </div>
   );

@@ -53,21 +53,30 @@ export class AuthProvider extends Component {
       this.setState({
           query: query
       })
+      localStorage.setItem("query", query);
+      console.log(localStorage.getItem("query"))
   }
 
   getQuery = () => {
-    return this.state.query;
+    return localStorage.getItem("query");
   }
 
   login = (credentials) => {
+    console.log(credentials);
     return axios.post('http://13.229.185.245:5000/signin', credentials)
       .then(response => {
-       const { token, user } = response.data;
-       localStorage.setItem("token", token);
-       localStorage.setItem("user", true);
-       this.setState({
-         user: user
-       })
+      console.log(response)
+      const { token, first_name, last_name, username } = response.data;
+      console.log(token)
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", true);
+      localStorage.setItem("first_name", first_name);
+      localStorage.setItem("last_name", last_name);
+      localStorage.setItem("username", username);
+      // this.setState({
+      //   user: user
+      // })
+      return response;
       })
     
     }
@@ -77,11 +86,13 @@ export class AuthProvider extends Component {
   logout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    console.log("HI");
-    this.setState({
-      user: {},
-      token: '',
-    })
+    localStorage.removeItem("first_name");
+    localStorage.removeItem("last_name");
+    localStorage.removeItem("username");
+    // this.setState({
+    //   user: {},
+    //   token: '',
+    // })
   }
 
   register = (userInfo) => {
@@ -101,8 +112,14 @@ export class AuthProvider extends Component {
   
   }
 
-  getUserData = () => {
-      return this.state.user;
+  getUserData(){
+      const user = {
+       first_name: localStorage.getItem("first_name"),
+       last_name: localStorage.getItem("last_name"),
+       username: localStorage.getItem("username_name")
+     }
+
+     return user;
   }
 
 

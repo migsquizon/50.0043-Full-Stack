@@ -34,7 +34,11 @@ class Navbar extends Component {
   onSearch(event) {
     event.preventDefault();
     this.props.sendQuery(this.state.query);
-    this.props.history.push('/book-info');
+    if (this.props.location.pathname == '/book-info') {
+      window.location.reload();
+    } else {
+      this.props.history.push('/book-info');
+    }
   }
 
   render() {
