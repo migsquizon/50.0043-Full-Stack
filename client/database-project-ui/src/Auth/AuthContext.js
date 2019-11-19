@@ -19,11 +19,14 @@ export class AuthProvider extends Component {
       user: (localStorage.getItem("user") || {}),
       token: (localStorage.getItem("token") || ""),
       user: false,
+      query: '',
     }
     
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.register = this.register.bind(this);
+    this.sendQuery = this.sendQuery.bind(this);
+    this.getQuery = this.getQuery.bind(this);
 
   }
 
@@ -45,10 +48,21 @@ export class AuthProvider extends Component {
 //         })
 //   }
 
-    login = (credentials) => {
-        this.setState({
-        user: true
-        });
+  sendQuery = (query) => {
+      this.setState({
+          query: query
+      })
+  }
+
+  getQuery = () => {
+    return this.state.query;
+  }
+
+  login = (credentials) => {
+        // this.setState({
+        // user: true
+        // });
+        localStorage.setItem("user", true);
     }
 
 
@@ -56,6 +70,7 @@ export class AuthProvider extends Component {
   logout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+    console.log("HI");
     this.setState({
       user: {},
       token: '',
@@ -85,6 +100,8 @@ export class AuthProvider extends Component {
           login: this.login,
           logout: this.logout,
           register: this.register,
+          sendQuery: this.sendQuery,
+          getQuery: this.getQuery,
           goToAddBook: this.goToAddBook,
           goToAddReview: this.goToAddReview,  
           ...this.state}}
