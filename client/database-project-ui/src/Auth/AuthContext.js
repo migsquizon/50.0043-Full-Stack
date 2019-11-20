@@ -70,6 +70,8 @@ export class AuthProvider extends Component {
       console.log(token)
       localStorage.setItem("token", token);
       localStorage.setItem("user", true);
+      
+      console.log(localStorage.getItem("user"));
       localStorage.setItem("first_name", first_name);
       localStorage.setItem("last_name", last_name);
       localStorage.setItem("username", username);
@@ -78,7 +80,7 @@ export class AuthProvider extends Component {
       // })
       return response;
       })
-    
+  
     }
 
 
@@ -96,18 +98,23 @@ export class AuthProvider extends Component {
   }
 
   register = (userInfo) => {
+    console.log(userInfo);
     return axios.post('http://13.229.185.245:5000/signup', userInfo)
-      .then(response => {
-        if (response.data.code === 200) {
-            const { user, token } = response.data;
-            localStorage.setItem("token", token);
-            localStorage.setItem("user", true);
-            this.setState({
-              user: user
-            });
-        }
+    .then(response => {
+      const { token, first_name, last_name, username } = response.data;
+      console.log(token)
+      console.log(response)
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", true);
 
-        return response;
+      console.log(localStorage.getItem("user"));
+      localStorage.setItem("first_name", first_name);
+      localStorage.setItem("last_name", last_name);
+      localStorage.setItem("username", username);
+          // this.setState({
+          //   user: user
+          // });
+      return response;
     })
   
   }

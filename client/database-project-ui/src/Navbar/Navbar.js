@@ -14,7 +14,8 @@ import './Navbar.css';
 class Navbar extends Component {
   constructor(props) {
     super(props);
-    this.state = {query: ''};
+    this.state = {query: '',
+                  user: false};
     this.onLogout = this.onLogout.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -22,6 +23,7 @@ class Navbar extends Component {
   onLogout = (e) => {
     e.preventDefault();
     this.props.logout();
+    window.location.reload();
     //this.props.history.push("/"); 
   }
 
@@ -96,7 +98,7 @@ class Navbar extends Component {
               </Form>
             </Col>
             <Col sm={1}>
-              <Button variant="outline-success" type='submit'>Search</Button>
+              <Button variant="outline-success" onClick={(event) => this.onSearch(event)} type='submit'>Search</Button>
             </Col>
             <Col sm={4}>
               <div className="nav-menu">

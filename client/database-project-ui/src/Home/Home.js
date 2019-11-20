@@ -32,7 +32,7 @@ function Home(props) {
 
           </Col>
           <Col xs={10}>
-
+            TEMPORARY HOME PAGE
           </Col> 
       </Row> 
     </React.Fragment>
