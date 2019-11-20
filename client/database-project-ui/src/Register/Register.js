@@ -6,6 +6,7 @@ import Login from '../Login/Login';
 import './Register.css';
 import { Button, Form, Row, Col, InputGroup } from 'react-bootstrap';
 import ReCAPTCHA from "react-google-recaptcha";
+import { withContext } from '../Auth/AuthContext';
 import * as yup from 'yup';
 import checkSvg from './checked.svg'
 
@@ -36,10 +37,11 @@ class Register extends Component {
   
   constructor(props) {
     super(props);
-    this.state = {first_name: '',
-                  last_name: '',
+    this.state = {firstName: '',
+                  lastName: '',
                   username: '',
-                  password: ''};
+                  password: '',
+                  confirmPassword: ''};
     
     this.handleChange = this.handleChange.bind(this);
     this.onRegister = this.onRegister.bind(this);
@@ -51,37 +53,48 @@ class Register extends Component {
   //  }
   
   handleChange(event) {
-    this.setState({firstName: event.target.firstName,
-                   lastName: event.target.lastName,
-                   username: event.target.username,
-                   password: event.target.password})
+    this.setState({[event.target.name]: event.target.value});
+ 
   }
   
-  onRegister(event) {
-    var API_URL = 'http://10.12.7.122:5000/auth/register';
-    var self = this;
-    var particulars = {
-      "first_name" : this.state.first_name,
-      "last_name" : this.state.last_name,
-      "username" : this.state.username,
-      "password" : this.state.password
+  // onRegister(event) {
+  //   console.log("HI")
+  //   var API_URL = 'http://13.229.185.245:5000/signup';
+  //   var self = this;
+  //   var particulars = {
+  //     "first_name" : this.state.first_name,
+  //     "last_name" : this.state.last_name,
+  //     "username" : this.state.username,
+  //     "password" : this.state.password
+  //   }
+  //   axios.post(API_URL, particulars)
+  //     .then(function(response) {
+  //       console.log(response);
+  //       if (response.data.code === 200) {
+  //         var loginScreen = [];
+  //         loginScreen.push(<Login parentContext={this}/>);
+  //         var loginMessage = "Not registered yet, go to Registration!";
+  //         self.props.parentContext.setState({loginScreen: loginScreen,
+  //                                            loginMessage: loginMessage,
+  //                                            buttonLabel: "Register",
+  //                                            isLogin: true});
+  //       }
+  //   })
+  //   .catch(function(error) {
+  //     console.log(error);
+  //   });
+  // }
+
+  onRegister = (e) => {
+    const payload = {
+      first_name: this.state.firstName,
+      last_name: this.state.lastName,
+      username: this.state.username,
+      password: this.state.password,
     }
-    axios.post(API_URL, particulars)
-      .then(function(response) {
-        console.log(response);
-        if (response.data.code === 200) {
-          var loginScreen = [];
-          loginScreen.push(<Login parentContext={this}/>);
-          var loginMessage = "Not registered yet, go to Registration!";
-          self.props.parentContext.setState({loginScreen: loginScreen,
-                                             loginMessage: loginMessage,
-                                             buttonLabel: "Register",
-                                             isLogin: true});
-        }
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
+    e.preventDefault();
+    this.props.register(payload);
+    this.props.history.push("/");
   }
   
   render() {
@@ -153,7 +166,7 @@ class Register extends Component {
                 isValid,
                 errors,
               }) => (
-                <Form noValidate onSubmit={handleSubmit}>
+                <Form noValidate onSubmit={console.log}>
                   <div className="signup-box">
                     <div className="create-account-title">
                       <span>Create your account now</span> 
@@ -164,8 +177,8 @@ class Register extends Component {
                         <Form.Control 
                           type="username" 
                           name="username"
-                          value={values.username}
-                          onChange={handleChange}
+                          value={this.state.username}
+                          onChange={this.handleChange}
                           isValid={touched.username && !errors.username}
                           isInvalid={!!errors.username}
                         />
@@ -180,8 +193,8 @@ class Register extends Component {
                         <Form.Control 
                           type="firstName" 
                           name="firstName"
-                          value={values.firstName}
-                          onChange={handleChange}
+                          value={this.state.firstName}
+                          onChange={this.handleChange}
                           isValid={touched.firstName && !errors.firstName}
                         />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -192,8 +205,8 @@ class Register extends Component {
                         <Form.Control 
                           type="lastName" 
                           name="lastName"
-                          value={values.lastName}
-                          onChange={handleChange}
+                          value={this.state.lastName}
+                          onChange={this.handleChange}
                           isValid={touched.lastName && !errors.lastName}
                         />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -204,8 +217,8 @@ class Register extends Component {
                         <Form.Control 
                           type="password" 
                           name="password"
-                          value={values.password}
-                          onChange={handleChange}
+                          value={this.state.password}
+                          onChange={this.handleChange}
                           isInvalid={!!errors.password}
                         />
                         <Form.Control.Feedback type="invalid">
@@ -218,8 +231,8 @@ class Register extends Component {
                         <Form.Control 
                           type="password" 
                           name="confirmPassword"
-                          value={values.confirmPassword}
-                          onChange={handleChange}
+                          value={this.state.confirmPassword}
+                          onChange={this.handleChange}
                           isInvalid={!!errors.confirmPassword}
                         />
                         <Form.Control.Feedback type="invalid">
@@ -249,4 +262,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default withContext(Register);

@@ -29,48 +29,19 @@ class Login extends Component {
     this.onLogin = this.onLogin.bind(this);
   }
 
-  // componentDidMount() {
-  //   document.body.style.background = "#EEEFF3";
-  //   console.log(this.props.location.pathname);
-  //  }
 
    onLogin = (e) => {
      const payload = {
-       loginUsername: this.state.username,
-       loginPassword: this.state.password
+       username: this.state.username,
+       password: this.state.password
      }
      e.preventDefault();
      this.props.login(payload);
      this.props.history.push("/");  
    }
-
-   //   onLogin(event) {
-//     var API_URL_LOGIN = 'http://10.12.7.122:5000/auth/login';
-//     var self = this;
-//     var particulars = {"email": this.state.email,
-//                        "password": this.state.password};
-//     axios.post(API_URL_LOGIN, particulars)
-//       .then(function(response) {
-//         if (response.data.code === 200) {
-//           var uploadScreen = [];
-//           uploadScreen.push(<WriteReview appContext={self.props.appContext}/>) 
-//           self.props.appContext.setState({loginPage:[], uploadScreen:uploadScreen})
-//         } else if (response.data.code === 204) {
-//             console.log("Username password do not match");
-//             alert("username password do not match")
-//         } else {
-//           console.log("Username does not exist");
-//           alert("Username does not exist");
-//         }
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-//   }
   
   handleChange(event) {
-    this.setState({username: event.target.username,
-                   password: event.target.password})
+    this.setState({[event.target.name]: event.target.value});
   }
 
   
@@ -111,8 +82,8 @@ class Login extends Component {
                       <Form.Control 
                         type="username" 
                         name="username"
-                        value={values.username}
-                        onChange={handleChange}
+                        value={this.state.username}
+                        onChange={this.handleChange}
                         isValid={touched.username && !errors.username}
                         isInvalid={!!errors.username}
                       />
@@ -128,7 +99,7 @@ class Login extends Component {
                         type="password" 
                         name="password"
                         value={values.password}
-                        onChange={handleChange}
+                        onChange={this.handleChange}
                         isInvalid={!!errors.password}
                       />
                       <Form.Control.Feedback type="invalid">

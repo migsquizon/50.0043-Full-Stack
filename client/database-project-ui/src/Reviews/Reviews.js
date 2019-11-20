@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import EachReview from './EachReview';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { withRouter } from 'react-router-dom';
 import './Reviews.css';
 import 'react-circular-progressbar/dist/styles.css';
 
@@ -29,6 +30,11 @@ const data = {
 
 const percentage = data.rating / 5 * 100;
 
+function goToReviewPage(event, props) {
+  event.preventDefault();
+  props.history.push("/add-review")
+}
+
 function Reviews(props) {
   return (
     <div className="reviews-container">
@@ -50,7 +56,7 @@ function Reviews(props) {
           />
         </div>
         <div className="write-review-container">
-          <Button className="add-reading-list-button">Write a review</Button>
+          <Button className="add-reading-list-button" onClick={(event) => goToReviewPage(event, props)}>Write a review</Button>
 
         </div>
         <div className="write-review-container">
@@ -80,4 +86,4 @@ function Reviews(props) {
   )
 }
 
-export default Reviews;
+export default withRouter(Reviews);

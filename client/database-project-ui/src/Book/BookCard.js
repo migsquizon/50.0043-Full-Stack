@@ -2,11 +2,24 @@ import React from 'react';
 import StarRatings from 'react-star-ratings';
 import Truncate from 'react-truncate';
 import Ratings from '../Extras/Ratings';
+import { withContext } from '../Auth/AuthContext';
+import { withRouter } from 'react-router-dom';
 import './BookCard.css';
+
+
+function onSearch(event, props) {
+  event.preventDefault();
+  props.sendQuery(props.asin);
+  if (props.location.pathname == '/book-info') {
+    window.location.reload();
+  } else {
+    this.props.history.push('/book-info');
+  }
+}
 
 function BookCard(props) {
   return (
-    <div className="book-summary-container">
+    <div className="book-summary-container" onClick={(event) => onSearch(event, props)}>
       <div className="book-img-container">
         <img src={props.imUrl} fluid />
       </div>
@@ -36,4 +49,4 @@ function BookCard(props) {
   )
 }
 
-export default BookCard;
+export default withRouter(withContext(BookCard));

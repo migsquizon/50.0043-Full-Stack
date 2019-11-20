@@ -54,6 +54,7 @@ function BookInfo(props) {
 
   useEffect(() => { 
     var query = props.getQuery();
+    console.log(query);
     URL = API_URL + query + "?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
     (async () => {
       payload = await axios(URL);

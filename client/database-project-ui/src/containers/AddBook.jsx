@@ -17,6 +17,8 @@ class AddBook extends Component {
       description:"",
       added_by:"John"
     };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInput = (e) => {
@@ -25,26 +27,47 @@ class AddBook extends Component {
 
   };
 
+  handleValidation(){
+    let asin=this.state.asin;
+    let title=this.state.title;
+    let imUrl=this.state.imUrl;
+    let categories=this.state.categories;
+    let description=this.state.description;
+    let formIsValid=true;
+
+    if (title=="" || asin=="" || imUrl=="" || categories=="" || description==""){
+      formIsValid=false;
+    }
+    return formIsValid
+  }
+
   handleSubmit = async event => {
     event.preventDefault();
 
-    if (this.state.imUrl==""){this.setState({imUrl:'https://longreadsblog.files.wordpress.com/2019/07/beach-book.jpg?w=1200'})}
+    if (this.handleValidation){
+      const book = {
+        title:this.state.title,
+        asin:this.state.asin,
+        imUrl:this.state.imUrl,
+        categories:this.state.categories,
+        description:this.state.description,
+        added_by:this.state.added_by
+      };
+
       
 
-    const book = {
-      title:this.state.title,
-      asin:this.state.asin,
-      imUrl:this.state.imUrl,
-      categories:this.state.categories,
-      description:this.state.description,
-      added_by:this.state.added_by
-    };
+      console.log(book)
 
-    axios.post(`http://13.229.185.245:5000/add/book`,  book )
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
+
+      axios.post(`http://13.229.185.245:5000/add/book`,  book )
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+        })
+      }
+      else{
+        alert("Please fill in all fields")
+      }
   }
 
   render(){

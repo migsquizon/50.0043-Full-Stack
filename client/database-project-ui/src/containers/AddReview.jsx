@@ -5,8 +5,28 @@ import './AddReview.css';
 import NavBar from "./NavBar";
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
+import * as yup from 'yup';
 
-
+// const schema = yup.object({
+//   title: yup
+//     .string()
+//     .required(),
+//   summary: yup
+//   .string()
+//   .required(),
+//   overall: yup
+//   .number()
+//   .required(),
+//   reviewerName: yup
+//   .string()
+//   .required(),
+//   reviewerID: yup
+//   .string()
+//   .required(),
+//   reviewText: yup
+//   .string()
+//   .required()
+// })
 
 class AddReview extends Component {
   constructor(props){
@@ -15,7 +35,6 @@ class AddReview extends Component {
       title:"",
       summary:"",
       overall:0,
-      genre:"",
       reviewerName: "John",
       reviewerID:"GHJKGMHHGFFGB",
       reviewText:""
@@ -28,25 +47,43 @@ class AddReview extends Component {
 
   };
 
+  handleValidation(){
+    let title=this.state.title;
+    let summary=this.state.summary;
+    let overall=this.state.overall;
+    let reviewText=this.state.reviewText;
+    let formIsValid=true;
+
+    if (title=="" || summary=="" || overall==0 || reviewText==""){
+      formIsValid=false;
+    }
+    return formIsValid
+  }
+
   handleSubmit = async event => {
     event.preventDefault();
 
-    const bookreview = {
-      title:this.state.title,
-      summary:this.state.summary,
-      overall:this.state.overall,
-      genre:this.state.genre,
-      reviewText:this.state.reviewText,
-      reviewerName:this.state.reviewerName,
-      reviewerID:this.state.reviewerID
-    };
-    console.log(bookreview)
+    if (this.handleValidation()){
+      const bookreview = {
+        title:this.state.title,
+        summary:this.state.summary,
+        overall:this.state.overall,
+        genre:this.state.genre,
+        reviewText:this.state.reviewText,
+        reviewerName:this.state.reviewerName,
+        reviewerID:this.state.reviewerID
+      };
+      console.log(bookreview)
 
-    axios.post(`http://13.229.185.245:5000/book/${bookreview.title}`,  bookreview )
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
+      axios.post(`http://13.229.185.245:5000/book/${bookreview.title}`,  bookreview )
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+        })
+      }
+      else{
+        alert("Please fill in all fields")
+      }
   }
 
   render(){
@@ -87,17 +124,6 @@ class AddReview extends Component {
                 starEmptyColor="#D0CDC6"
                 starSpacing="3px"
               />
-            </Form.Group>
-            <Form.Group controlId="exampleForm.ControlSelect1">
-              <Form.Label>Select Genre:</Form.Label>
-              <Form.Control as="select" name="genre" value={this.state.genre} onChange={this.handleInput}>
-                <option value="" selected disabled>Please select</option>
-                <option>Horror</option>
-                <option>Sci-fi</option>
-                <option>Fiction</option>
-                <option>Non-Fiction</option>
-                <option>Mystery</option>
-              </Form.Control>
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlTextarea1">
               <Form.Label>Review:</Form.Label>
