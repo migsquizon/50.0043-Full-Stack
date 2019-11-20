@@ -1,0 +1,87 @@
+.login-container {
+    display: block;
+    padding-top: 3em;
+  }
+  
+  .login-box {
+    display: block;
+    flex-grow: 1;
+    box-sizing: border-box;
+    padding: 20px 10px;
+    background-color: white;
+    color: black;
+    border-radius: 4px;
+    box-shadow: 0 15px 35px 0 rgba(60,66,87, 0.1), 0 5px 15px 0 rgba(0, 0, 0, .07);
+    box-sizing: border-box;
+  }
+  
+  .login-box-title {
+    display: block;
+    font-weight: 400;
+    font-size: 20px;
+    color: #1a1f36;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+  
+  .login-form-body {
+    display: block;
+    box-sizing: border-box;
+    padding: 20px 32px 32px 32px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    
+  }
+  
+  
+  body.sigin-body {
+    background-color: #e6f2ff;
+  }
+  
+  .container.signin-container {
+    margin-top: 8%;
+  }
+  
+  .login-info-title {
+    border: 1px solid transparent;
+    font-family: "Mimi", serif;
+    font-size: 2rem;
+    color: #4B7CEC;
+    text-transform: lowercase;
+    text-align: center;
+    padding-bottom: 20px;
+  }
+  
+  .card.signin-card {
+    padding: 40px 0px 20px;
+    background-color: #f4f4f4;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+    -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+  }
+  
+  img.signin-img {
+    padding: 0 2rem 2rem;
+    margin: auto;
+    display: block;
+  }
+  
+  form.sigin-form {
+    max-width: 350px;
+    margin: auto;
+  }
+  
+  button.signin-btn {
+    color: #ffffff;
+    background-color: #d64829;
+    width: 100%;
+    margin-bottom: 1.2rem;
+  }
+  
+  a.create-new-account {
+    font-size: 1.2rem;
+    text-align: center;
+    display: block;
+    margin-top: 15px;
+  }

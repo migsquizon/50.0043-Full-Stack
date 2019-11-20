@@ -1,5 +1,5 @@
 import React from 'react';
-import Ratings from './Ratings';
+import Ratings from '../Extras/Ratings';
 import Truncate from 'react-truncate';
 import './EachReview.css';
 

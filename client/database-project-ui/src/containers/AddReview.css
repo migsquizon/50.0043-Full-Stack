@@ -1,0 +1,15 @@
+.form-group label{
+    font-family: 'Helvetica' !important;
+    color: #3B5260 !important;
+    text-align: left;
+}
+
+.col-6{
+    text-align: left !important;
+}
+
+.title {
+    font-family: 'AcuminProRegular' ! important;
+    color: #3B5260 !important;
+    font-size: 2rem !important;
+ }
