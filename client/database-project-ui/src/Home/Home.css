@@ -4,3 +4,9 @@
     height: 100%;
     padding: 20px 10px;
 }
+
+.card-container-home {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}

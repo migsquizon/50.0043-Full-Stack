@@ -13,7 +13,7 @@ function onSearch(event, props) {
   if (props.location.pathname == '/book-info') {
     window.location.reload();
   } else {
-    this.props.history.push('/book-info');
+    props.history.push('/book-info');
   }
 }
 
@@ -21,7 +21,7 @@ function BookCard(props) {
   return (
     <div className="book-summary-container" onClick={(event) => onSearch(event, props)}>
       <div className="book-img-container">
-        <img src={props.imUrl} fluid />
+        <img className="book-img-container-img" src={props.imUrl} fluid />
       </div>
       <div className="book-summary-content">
         <div className="book-card-title">

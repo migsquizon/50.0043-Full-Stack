@@ -1,14 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar,Nav, Overlay, Card, Form, Row, Col, Badge, OverlayTrigger, Button } from 'react-bootstrap';
 import './Home.css';
+import axios from 'axios';
+import BookCard from '../Book/BookCard.js';
+import { withContext } from '../Auth/AuthContext';
+import { withRouter } from 'react-router-dom';
 
-var API = "http://13.229.185.245:5000/home/category";
+var HOME_URL = "http://13.229.185.245:5000/home/category/top";
+var payload = [];
 
 function Home(props) {
 
   const [key, setKey] = useState("");
+  const [books, setBooks] = useState([{}]);
 
-  useEffect(() => {})
+  useEffect(() => {
+    (async () => {
+      payload = await axios(HOME_URL)
+      console.log(payload);
+      console.log(payload.data);
+      setBooks(payload.data)
+    })();
+  }, []);
 
   return (
     <React.Fragment>
@@ -32,11 +45,18 @@ function Home(props) {
 
           </Col>
           <Col xs={10}>
-            TEMPORARY HOME PAGE
+            <div className="card-container-home">
+              {books.map((book) => (
+                <BookCard
+                  asin={book.asin}
+                  imUrl={book.imUrl}
+                />
+              ))}
+            </div>
           </Col> 
       </Row> 
     </React.Fragment>
   )
 }
 
-export default Home;
+export default withRouter(withContext(Home));

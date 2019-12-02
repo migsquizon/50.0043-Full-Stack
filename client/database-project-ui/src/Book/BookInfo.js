@@ -61,9 +61,9 @@ function BookInfo(props) {
       console.log(payload);
       console.log(payload.data.asin);
       console.log("HELLO");
-      {payload.data.related.also_bought.map((book) => (
-        console.log(book.asin)
-      ))}
+      // {payload.data.related.also_bought.map((book) => (
+      //   console.log(book.asin)
+      // ))}
 
       if (payload.title) {
         setTitle(payload.data.title);
@@ -88,11 +88,29 @@ function BookInfo(props) {
 
       setAsin(payload.data.asin);
       setImUrl(payload.data.imUrl);
-      setPrice(payload.data.price);
-      setReviews(payload.data.reviews);
-      setCategories(payload.data.categories);
-      setAlsoBought(payload.data.related.also_bought);
-      setBuyAfterViewing(payload.data.related.buy_after_viewing);
+
+      if (payload.data.price) {
+        setPrice(payload.data.price);
+      }
+
+      if (payload.data.reviews) {
+        setReviews(payload.data.reviews);
+      }
+
+      if (payload.data.categories) {
+        setCategories(payload.data.categories);
+      }
+
+      if (payload.related) {
+        if (payload.data.related.also_bought) {
+          setAlsoBought(payload.data.related.also_bought);
+        }
+  
+        if (payload.data.related.buy_after_viewing) {
+          setBuyAfterViewing(payload.data.related.buy_after_viewing);
+        }
+      }
+      console.log(buy_after_viewing)
     })();
   }, []);
 
