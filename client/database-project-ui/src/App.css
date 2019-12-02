@@ -21,3 +21,7 @@
   color: #09d3ac;
 }
 
+html, body {
+  overflow: hidden;
+}
+

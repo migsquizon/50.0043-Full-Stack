@@ -155,6 +155,7 @@ function BookInfo(props) {
         <hr />
         <div className="readers-also-viewed">Readers also viewed</div>
         <div className="carousel-container">
+          hi
           <BookCarousel 
             data={also_bought}
           />
@@ -173,9 +174,10 @@ function BookInfo(props) {
             data={buy_after_viewing}
           />
 
-
         </div>
       </div>
+
+      
     )
   }
 
