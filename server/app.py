@@ -3,6 +3,8 @@ from bson import Binary, Code
 from bson.json_util import dumps, loads
 from functools import wraps, lru_cache
 from flask_cors import CORS
+import logging
+import logs
 import jwt
 import reviews
 import metadata
@@ -10,6 +12,7 @@ import users
 
 app = Flask(__name__)
 CORS(app)
+# app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['SECRET_KEY'] = 'yckcmkg'
 
 
@@ -37,8 +40,25 @@ def test_mongo():
 def test_sql():
 	return dumps(reviews.test_sql())
 
+@app.route('/home')
+def home():
+	"""
+	returns first 20 books that mongo gets might not be the same everytime
+	"""
+	number = request.args.get('number',default=20,type=int)
+	return dumps(metadata.get_summaries(number))
+
+@app.route('/home/category/<category>')
+def home_category(category):
+	"""
+	Returns metadata of books related to category
+	Case insensitive
+	matches anywhere in the word
+	"""
+	number = request.args.get('number',default=20,type=int)
+	return dumps(metadata.get_books_by_category(category,number))
+
 @app.route('/book/<asin>',methods=['GET'])
-@lru_cache(maxsize=None)## Might cause some bugs to be undiscovered
 def get_book_by_asin(asin):
 	"""
 	verbose
@@ -84,13 +104,21 @@ def get_review_count_by_asin(asin):
 	parameters: 
 	1. asin
 	returns -> count of reviews of book w/ asin
+	2. verbose -> 
+		- 0 if you want count
+		- 1 if you want overall review/rating
 	"""
 	try:
-		result = reviews.get_review_count(asin)
+		verbose = request.args.get('verbose',default=0,type=int)
+		if verbose == 0:
+			result = reviews.get_review_count(asin)
+		else:
+			result = reviews.get_overall_review(asin)
+		return jsonify(result), 200
 	except Exception as e:
 		print(e)
 		return {"Exception": str(e)},500
-	return jsonify(result), 200
+	
 
 
 @app.route('/add/book',methods=['POST'])
@@ -152,14 +180,14 @@ def helpful(asin):
 		helpful = json_post["helpful"]
 		reviewerID = json_post["reviewerID"]
 		review = reviews.get_review_by_id(asin,reviewerID)
-		helpfulness =  review[0]["helpful"]
-		if(helpful == "1"):
+		helpfulness =  review[0]["helpful"] # can do this because each person suppose to have only 1 review per book
+		if(helpful == 1):
 			comma = helpfulness.find(",")
 			helpful_digit = helpfulness[1:comma]
 			helpful_int = int(helpful_digit)
 			helpful_int += 1
 			final_rating = helpfulness[0]+str(helpful_int)+helpfulness[comma:]
-		if(helpful == "0"):
+		elif(helpful == 0):
 			comma = helpfulness.find(",")
 			helpful_digit = helpfulness[comma+2:comma+3]
 			helpful_int = int(helpful_digit)
@@ -173,14 +201,14 @@ def helpful(asin):
 	except KeyError as e:
 				print(e)
 				return {"keyError":str(e)},400
+	except IndexError as e:
+		print(e)
+		return {'Index Error':str(e),'description':'No review for reviewer'},400
 	except Exception as e:
 				print(e)
 				return {"Exception":str(e)},500
 
     
-
-
-
 @app.route('/signup',methods=['POST'])
 def sign_up():
 	"""
@@ -216,18 +244,15 @@ def sign_in():
 		if not (users.verify_user_password(sign_in_json['password'],user_data['password'])):
 			print('failed verification')
 			return 'Sorry but you have given the wrong password', 400
-		token = jwt.encode({},app.config['SECRET_KEY'],algorithm='HS256')
-		return token.decode('utf-8'),200
+		token = jwt.encode(user_data,app.config['SECRET_KEY'],algorithm='HS256')
+		token = token.decode('utf-8')
+		user_data['token'] = token
+		return  dumps(user_data),200#token.decode('utf-8'),200
 	except KeyError as e:
 		return {"keyError":str(e)},400
 	except Exception as e:
 		print(e)
 		return {"Exception":str(e)},500
-
-
-
-
-
 
 
 
