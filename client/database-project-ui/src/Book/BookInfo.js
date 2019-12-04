@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import StarRatings from 'react-star-ratings';
 import { Row, Col, Button } from 'react-bootstrap';
+import  { withContext } from '../Auth/AuthContext';
 import BookCarousel from './BookCarousel';
-import Reviews from './Reviews';
-import Ratings from './Ratings';
+import Reviews from '../Reviews/Reviews';
+import Ratings from '../Extras/Ratings';
 import axios from 'axios';
 import './BookInfo.css';
 
-var API_URL = "http://13.229.185.245:5000/book/B009EALX3K?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
+var API_URL = "http://13.229.185.245:5000/book/";
+//API_URL = "http://13.229.185.245:5000/book/B009EALX3K?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
 var payload = [];
 
 const data = {
@@ -31,6 +33,10 @@ const data = {
   "top_review_username": "noobkenneth",
 }
 
+function getTopReview() {
+  
+}
+
 function BookInfo(props) {
 
   const [asin, setAsin] = useState("");
@@ -46,15 +52,18 @@ function BookInfo(props) {
   const [also_bought, setAlsoBought] = useState([]);
   const [buy_after_viewing, setBuyAfterViewing] = useState([]);
 
-  useEffect(() => {
+  useEffect(() => { 
+    var query = props.getQuery();
+    console.log(query);
+    URL = API_URL + query + "?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
     (async () => {
-      payload = await axios(API_URL);
+      payload = await axios(URL);
       console.log(payload);
       console.log(payload.data.asin);
       console.log("HELLO");
-      {payload.data.related.also_bought.map((book) => (
-        console.log(book.asin)
-      ))}
+      // {payload.data.related.also_bought.map((book) => (
+      //   console.log(book.asin)
+      // ))}
 
       if (payload.title) {
         setTitle(payload.data.title);
@@ -79,22 +88,40 @@ function BookInfo(props) {
 
       setAsin(payload.data.asin);
       setImUrl(payload.data.imUrl);
-      setPrice(payload.data.price);
-      setReviews(payload.data.reviews);
-      setCategories(payload.data.categories);
-      setAlsoBought(payload.data.related.also_bought);
-      setBuyAfterViewing(payload.data.related.buy_after_viewing);
+
+      if (payload.data.price) {
+        setPrice(payload.data.price);
+      }
+
+      if (payload.data.reviews) {
+        setReviews(payload.data.reviews);
+      }
+
+      if (payload.data.categories) {
+        setCategories(payload.data.categories);
+      }
+
+      if (payload.related) {
+        if (payload.data.related.also_bought) {
+          setAlsoBought(payload.data.related.also_bought);
+        }
+  
+        if (payload.data.related.buy_after_viewing) {
+          setBuyAfterViewing(payload.data.related.buy_after_viewing);
+        }
+      }
+      console.log(buy_after_viewing)
     })();
   }, []);
 
   if (payload) {
     return (
-      <div className="book-info-page-container">
+      <div className="page-container">
         <div className="book-main-info-container">
           <div className="book-img-container-lg">
             <img src={imUrl} fluid />
           </div>
-          <div className="book-info-container">
+          <div className="book-page-container">
             <div className="book-info-title-container">
               <span className="book-info-title">{asin}</span>
               <span><Button className="btn-sm add-reading-list-button">Add to reading list</Button></span>
@@ -128,6 +155,7 @@ function BookInfo(props) {
         <hr />
         <div className="readers-also-viewed">Readers also viewed</div>
         <div className="carousel-container">
+          hi
           <BookCarousel 
             data={also_bought}
           />
@@ -145,8 +173,11 @@ function BookInfo(props) {
           <BookCarousel 
             data={buy_after_viewing}
           />
+
         </div>
       </div>
+
+      
     )
   }
 
@@ -154,5 +185,4 @@ function BookInfo(props) {
     <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" />
   )
 }
-
-export default BookInfo;
+export default withContext(BookInfo);

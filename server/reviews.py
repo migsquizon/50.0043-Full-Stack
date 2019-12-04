@@ -4,6 +4,7 @@ from datetime import date
 sql = db.connect(host="18.139.174.176", user="root",
                  password='yckcmkg', db="Reviews")
 
+
 def keep_alive():
     """
     Connect sql again if connection drops
@@ -13,6 +14,14 @@ def keep_alive():
         sql = db.connect(host="18.139.174.176", user="root",
                  password='yckcmkg', db="Reviews")
 
+
+def test_sql():
+    keep_alive()
+    cursor = sql.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM `Reviews` LIMIT 0, 10")
+    res = cursor.fetchall()
+    return res
+    
 def get_reviews(asin,num=5):
     """
     Get all reviews with a given asin

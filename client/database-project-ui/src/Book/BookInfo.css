@@ -1,5 +1,16 @@
+.page-container{
+    padding: 0 50px;
+}
+
+hr {
+    border: none;
+    height: 0.5px;
+    background-color: #00000021;
+}
+
+
 .book-info-page-container {
-    padding-top: 30px;
+    padding-top: 50px;
 }
 
 .book-img-container-lg {
@@ -25,7 +36,7 @@
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
-    display: flex;
+    display: inline-flex;
     font-size: 1rem;
     font-family: 'AcuminProRegular';
     justify-content: flex-start;
@@ -153,7 +164,7 @@
     z-index: 1000;
     border: 0;
     background: rgba(0, 0, 0, 0.12);
-    position: absolute;
+   
     transform: translateY(-25%);
 }
 
@@ -161,4 +172,9 @@
     list-style: none;
     padding: 0;
 }
+.react-multi-carousel-item {
+
+    padding-bottom: 15px;
+}
+
 

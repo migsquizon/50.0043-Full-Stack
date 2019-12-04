@@ -23,6 +23,12 @@
     border-radius: 1%;
 }
 
+/* .book-img-container-img {
+    display: block;
+    margin: 0 34px;
+ 
+} */
+
 .book-img-container:hover { 
     display: block;
     border: 1px solid;
