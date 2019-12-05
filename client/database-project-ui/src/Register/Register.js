@@ -9,8 +9,9 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { withContext } from '../Auth/AuthContext';
 import * as yup from 'yup';
 import checkSvg from './checked.svg'
+require('dotenv/config');
 
-var CAPTCHA_SITE_KEY = "6LdubLIUAAAAAAoBktfc0ZhDebacKayNIdqa0e3L";
+var CAPTCHA_SITE_KEY = process.env.REACT_APP_GOOGLE_CAPTCHA_SITE_KEY;
 
 const schema = yup.object({
   firstName: yup
@@ -56,34 +57,6 @@ class Register extends Component {
     this.setState({[event.target.name]: event.target.value});
  
   }
-  
-  // onRegister(event) {
-  //   console.log("HI")
-  //   var API_URL = 'http://13.229.185.245:5000/signup';
-  //   var self = this;
-  //   var particulars = {
-  //     "first_name" : this.state.first_name,
-  //     "last_name" : this.state.last_name,
-  //     "username" : this.state.username,
-  //     "password" : this.state.password
-  //   }
-  //   axios.post(API_URL, particulars)
-  //     .then(function(response) {
-  //       console.log(response);
-  //       if (response.data.code === 200) {
-  //         var loginScreen = [];
-  //         loginScreen.push(<Login parentContext={this}/>);
-  //         var loginMessage = "Not registered yet, go to Registration!";
-  //         self.props.parentContext.setState({loginScreen: loginScreen,
-  //                                            loginMessage: loginMessage,
-  //                                            buttonLabel: "Register",
-  //                                            isLogin: true});
-  //       }
-  //   })
-  //   .catch(function(error) {
-  //     console.log(error);
-  //   });
-  // }
 
   onRegister = (e) => {
     const payload = {

@@ -7,8 +7,11 @@ import Reviews from '../Reviews/Reviews';
 import Ratings from '../Extras/Ratings';
 import axios from 'axios';
 import './BookInfo.css';
+require('dotenv/config');
 
-var API_URL = "http://13.229.185.245:5000/book/";
+console.log(process.env);
+
+var API_URL = process.env.REACT_APP_API_URL + "book/";
 //API_URL = "http://13.229.185.245:5000/book/B009EALX3K?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
 var payload = [];
 
@@ -101,7 +104,7 @@ function BookInfo(props) {
         setCategories(payload.data.categories);
       }
 
-      if (payload.related) {
+      if (payload.data.related) {
         if (payload.data.related.also_bought) {
           setAlsoBought(payload.data.related.also_bought);
         }
@@ -110,7 +113,7 @@ function BookInfo(props) {
           setBuyAfterViewing(payload.data.related.buy_after_viewing);
         }
       }
-      console.log(buy_after_viewing)
+  
     })();
   }, []);
 
@@ -155,7 +158,6 @@ function BookInfo(props) {
         <hr />
         <div className="readers-also-viewed">Readers also viewed</div>
         <div className="carousel-container">
-          hi
           <BookCarousel 
             data={also_bought}
           />
