@@ -5,8 +5,9 @@ import axios from 'axios';
 import BookCard from '../Book/BookCard.js';
 import { withContext } from '../Auth/AuthContext';
 import { withRouter } from 'react-router-dom';
+require('dotenv/config');
 
-var HOME_URL = "http://13.229.185.245:5000/home/category/top";
+var HOME_URL = process.env.REACT_APP_API_URL + "home/category/top";
 var payload = [];
 
 function Home(props) {

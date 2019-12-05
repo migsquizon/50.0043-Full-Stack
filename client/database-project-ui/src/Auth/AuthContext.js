@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import axios from "axios";
 import { throws } from 'assert';
 const Axios = axios.create();
+require('dotenv/config');
+
+var API_URL = process.env.REACT_APP_API_URL;
 
 Axios.interceptors.request.use((config)=>{
     const token = localStorage.getItem("token");
@@ -63,7 +66,7 @@ export class AuthProvider extends Component {
 
   login = (credentials) => {
     console.log(credentials);
-    return axios.post('http://13.229.185.245:5000/signin', credentials)
+    return axios.post('API_URL' + 'signin', credentials)
       .then(response => {
       console.log(response)
       const { token, first_name, last_name, username } = response.data;
@@ -99,7 +102,7 @@ export class AuthProvider extends Component {
 
   register = (userInfo) => {
     console.log(userInfo);
-    return axios.post('http://13.229.185.245:5000/signup', userInfo)
+    return axios.post('API_URL' + 'signup', userInfo)
     .then(response => {
       const { token, first_name, last_name, username } = response.data;
       console.log(token)
