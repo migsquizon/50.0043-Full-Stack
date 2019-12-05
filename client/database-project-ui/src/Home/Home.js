@@ -7,22 +7,25 @@ import { withContext } from '../Auth/AuthContext';
 import { withRouter } from 'react-router-dom';
 require('dotenv/config');
 
-var HOME_URL = process.env.REACT_APP_API_URL + "home/category/top";
+
 var payload = [];
 
 function Home(props) {
 
-  const [key, setKey] = useState("");
+  const [key, setKey] = useState("top");
   const [books, setBooks] = useState([{}]);
 
   useEffect(() => {
+    //var HOME_URL = process.env.REACT_APP_API_URL + `home/category/${key}`;
+    console.log({key});
+    //console.log(HOME_URL);
     (async () => {
-      payload = await axios(HOME_URL)
+      payload = await axios(process.env.REACT_APP_API_URL + `home/category/${key}`)
       console.log(payload);
       console.log(payload.data);
       setBooks(payload.data)
     })();
-  }, []);
+  }, [key]);
 
   return (
     <React.Fragment>
@@ -31,16 +34,18 @@ function Home(props) {
             <div className="sidebar-container">
               <Nav 
                 activeKey={key}
-                className="flex-column"
+                className="sidebar-nav"
                 onSelect= {key => setKey(key)}  
               >
-                <Nav.Link className="ticket-selection" eventKey="unsolved"><div><span>Books We Love</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="new"><div><span>Best Seller</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="urgent"><div><span>Latest Releases</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="unassigned"><div><span>Romance</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="open"><div><span>Thriller</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="pending"><div><span>Fiction</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="solved"><div><span>Non-Fiction</span><span className="number-of-tickets"></span></div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="top"><div><span>Books That We Love</span><span className="number-of-tickets"></span></div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="kindle"><div><span>Best Seller</span><span className="number-of-tickets"></span></div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="books"><div><span>Latest Releases</span><span className="number-of-tickets"></span></div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="romance"><div><span>Romance</span><span className="number-of-tickets"></span></div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="fantasy"><div><span>Fantasy</span><span className="number-of-tickets"></span></div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="thriller"><div><span>Thriller</span><span className="number-of-tickets"></span></div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="horror"><div><span>Horror</span><span className="number-of-tickets"></span></div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="fiction"><div><span>Fiction</span><span className="number-of-tickets"></span></div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="politics"><div><span>Politics</span><span className="number-of-tickets"></span></div></Nav.Link>
               </Nav>
             </div>
 

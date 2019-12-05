@@ -39,7 +39,8 @@
 
 .book-img-container img {
     /* border-radius: 1%; */
-    max-width: 150px;
+    width: 150px;
+   
 }
 
 .book-card-title {
