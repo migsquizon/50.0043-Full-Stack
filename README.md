@@ -1,6 +1,9 @@
 # 50.043 Big Data Project
 
 Innovating the book review industry
+# Setting up production environment
+
+# Setting up Development Environment
 
 ## Setting up backend
 
