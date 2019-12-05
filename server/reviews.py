@@ -13,6 +13,7 @@ def keep_alive():
     Connect sql again if connection drops
     """
     global sql
+    global init
     if not init:
         sql = db.connect(host=sql_ip, user="root", db="Reviews")
         init = True
