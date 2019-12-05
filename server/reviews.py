@@ -5,24 +5,19 @@ from app import app
 import time
 sql_ip = app.config['SQL_IP']
 print(sql_ip)
-is_init = False
 
-while not is_init:
-    try:
-        sql = db.connect(host=sql_ip, user="root", db="Reviews")
-        is_init = True
-    except:
-         #exception caused when making api call when database is not yet intialized
-        time.sleep(5)
-        pass
-
-
+init = False
+sql = None
 def keep_alive():
     """
     Connect sql again if connection drops
     """
     global sql
-    if not sql.is_connected():
+    if not init:
+        sql = db.connect(host=sql_ip, user="root", db="Reviews")
+        init = True
+ 
+    elif not sql.is_connected():
         sql = db.connect(host=sql_ip, user="root", db="Reviews")
 
 
