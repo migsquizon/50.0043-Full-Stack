@@ -11,7 +11,7 @@ require('dotenv/config');
 
 console.log(process.env);
 
-var API_URL = process.env.REACT_APP_API_URL + "book/";
+//var API_URL = process.env.REACT_APP_API_URL + "book/";
 //API_URL = "http://13.229.185.245:5000/book/B009EALX3K?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
 var payload = [];
 
@@ -58,9 +58,9 @@ function BookInfo(props) {
   useEffect(() => { 
     var query = props.getQuery();
     console.log(query);
-    URL = API_URL + query + "?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
+    //URL = process.env.REACT_APP_API_URL + "book/" + query + "?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
     (async () => {
-      payload = await axios(URL);
+      payload = await axios(process.env.REACT_APP_API_URL + "book/" + query + "?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5");
       console.log(payload);
       console.log(payload.data.asin);
       console.log("HELLO");

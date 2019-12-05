@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './AddBook.css';
 import axios from 'axios';
+require('dotenv/config');
 
 
 
@@ -59,7 +60,7 @@ class AddBook extends Component {
       console.log(book)
 
 
-      axios.post(`http://13.229.185.245:5000/add/book`,  book )
+      axios.post(process.env.REACT_APP_API_URL + `add/book`,  book )
         .then(res => {
           console.log(res);
           console.log(res.data);
