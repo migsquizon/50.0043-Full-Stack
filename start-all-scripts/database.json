@@ -53,7 +53,7 @@
             "echo $REACT_APP_API_URL > flaskip\n",
             "cd 50.0043-Full-Stack/scripts\n",
             "git checkout automation\n",
-            "echo y | sudo source full_stack.sh > debug.txt\n"
+            "echo y | source ./full_stack.sh > debug.txt\n"
           ]]}}
         
       },

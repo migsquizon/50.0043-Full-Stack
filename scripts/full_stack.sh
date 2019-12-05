@@ -25,10 +25,10 @@ export LC_ALL=C
 pip3 install -r requirements.txt
 
 #backend
-source backend.sh &
+source ./backend.sh &
 
 #frontend
-source frontend.sh &
+source ./frontend.sh &
 
 
 exit 0
