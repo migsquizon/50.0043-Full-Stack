@@ -49,6 +49,7 @@
             "export MONGO_IP=",{ "Fn::GetAtt" : [ "MongoInstance", "PublicIp" ] }, "\n",
             "echo test > test.txt\n",
             "cd 50.0043-Full-Stack/scripts\n",
+            "git checkout automation\n",
             "echo y | sudo bash full_stack.sh > debug.txt\n"
           ]]}}
         

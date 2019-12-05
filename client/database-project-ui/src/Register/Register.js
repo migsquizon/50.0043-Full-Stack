@@ -11,7 +11,7 @@ import * as yup from 'yup';
 import checkSvg from './checked.svg'
 require('dotenv/config');
 
-var CAPTCHA_SITE_KEY = process.env.REACT_APP_GOOGLE_CAPTCHA_SITE_KEY;
+var CAPTCHA_SITE_KEY = process.env.REACT_APP_GOOGLE_CAPTCHA_SITE_KEY | "6LdubLIUAAAAAAoBktfc0ZhDebacKayNIdqa0e3L";
 
 const schema = yup.object({
   firstName: yup
