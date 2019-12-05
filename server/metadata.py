@@ -1,6 +1,10 @@
 from pymongo import MongoClient
 import re
-mongo = MongoClient("mongodb://18.140.90.36:27017",username = 'Admin',password = 'yckcmkg')
+from app import app
+
+mongo_ip = app.config['MONGO_IP']
+print(mongo_ip)
+mongo = MongoClient(f"mongodb://{mongo_ip}:27017")
 
 def get_book_by_asin(asin):
     return mongo['Kindle']['Metadata'].find_one({"asin":asin})

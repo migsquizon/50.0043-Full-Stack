@@ -1,8 +1,10 @@
 import mysql.connector as db
 import time
 from datetime import date
-sql = db.connect(host="18.139.174.176", user="root",
-                 password='yckcmkg', db="Reviews")
+from app import app
+sql_ip = app.config['SQL_IP']
+print(sql_ip)
+sql = db.connect(host=sql_ip, user="root", db="Reviews")
 
 
 def keep_alive():
