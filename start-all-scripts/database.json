@@ -47,11 +47,13 @@
             "git clone https://github.com/migsquizon/50.0043-Full-Stack.git\n",
             "export SQL_IP=",{ "Fn::GetAtt" : [ "MySqlInstance", "PublicIp" ] }, "\n",
             "export MONGO_IP=",{ "Fn::GetAtt" : [ "MongoInstance", "PublicIp" ] }, "\n",
-            "export REACT_APP_API_URL=$(curl ifconfig.me)",
-            "echo test > test.txt\n",
+            "export REACT_APP_API_URL=$(curl ifconfig.me)\n",
+            "echo $SQL_IP > sqlip\n",
+            "echo $MONGO_IP > mongoip\n",
+            "echo $REACT_APP_API_URL > flaskip\n",
             "cd 50.0043-Full-Stack/scripts\n",
             "git checkout automation\n",
-            "echo y | sudo bash full_stack.sh > debug.txt\n"
+            "echo y | sudo source full_stack.sh > debug.txt\n"
           ]]}}
         
       },
@@ -119,7 +121,7 @@
           "ToPort" : "22",
           "CidrIp" : { "Ref" : "SSHLocation"}
         },
-        {"IpProtocol" : "tcp", "FromPort" : "3307", "ToPort" : "3307", "CidrIp" : "0.0.0.0/0"}]
+        {"IpProtocol" : "tcp", "FromPort" : "3306", "ToPort" : "3306", "CidrIp" : "0.0.0.0/0"}]
       }
     },
     "MongoDBSecurityGroup" : {
