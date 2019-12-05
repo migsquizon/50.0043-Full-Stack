@@ -2,9 +2,19 @@ import mysql.connector as db
 import time
 from datetime import date
 from app import app
+import time
 sql_ip = app.config['SQL_IP']
 print(sql_ip)
-sql = db.connect(host=sql_ip, user="root", db="Reviews")
+is_init = False
+
+while not is_init:
+    try:
+        sql = db.connect(host=sql_ip, user="root", db="Reviews")
+        is_init = True
+    except:
+         #exception caused when making api call when database is not yet intialized
+        time.sleep(5)
+        pass
 
 
 def keep_alive():
@@ -13,8 +23,7 @@ def keep_alive():
     """
     global sql
     if not sql.is_connected():
-        sql = db.connect(host="18.139.174.176", user="root",
-                 password='yckcmkg', db="Reviews")
+        sql = db.connect(host=sql_ip, user="root", db="Reviews")
 
 
 def test_sql():
