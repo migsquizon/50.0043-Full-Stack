@@ -66,7 +66,7 @@ export class AuthProvider extends Component {
 
   login = (credentials) => {
     console.log(credentials);
-    return axios.post('API_URL' + 'signin', credentials)
+    return axios.post(API_URL + 'signin', credentials)
       .then(response => {
       console.log(response)
       const { token, first_name, last_name, username } = response.data;
@@ -102,7 +102,7 @@ export class AuthProvider extends Component {
 
   register = (userInfo) => {
     console.log(userInfo);
-    return axios.post('API_URL' + 'signup', userInfo)
+    return axios.post(API_URL + 'signup', userInfo)
     .then(response => {
       const { token, first_name, last_name, username } = response.data;
       console.log(token)
