@@ -41,8 +41,13 @@ def home():
 	"""
 	returns first 20 books that mongo gets might not be the same everytime
 	"""
-	number = request.args.get('number',default=20,type=int)
-	return dumps(metadata.get_summaries(number))
+	try:
+		number = request.args.get('number',default=20,type=int)
+		return dumps(metadata.get_summaries(number))
+	except Exception as e:
+			print(e)
+			return {"Exception":str(e)},500
+	
 
 @app.route('/home/category/<category>')
 def home_category(category):
@@ -51,8 +56,12 @@ def home_category(category):
 	Case insensitive
 	matches anywhere in the word
 	"""
-	number = request.args.get('number',default=20,type=int)
-	return dumps(metadata.get_books_by_category(category,number))
+	try:
+		number = request.args.get('number',default=20,type=int)
+		return dumps(metadata.get_books_by_category(category,number))
+	except Exception as e:
+			print(e)
+			return {"Exception":str(e)},500
 
 @app.route('/book/<asin>',methods=['GET'])
 def get_book_by_asin(asin):

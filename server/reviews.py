@@ -14,12 +14,16 @@ def keep_alive():
     """
     global sql
     global init
-    if not init:
-        sql = db.connect(host=sql_ip, user="root", db="Reviews")
-        init = True
- 
-    elif not sql.is_connected():
-        sql = db.connect(host=sql_ip, user="root", db="Reviews")
+    try:
+        if not init:
+            sql = db.connect(host=sql_ip, user="root", db="Reviews")
+            init = True
+    
+        elif not sql.is_connected():
+            sql = db.connect(host=sql_ip, user="root", db="Reviews")
+    except Exception as e:
+        print(e)
+
 
 
 def test_sql():
