@@ -11,25 +11,25 @@ There is no need to clone the whole repository. However all scripts in the start
 Download scripts script to be filled
 ```
 
-Download start-all-scripts folder and run startall.sh\
+Download `start-all-scripts` folder and run startall.sh\
 startall.sh uses [fLintrocK](https://github.com/nchammas/flintrock) to setup our apache and hadoop backend.\
 It then uses [AWS Cloudformation](https://aws.amazon.com/cloudformation/) which is a declarative language for setting up AWS resources. You can take a look at database.json to see how the resources are created.
 ```
 ./startall.sh
 ```
-The only two AMIs that we use are ami-061eb2b23f9f8839c which is a blank Ubuntu image and ami-07539a31f72d244e7 which is a blank Amazon Linux 2.
+The only two AMIs that we use are `ami-061eb2b23f9f8839c` which is a blank Ubuntu image and `ami-07539a31f72d244e7` which is a blank Amazon Linux 2.
 
-After running startall.sh the program will take some time to setup ~10 minutes. As it will setup MySql MongoDB Flask and Apache Spark Namenode and Datanode on different servers. There is no need to key in IP addresses as all IP addresses has been keyed in for you. Because of this is is important that you **do not** restart any of the instances as the IP address of the current instance would change.
+After running `startall.sh` the program will take some time to setup ~10 minutes. As it will setup MySql MongoDB Flask and Apache Spark Namenode and Datanode on different servers. There is no need to key in IP addresses as all IP addresses has been keyed in for you. Because of this is is important that you **do not** restart any of the instances as the IP address of the current instance would change.
 
 ## Viewing application
-Running the dns.sh after a while would give you the dns of our frontend application. Please append **port 3000 to the DNS**. Note that the order of setting up might not be in order **so the flask app might be ready while mysql is not ready**. Please it give time for it to setup. 
+Running the `dns.sh` after a while would give you the dns of our frontend application. Note that the order of setting up might not be in order **so the flask app might be ready while mysql is not ready**. Please it give time for it to setup. 
 ```
 ./dns.sh
 ```
 
 How to view part 3 here too.
 ## Destroy scripts
-After you are done you can run destroyall.sh which destroys all resources that we created including security groups and ec2 instances.
+After you are done you can run `destroyall.sh` which destroys all resources that we created including security groups and ec2 instances.
 ```
 ./destroyall.sh
 ```
