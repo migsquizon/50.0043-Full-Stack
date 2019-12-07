@@ -14,6 +14,6 @@ cd database-project-ui
 
 npm install
 
-npm start nohup &
+nohup npm start > react_debug.txt &
 
 

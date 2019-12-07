@@ -2,4 +2,4 @@ cd ..
 
 cd server
 
-python3 app.py nohup &
+nohup python3 flaskApp.py > flask_debug.txt &
