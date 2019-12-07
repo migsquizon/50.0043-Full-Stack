@@ -213,9 +213,9 @@ class Register extends Component {
                         </Form.Control.Feedback>
                       </Form.Group> 
 
-                      <ReCAPTCHA
+                      {/* <ReCAPTCHA
                         sitekey={process.env.REACT_APP_GOOGLE_CAPTCHA_SITE_KEY}
-                      />
+                      /> */}
                       
                       <div className="signup-button">
                         <Button variant="primary" type="submit" onClick={(event) => this.onRegister(event)}>
