@@ -17,7 +17,7 @@ sudo apt-get install -y nodejs
 # python
 
 
-sudo apt install python3-pip
+sudo apt-get install python3-pip
 
 pip3 --version
 
