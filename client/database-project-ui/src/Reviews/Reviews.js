@@ -28,7 +28,7 @@ const data = {
   ]
 }
 
-const percentage = data.rating / 5 * 100;
+
 
 function goToReviewPage(event, props) {
   event.preventDefault();
@@ -36,6 +36,7 @@ function goToReviewPage(event, props) {
 }
 
 function Reviews(props) {
+  const percentage = props.rating / 5 * 100;
   return (
     <div className="reviews-container">
       {/* <Row>
@@ -45,7 +46,7 @@ function Reviews(props) {
 
           <CircularProgressbar
             value={percentage}
-            text={data.rating}
+            text={props.rating}
             strokeWidth={5}
             styles={buildStyles({
               pathColor: '#F8CF46',

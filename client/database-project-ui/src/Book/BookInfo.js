@@ -48,7 +48,7 @@ function BookInfo(props) {
   const [description, setDescription] = useState("");
   const [imUrl, setImUrl] = useState("");
   const [rating, setRating] = useState(0);
-  const [num_rating, setNumRating] = useState(0);
+  const [num_ratings, setNumRatings] = useState(0);
   const [price, setPrice] = useState(0);
   const [reviews, setReviews] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -57,13 +57,14 @@ function BookInfo(props) {
 
   useEffect(() => { 
     var query = props.getQuery();
-    console.log(query);
     //URL = process.env.REACT_APP_API_URL + "book/" + query + "?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
     (async () => {
       payload = await axios(process.env.REACT_APP_API_URL + "book/" + query + "?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5");
-      console.log(payload);
-      console.log(payload.data.asin);
-      console.log("HELLO");
+      var payload_num_ratings = await axios(process.env.REACT_APP_API_URL + "reviews/" + query + "?verbose=0");
+      var payload_ratings = await axios(process.env.REACT_APP_API_URL + "reviews/" + query + "?verbose=1")
+      console.log(payload_num_ratings);
+      console.log(payload_num_ratings.data[0].count);
+      console.log(payload_ratings);
       // {payload.data.related.also_bought.map((book) => (
       //   console.log(book.asin)
       // ))}
@@ -81,12 +82,12 @@ function BookInfo(props) {
       }
 
       //NOT YET IMPLEMENTED
-      if (payload.rating) {
-        setRating(payload.rating);
+      if (payload_ratings.data) {
+        setRating(payload_ratings.data);
       }
 
-      if (payload.num_rating) {
-        setNumRating(payload.num_rating);
+      if (payload_num_ratings.data[0].count) {
+        setNumRatings(payload_num_ratings.data[0].count);
       }
 
       setAsin(payload.data.asin);
@@ -135,11 +136,11 @@ function BookInfo(props) {
             <div className="book-info-ratings">
               <span>
                 <Ratings
-                  rating={data.rating}
+                  rating={rating}
                   starDimension='15px'
                 />
               </span>
-              <span>&nbsp;{data.num_ratings} Ratings</span>
+              <span>&nbsp;{num_ratings} Ratings</span>
             </div>
             <div className="buy-amazon-container">
               <Button className="buy-amazon-button">
@@ -167,6 +168,7 @@ function BookInfo(props) {
         <div className="review-container-main-page">
           <Reviews 
             data={reviews}
+            rating={rating}
           />
         </div>
         <hr />
