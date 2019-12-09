@@ -1,9 +1,10 @@
+#!/bin/bash
 #ports
 # sudo ufw enable
 
 # sudo ufw allow 80
 
-
+sudo apt-get update
 # node
 curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash
 
@@ -14,7 +15,7 @@ sudo apt-get install -y nodejs
 # npm --version
 
 # python
-sudo apt-get update
+
 
 sudo apt install python3-pip
 
