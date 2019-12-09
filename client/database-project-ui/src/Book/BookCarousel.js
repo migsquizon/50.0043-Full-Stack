@@ -13,6 +13,7 @@ const data = {
 
 
 function BookCarousel(props) {
+  
 
   return (
     <div>
@@ -39,7 +40,7 @@ function BookCarousel(props) {
               max: 3000,
               min: 1024
             },
-            items: 5,
+            items: 4,
             partialVisibilityGutter: 40
           },
           mobile: {
@@ -70,7 +71,7 @@ function BookCarousel(props) {
             asin={book.asin}
             imUrl={book.imUrl}
             author={book.author}
-            //A little cheating hehe
+            //A little cheating hehe // LOL
             rating={Math.floor(Math.random() * 5) + 3}
             num_ratings={Math.floor(Math.random() * 100) + 100}
           />
