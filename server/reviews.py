@@ -54,10 +54,14 @@ def get_overall_review(asin):
     cursor = sql.cursor(dictionary=True)
     cursor.execute("""SELECT overall FROM `Reviews` WHERE asin = '%s' """ % asin)
     result = cursor.fetchall()
+    if len(result)==0:
+        return 0
     for dic in result:
+        if dic['overall'] is None:
+            continue
         val += dic['overall']
     val = val/len(result)
-    return val
+    return round(val,2)
 
 def get_review_by_id(asin,reviewerID):
     """
