@@ -44,7 +44,7 @@
         "ImageId" : "ami-061eb2b23f9f8839c" ,
         "UserData"       : { "Fn::Base64" : { "Fn::Join" : ["", [
             "#!/bin/bash\n",
-            "sudo apt update\n",
+            "sudo apt-get update\n",
             "git clone https://github.com/migsquizon/50.0043-Full-Stack.git\n",
             "export SQL_IP=",{ "Fn::GetAtt" : [ "MySqlInstance", "PublicIp" ] }, "\n",
             "export MONGO_IP=",{ "Fn::GetAtt" : [ "MongoInstance", "PublicIp" ] }, "\n",
@@ -73,7 +73,7 @@
         "ImageId" : "ami-061eb2b23f9f8839c" ,
         "UserData"       : { "Fn::Base64" : { "Fn::Join" : ["", [
             "#!/bin/bash\n",
-            "sudo apt update\n",
+            "sudo apt-get update\n",
             "wget -c https://raw.githubusercontent.com/garyongguanjie/Database-Start-Scripts/master/mysql/mysqlserversetup.sh -O mysqlserversetup.sh\n",
             "yes | sudo bash mysqlserversetup.sh > debug1.txt\n",
             "wget -c https://raw.githubusercontent.com/garyongguanjie/Database-Start-Scripts/master/mysql/mysqldbsetup.sh -O mysqldbsetup.sh\n",
@@ -93,7 +93,7 @@
         "ImageId" : "ami-061eb2b23f9f8839c" ,
         "UserData"       : { "Fn::Base64" : { "Fn::Join" : ["", [
             "#!/bin/bash\n",
-            "sudo apt update\n",
+            "sudo apt-get update\n",
             "wget -c https://raw.githubusercontent.com/garyongguanjie/Database-Start-Scripts/master/mongodb/mongodbserver.sh -O mongodbserver.sh\n",
             "yes | sudo bash mongodbserver.sh > debug1.txt\n",
             "wget -c https://raw.githubusercontent.com/garyongguanjie/Database-Start-Scripts/master/mongodb/mongodbsetup.sh -O mongodbsetup.sh\n",

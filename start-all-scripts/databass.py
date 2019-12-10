@@ -2,6 +2,7 @@ import boto3
 import pprint
 import requests
 import time
+import sys
 
 client = boto3.client('cloudformation')
 ec2 = boto3.client('ec2')
@@ -86,47 +87,29 @@ def destroy_stack(name):
         print(e)
     
 def is_db_ready(dns):
-    if requests.get('{}:5000/test/mongo'.format(dns)).status_code ==200 and \
-    requests.get('{}:5000/test/sql'.format(dns)).status_code == 200:
-        return True
-    else:
+    try:
+        if requests.get('http://{}:5000/test/mongo'.format(dns)).status_code ==200 and \
+        requests.get('http://{}:5000/test/sql'.format(dns)).status_code == 200:
+            return True
+        else:
+            return False
+    except Exception as e:
         return False
 
 # destroy_stack('databass')
 
 if __name__ == '__main__':
-    create_stack('databass')
-    ids = get_instance_ids('databass')
-    print(ids)
-    if get_statuses(ids):
-        dns = get_dns('databass')
-        time.sleep(60)#wait for 1 minute before polling
-        while not is_db_ready(dns):#poll for flask backend to check if db is up
-            time.sleep(15)
-        print("DNS OF FRONT END PAGE")
-        print("http://{}:3000".format(dns))
+    if sys.argv[1] == 'start':
+        create_stack('databass')
+        ids = get_instance_ids('databass')
+        print(ids)
+        if get_statuses(ids):
+            dns = get_dns('databass')
+            time.sleep(60)#wait for 1 minute before polling
+            while not is_db_ready(dns):#poll for flask backend to check if db is up
+                time.sleep(15)
+            print("front end page")
+            print("http://{}:3000".format(dns))
+    elif sys.argv[1] == 'destroy':
+        destroy_stack('databass')
 
-
-
-# print(get_statuses(InstanceIds))
-
-# response = ec2.describe_instance_status(
-#     InstanceIds=[
-#         'i-07d1d4fdbc613128e',
-#         'i-002fab3957bb03db7',
-#         'i-07d7b120ed7a4abff'
-#     ])
-
-# pp.pprint(response['InstanceStatuses'])
-
-
-
-# InstanceIds=[
-#         'i-07d1d4fdbc613128e',
-#         'i-002fab3957bb03db7',
-#         'i-07d7b120ed7a4abff'
-#     ]
-
-# waiter = client.get_waiter('stack_create_complete')
-# waiter.wait(StackName='databass')
-# print(waiter)
