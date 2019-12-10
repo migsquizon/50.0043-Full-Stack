@@ -107,6 +107,7 @@ if __name__ == '__main__':
         print(ids)
         if get_statuses(ids):
             dns = get_dns('databass')
+            print('waiting for databases to load data')
             time.sleep(60)#wait for 1 minute before polling
             while not is_db_ready(dns):#poll for flask backend to check if db is up
                 time.sleep(15)
