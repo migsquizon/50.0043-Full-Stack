@@ -122,8 +122,8 @@ def add_review(asin, json):
 def test_connection():
     keep_alive()
     try:
-        sql.is_connected()
-        return True
+        if len(test_sql())>0:
+            return True
     except:
         return False
 # add_review("123456", {
