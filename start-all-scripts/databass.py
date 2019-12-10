@@ -73,6 +73,7 @@ def get_statuses(ids):
     waiter2 = ec2.get_waiter('system_status_ok')
     waiter1.wait(InstanceIds=ids)
     waiter2.wait(InstanceIds=ids)
+    print('Instance ready')
     return True
 
 def destroy_stack(name):
@@ -87,6 +88,7 @@ def destroy_stack(name):
         print(e)
     
 def is_db_ready(dns):
+    print('Waiting for db to load')
     try:
         if requests.get('http://{}:5000/test/mongo'.format(dns)).status_code ==200 and \
         requests.get('http://{}:5000/test/sql'.format(dns)).status_code == 200:
