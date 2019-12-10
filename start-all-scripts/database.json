@@ -141,9 +141,17 @@
   },
 
   "Outputs" : {
-    "InstanceId" : {
+    "Flask" : {
       "Description" : "InstanceId of the newly created EC2 instance",
       "Value" : { "Ref" : "EC2Instance" }
+    },
+    "Mongo" : {
+      "Description" : "InstanceId of the newly created EC2 instance",
+      "Value" : { "Ref" : "MongoInstance" }
+    },
+    "MySql" : {
+      "Description" : "InstanceId of the newly created EC2 instance",
+      "Value" : { "Ref" : "MySqlInstance" }
     },
     "AZ" : {
       "Description" : "Availability Zone of the newly created EC2 instance",
