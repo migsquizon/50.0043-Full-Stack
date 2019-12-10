@@ -4,11 +4,11 @@
 
 # sudo ufw allow 80
 
-sudo apt-get update
+sudo apt update
 # node
 curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash
 
-sudo apt-get install -y nodejs
+sudo apt install -y nodejs
 
 # node --version
 
@@ -17,7 +17,7 @@ sudo apt-get install -y nodejs
 # python
 
 
-sudo apt-get install python3-pip
+sudo apt install python3-pip
 
 pip3 --version
 

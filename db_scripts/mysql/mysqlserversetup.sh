@@ -1,6 +1,6 @@
 #!/bin/bash
-sudo apt-get update
-sudo apt-get install mysql-server -y
+sudo apt update
+sudo apt install mysql-server -y
 sudo ufw enable 
 sudo ufw allow ssh
 sudo ufw allow mysql #allow sql firewall 
