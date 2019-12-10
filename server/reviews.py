@@ -27,7 +27,7 @@ def keep_alive():
 
 
 def test_sql():
-    keep_alive()
+    # keep_alive()
     cursor = sql.cursor(dictionary=True)
     cursor.execute("SELECT * FROM `Reviews` LIMIT 0, 10")
     res = cursor.fetchall()
