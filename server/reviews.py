@@ -120,10 +120,15 @@ def add_review(asin, json):
     return True
 
 def test_connection():
+    global init
     try:
         if len(test_sql())>0:
             return True
-    except:
+        else:
+            init = False
+    except Exception as e:
+        print(e)
+        init = False
         return False
 # add_review("123456", {
 #     "overall": 5,
