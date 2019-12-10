@@ -1,5 +1,7 @@
 import boto3
 import pprint
+import requests
+import time
 
 client = boto3.client('cloudformation')
 ec2 = boto3.client('ec2')
@@ -82,13 +84,27 @@ def destroy_stack(name):
         return True
     except Exception as e:
         print(e)
+    
+def is_db_ready(dns):
+    if requests.get('{}:5000/test/mongo'.format(dns)).status_code ==200 and \
+    requests.get('{}:5000/test/sql'.format(dns)).status_code == 200:
+        return True
+    else:
+        return False
+
+# destroy_stack('databass')
 
 if __name__ == '__main__':
     create_stack('databass')
     ids = get_instance_ids('databass')
+    print(ids)
     if get_statuses(ids):
-        print(get_dns('databass'))
-
+        dns = get_dns('databass')
+        time.sleep(60)#wait for 1 minute before polling
+        while not is_db_ready(dns):#poll for flask backend to check if db is up
+            time.sleep(15)
+        print("DNS OF FRONT END PAGE")
+        print("http://{}:3000".format(dns))
 
 
 
