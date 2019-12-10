@@ -120,7 +120,6 @@ def add_review(asin, json):
     return True
 
 def test_connection():
-    keep_alive()
     try:
         if len(test_sql())>0:
             return True
