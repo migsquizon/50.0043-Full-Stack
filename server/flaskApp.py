@@ -23,6 +23,21 @@ def token_required(f):
 			return 'Error: need a valid token for request',401
 	return wrapper
 
+@app.route('/test/<db>')
+def test_connected(db):
+	if db == 'sql':
+		if reviews.test_connection():
+			return 'ok',200
+		else:
+			return 'service unavailable',503
+	elif db == 'mongo':
+		if metadata.test_connection():
+			return 'ok',200
+		else:
+			return 'service unavailanle',503
+	else:
+		return 'No such db',400
+
 @app.route('/test_token')
 @token_required
 def test_token():

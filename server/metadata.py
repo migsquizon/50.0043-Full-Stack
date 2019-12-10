@@ -38,6 +38,13 @@ def get_summaries(limit=20):
 
 def test_mongo():
     return mongo['Kindle']['Metadata'].find_one()
+
+def test_connection():
+    try:
+        mongo.admin.command('ismaster')
+        return True
+    except:
+        return False
 # print(list(get_book_summary_list(["B0002IQ15S","B000FA5RE4"])))
 
 # metadata_collection = mongo['Kindle']['Metadata']

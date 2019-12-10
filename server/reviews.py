@@ -119,6 +119,13 @@ def add_review(asin, json):
     sql.commit()
     return True
 
+def test_connection():
+    keep_alive()
+    try:
+        sql.is_connected()
+        return True
+    except:
+        return False
 # add_review("123456", {
 #     "overall": 5,
 #     "reviewText": "test",
