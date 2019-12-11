@@ -34,6 +34,9 @@
       "Type" : "AWS::EC2::Instance",
       "Properties" : {
         "InstanceType" : {"Ref":"InstanceType"},
+        "CreditSpecification":{
+          "CPUCredits" : "standard"
+        },
         "Tags" : [
             {"Key" : "Name", "Value" : "FlaskMain"}
         ],
@@ -63,6 +66,9 @@
       "Type" : "AWS::EC2::Instance",
       "Properties" : {
         "InstanceType" : {"Ref":"InstanceType"},
+        "CreditSpecification":{
+          "CPUCredits" : "standard"
+        },
         "Tags" : [
             {"Key" : "Name", "Value" : "MySql"}
         ],
@@ -83,6 +89,9 @@
       "Type" : "AWS::EC2::Instance",
       "Properties" : {
         "InstanceType" : {"Ref":"InstanceType"},
+        "CreditSpecification":{
+          "CPUCredits" : "standard"
+        },
         "Tags" : [
             {"Key" : "Name", "Value" : "Mongo"}
         ],
