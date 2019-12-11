@@ -34,7 +34,7 @@ def create_stack(name):
                 },
                 {
                     'ParameterKey':'InstanceType',
-                    'ParameterValue':'t2.micro'
+                    'ParameterValue':'t3.small'
                 },
                 {
                     'ParameterKey':'SparkIP',
