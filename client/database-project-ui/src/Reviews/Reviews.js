@@ -55,15 +55,14 @@ function Reviews(props) {
               textColor: '#3B5260',
             })}
           />
+          
         </div>
         <div className="write-review-container">
-          <Button className="add-reading-list-button" onClick={(event) => goToReviewPage(event, props)}>Write a review</Button>
-
+          {localStorage.getItem('user') ? 
+            <Button className="add-reading-list-button" onClick={(event) => goToReviewPage(event, props)}>Write a review</Button>:
+            <div><a href="/login">Sign in</a> now to write a user review.</div>
+          }
         </div>
-        <div className="write-review-container">
-          Categories:
-        </div>
-
       </div>
 
       <div className="review-container">
