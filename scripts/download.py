@@ -43,7 +43,7 @@ def download_mongo():
 		for d in data:
 			print(d)
 			json.dump(d,f)
-
+			f.write("\n")
 	f.close()
 	return
 	# json
