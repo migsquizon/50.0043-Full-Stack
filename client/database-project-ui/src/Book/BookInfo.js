@@ -51,7 +51,7 @@ function BookInfo(props) {
   const [num_ratings, setNumRatings] = useState(0);
   const [price, setPrice] = useState(0);
   const [reviews, setReviews] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState("");
   const [also_bought, setAlsoBought] = useState([]);
   const [buy_after_viewing, setBuyAfterViewing] = useState([]);
 
@@ -78,9 +78,9 @@ function BookInfo(props) {
         setAuthor(payload.data.author);
       }
 
-      // if (payload.description) {
-      //   setDescription(payload.data.description);
-      // }
+      if (payload.data.description) {
+        setDescription(payload.data.description);
+      }
 
       //NOT YET IMPLEMENTED
       if (payload_ratings.data) {
@@ -104,7 +104,7 @@ function BookInfo(props) {
       }
 
       if (payload.data.categories) {
-        setCategories(payload.data.categories);
+        setCategory(payload.data.categories[0][1]);
       }
 
       if (payload.data.related) {
@@ -133,29 +133,44 @@ function BookInfo(props) {
               <span><Button className="btn-sm add-reading-list-button">Add to reading list</Button></span>
             </div>
             <div className="book-info-author">
-              <span style={{ 'color': '#B9C6CE' }}>by&nbsp;</span><span style={{ 'color': '#1D72A7' }}>{data.author}</span>
+              <span style={{ 'color': '#B9C6CE' }}>under&nbsp;</span><span style={{ 'color': '#1D72A7' }}>{category}</span>
             </div>
-            <div className="book-info-ratings">
-              <span>
-                <Ratings
-                  rating={rating}
-                  starDimension='15px'
-                />
-              </span>
-              <span>&nbsp;{num_ratings} Ratings</span>
-            </div>
+            {num_ratings > 0 ? 
+              <React.Fragment>
+                <div className="book-info-ratings">
+                  <span>
+                    <Ratings
+                      rating={rating}
+                      starDimension='15px'
+                    />
+                  </span>
+                  <span>&nbsp;{num_ratings} Ratings</span>
+                </div>
+              </React.Fragment> :
+              <React.Fragment>
+                <div className="book-info-ratings">
+                  This book currently has no ratings. Leave a <a href="">&nbsp;review?</a>
+                </div>
+              </React.Fragment>
+            }
+
             <div className="buy-amazon-container">
               <Button className="buy-amazon-button">
-                <div style={{ 'color': '#000000' }}>Buy on Amazon</div>
+                <div style={{ 'color': '#000000' }}>Price on Amazon</div>
                 <div style={{ 'color': '#831313', 'float': 'left', 'fontSize': '16px' }}><b>${price}</b></div>
               </Button>
             </div>
-            <div className="top-review">
-              "{data.top_review}"
-            </div>
-            <div className="top-review-username">
+            {description != '' && 
+              <React.Fragment>
+                <div className="top-review">
+                  {description}
+                </div>
+              </React.Fragment>
+            }
+            
+            {/* <div className="top-review-username">
               &#8212;<i>{data.top_review_username}, top review for {data.title}</i>
-            </div>
+            </div> */}
           </div>
         </div>
         <hr />
