@@ -61,10 +61,11 @@ function BookInfo(props) {
     (async () => {
       payload = await axios(process.env.REACT_APP_API_URL + "book/" + query + "?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5");
       var payload_num_ratings = await axios(process.env.REACT_APP_API_URL + "reviews/" + query + "?verbose=0");
-      var payload_ratings = await axios(process.env.REACT_APP_API_URL + "reviews/" + query + "?verbose=1")
-      console.log(payload_num_ratings);
-      console.log(payload_num_ratings.data[0].count);
-      console.log(payload_ratings);
+      var payload_ratings = await axios(process.env.REACT_APP_API_URL + "reviews/" + query + "?verbose=1");
+      console.log(payload)
+      // console.log(payload_num_ratings);
+      // console.log(payload_num_ratings.data[0].count);
+      // console.log(payload_ratings);
       // {payload.data.related.also_bought.map((book) => (
       //   console.log(book.asin)
       // ))}
@@ -77,14 +78,15 @@ function BookInfo(props) {
         setAuthor(payload.data.author);
       }
 
-      if (payload.description) {
-        setAuthor(payload.data.description);
-      }
+      // if (payload.description) {
+      //   setDescription(payload.data.description);
+      // }
 
       //NOT YET IMPLEMENTED
       if (payload_ratings.data) {
         setRating(payload_ratings.data);
       }
+
 
       if (payload_num_ratings.data[0].count) {
         setNumRatings(payload_num_ratings.data[0].count);
@@ -157,28 +159,36 @@ function BookInfo(props) {
           </div>
         </div>
         <hr />
-        <div className="readers-also-viewed">Readers also viewed</div>
-        <div className="carousel-container">
-          <BookCarousel 
-            data={also_bought}
-          />
-        </div>
-        <hr />
-        <div className="readers-also-viewed">Reviews</div>
-        <div className="review-container-main-page">
-          <Reviews 
-            data={reviews}
-            rating={rating}
-          />
-        </div>
-        <hr />
-        <div className="readers-also-viewed">Because you viewed this book</div>
-        <div className="carousel-container">
-          <BookCarousel 
-            data={buy_after_viewing}
-          />
-
-        </div>
+        {also_bought.length > 0 && 
+          <React.Fragment>
+            <div className="readers-also-viewed">Readers also viewed</div>
+            <div className="carousel-container">
+              <BookCarousel 
+                data={also_bought}
+              />
+            </div>
+            <hr />  
+          </React.Fragment>}
+        {reviews.length > 0 && 
+          <React.Fragment>
+            <div className="readers-also-viewed">Reviews</div>
+            <div className="review-container-main-page">
+              <Reviews 
+                data={reviews}
+                rating={rating}
+              />
+            </div>
+            <hr />
+          </React.Fragment>}
+        {buy_after_viewing.length > 0 && 
+          <React.Fragment>
+            <div className="readers-also-viewed">Because you viewed this book</div>
+            <div className="carousel-container">
+              <BookCarousel 
+                data={buy_after_viewing}
+              />
+            </div>
+          </React.Fragment>}
       </div>
 
       
