@@ -15,11 +15,16 @@ sql = db.connect(host="3.0.139.44", user="root", db="Reviews")
 
 def download_sql():
 	cursor = sql.cursor(dictionary=True)
-	cursor.execute("""SELECT * FROM `Reviews` """)
+	cursor.execute(""" SELECT * FROM `Reviews` """)
 	rows = cursor.fetchall()
+
 	fp = open('file.csv', 'w')
 	myFile = csv.writer(fp)
-	myFile.writerows(rows)
+	for row in rows:
+		# print(type(row))
+		print(row.values())
+		myFile.writerow(list(row.values()))
+		# print(feature)
 	fp.close()
 
 
