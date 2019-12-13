@@ -4,9 +4,9 @@ from datetime import date
 import csv
 from bson import BSON
 from bson import json_util
-
 from pymongo import MongoClient
 import re
+import json
 
 mongo = MongoClient("mongodb://18.140.5.194")
 
@@ -36,8 +36,8 @@ def download_sql():
 
 def download_mongo():
    metadata_collection = mongo['Kindle']['Metadata']
-   cursor = metadata_collection.find({})
-   data = json_util.dumps(cursor)
+   cursor = metadata_collection.find_one({},{'_id':False})
+   data =  cursor #json_util.dumps(cursor)
    with open('datanew.json','w') as f:
         json.dump(data,f)
 
@@ -45,6 +45,6 @@ def download_mongo():
 print('saving now')
 download_sql()
 print('sql done')
-#download_mongo()
+download_mongo()
 print('mongo done')
 
