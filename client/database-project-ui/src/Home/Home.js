@@ -56,6 +56,7 @@ function Home(props) {
                 <BookCard
                   asin={book.asin}
                   imUrl={book.imUrl}
+                  rating={book.rating}
                 />
               ))}
             </div>
