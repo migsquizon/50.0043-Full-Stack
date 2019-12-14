@@ -6,37 +6,49 @@ Innovating the book review industry
 ## Setup
 There is no need to clone the whole repository. However all scripts in the start-all-scripts folder need to be in the same folder and ran within the folder itself.
 
+Download `start-all-scripts` folder.  
+We use [fLintrocK](https://github.com/nchammas/flintrock) to setup our apache and hadoop backend.\
+It then uses [AWS Cloudformation](https://aws.amazon.com/cloudformation/) which is a declarative language for setting up AWS resources. You can take a look at `database.json` to see how the resources are created.
 
+To setup flask,mysql,mongo
 ```
-Download scripts script to be filled
-```
-
-Download `start-all-scripts` folder and run startall.sh\
-startall.sh uses [fLintrocK](https://github.com/nchammas/flintrock) to setup our apache and hadoop backend.\
-It then uses [AWS Cloudformation](https://aws.amazon.com/cloudformation/) which is a declarative language for setting up AWS resources. You can take a look at database.json to see how the resources are created.
-```
-./startall.sh
+python3 databass.py start
 ```
 The only two AMIs that we use are `ami-061eb2b23f9f8839c` which is a blank Ubuntu image and `ami-07539a31f72d244e7` which is a blank Amazon Linux 2.
 
-After running `startall.sh` the program will take some time to setup ~10 minutes. As it will setup MySql MongoDB Flask and Apache Spark Namenode and Datanode on different servers. There is no need to key in IP addresses as all IP addresses has been keyed in for you. Because of this is is important that you **do not** restart any of the instances as the IP address of the current instance would change.
+We chose to run Flask,MySql and MongoDB in t3.small. t3.small has a higher bandwidth than t2.medium at half the price and the main bottleneck is the internet speed for downloading data and dependencies. Please **DO NOT** change the instance type as occasionally we would get http 503 unavailable on some dependencies when running on instances with a lower bandwidth. Also **DO NOT** restart any of the instances as all IPs are binded at start and restarting will reset the IPs.
+
 
 ## Viewing application
-Running the `dns.sh` after a while would give you the dns of our frontend application. Note that the order of setting up might not be in order **so the flask app might be ready while mysql is not ready**. Please it give time for it to setup. 
+Just wait after running the start scripts.
+DNS of frontend will be printed as soon as possible when it is ready.\
+SAMPLE OUTPUT
 ```
-./dns.sh
+creating cloud formation stack
+stack created
+['i-0edd1fc15cf8b4899', 'i-0c4ff56f1d9fc42f5', 'i-097ba40aa025db785']
+waiting for instances to be ready
+Instance ready
+waiting for databases to load data
+Waiting for db to load
+Waiting for db to load
+Waiting for db to load
+Waiting for db to load
+Waiting for db to load
+Waiting for db to load
+Waiting for db to load
+front end page
+http://ec2-13-229-123-250.ap-southeast-1.compute.amazonaws.com:3000
 ```
 
 How to view part 3 here too.
 ## Destroy scripts
-After you are done you can run `destroyall.sh` which destroys all resources that we created including security groups and ec2 instances.
+After you are done you can run the destroy script which destroys all resources that we created including security groups and ec2 instances.
 ```
-./destroyall.sh
+python3 databass.py destroy
 ```
 
 # Setting up Development Environment
-
-
 ## Setting up backend
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.

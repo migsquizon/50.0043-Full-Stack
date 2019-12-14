@@ -30,7 +30,7 @@ def create_stack(name):
             TemplateBody=template,Parameters=[
                 {
                     'ParameterKey':'KeyName',
-                    'ParameterValue':'miguelcanlas'
+                    'ParameterValue':'gary-ong'
                 },
                 {
                     'ParameterKey':'InstanceType',
