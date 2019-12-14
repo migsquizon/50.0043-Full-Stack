@@ -65,23 +65,23 @@ export class AuthProvider extends Component {
   }
 
   login = (credentials) => {
-    console.log(credentials);
+    //console.log(credentials);
     axios.post(process.env.REACT_APP_API_URL + 'signin', credentials)
       .then(response => {
-        console.log(response)
+        //console.log(response)
         if (response.status === 200) {
           const { token, first_name, last_name, username } = response.data;
-          console.log(token)
+          //console.log(token)
           localStorage.setItem("token", token);
           localStorage.setItem("user", true);
           
-          console.log(localStorage.getItem("user"));
+          //console.log(localStorage.getItem("user"));
           localStorage.setItem("first_name", first_name);
           localStorage.setItem("last_name", last_name);
           localStorage.setItem("username", username);
 
           return true; // only if login suceeds
-        } else if (response.status === 400) {
+        } else {
           return false;
         }
 

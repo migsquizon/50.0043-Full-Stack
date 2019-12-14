@@ -42,7 +42,6 @@ class Login extends Component {
       this.props.history.push("/");  
      } else {
        this.setState({error: "Sorry, you have entered the wrong password."});
-
      }
 
    }

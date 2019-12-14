@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import StarRatings from 'react-star-ratings';
 import { Row, Col, Button } from 'react-bootstrap';
 import  { withContext } from '../Auth/AuthContext';
