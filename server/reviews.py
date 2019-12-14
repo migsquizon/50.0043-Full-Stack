@@ -135,6 +135,25 @@ def get_overalls(asin_arr):
     result = cursor.fetchall()
     return dict(result)
 
+def append_ratings(meta_ls):
+    """
+    meta_ls -> list of metadata dictionaries -> must contain asin
+    inplace editing on list/dictionary itself so no need to return anything 
+    avoid overhead of deepcopying 
+    """
+    asin_arr = []
+    for meta in meta_ls:
+        asin = meta['asin']
+        asin_arr.append(asin)
+    overalls_dic = get_overalls(asin_arr)
+    for meta in meta_ls:
+        asin = meta['asin']
+        if asin in overalls_dic:
+            meta['rating'] = float(overalls_dic[asin])
+        else:
+            meta['rating'] = 0
+
+
 def test_connection():
     global init
     try:

@@ -58,7 +58,11 @@ def home():
 	"""
 	try:
 		number = request.args.get('number',default=20,type=int)
-		return dumps(metadata.get_summaries(number))
+		#must list as it is a cursor object
+		summaries = list(metadata.get_summaries(number))
+		reviews.append_ratings(summaries)
+
+		return dumps(summaries)
 	except Exception as e:
 			print(e)
 			return {"Exception":str(e)},500
@@ -73,7 +77,10 @@ def home_category(category):
 	"""
 	try:
 		number = request.args.get('number',default=20,type=int)
-		return dumps(metadata.get_books_by_category(category,number))
+		books = list(metadata.get_books_by_category(category,number))
+		print(books[0])
+		reviews.append_ratings(books)
+		return dumps(books)
 	except Exception as e:
 			print(e)
 			return {"Exception":str(e)},500
