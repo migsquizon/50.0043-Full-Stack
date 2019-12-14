@@ -1,0 +1,3 @@
+[submodule "Database-Start-Scripts"]
+	path = Database-Start-Scripts
+	url = https://github.com/garyongguanjie/Database-Start-Scripts.git

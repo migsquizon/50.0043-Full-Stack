@@ -105,11 +105,20 @@ def get_book_by_asin(asin):
 			if 'related' in main_book:
 				if 'also_bought' in main_book['related']:
 					alsoboughtls = main_book['related']['also_bought']
-					ls = list(metadata.get_book_summary_list(alsoboughtls,also_bought))
+					summaries =  metadata.get_book_summary_list(alsoboughtls,also_bought)
+					#need to test this part when adding new book
+					if summaries != None:
+						ls = list(metadata.get_book_summary_list(alsoboughtls,also_bought))
+					else:
+						ls = []
 					main_book['related']['also_bought'] = ls
 				if 'buy_after_viewing' in main_book['related']:
 					buyafterviewingls = main_book['related']['buy_after_viewing']
-					ls1 = list(metadata.get_book_summary_list(buyafterviewingls,buy_after_viewing))
+					summaries = metadata.get_book_summary_list(buyafterviewingls,buy_after_viewing)
+					if summaries != None:
+						ls1 = list(metadata.get_book_summary_list(buyafterviewingls,buy_after_viewing))
+					else:
+						ls1 = []
 					main_book['related']['buy_after_viewing'] = ls1
 				main_book['reviews'] = reviews.get_reviews(asin,num_reviews)
 			return dumps(main_book)
