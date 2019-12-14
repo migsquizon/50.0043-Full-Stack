@@ -5,7 +5,6 @@ from app import app
 import time
 sql_ip = app.config['SQL_IP']
 print(sql_ip)
-
 init = False
 sql = None
 def keep_alive():
@@ -123,6 +122,19 @@ def add_review(asin, json):
     sql.commit()
     return True
 
+def get_overalls(asin_arr):
+    """
+    params asin_arr -> array of asin to get average overall rating
+    returns dictionary asin->average rating
+    """
+    keep_alive()
+    cursor = sql.cursor()
+    #done to prevent accidental sql injection
+    sql_string = """SELECT asin,avg(overall) as 'avg' FROM `Reviews`WHERE asin IN ({}) GROUP BY ASIN;""".format(', '.join(list(map(lambda x: '%s', asin_arr))))
+    cursor.execute(sql_string, asin_arr)
+    result = cursor.fetchall()
+    return dict(result)
+
 def test_connection():
     global init
     try:
@@ -134,6 +146,8 @@ def test_connection():
         print(e)
         init = False
         return False
+
+# print(get_overalls(['B000F83SZQ','B000FA64PA']))
 # add_review("123456", {
 #     "overall": 5,
 #     "reviewText": "test",
