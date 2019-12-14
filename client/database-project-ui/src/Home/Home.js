@@ -34,18 +34,18 @@ function Home(props) {
             <div className="sidebar-container">
               <Nav 
                 activeKey={key}
-                className="sidebar-nav"
+                className="flex-column"
                 onSelect= {key => setKey(key)}  
               >
-                <Nav.Link className="ticket-selection" eventKey="top"><div><span>Books That We Love</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="kindle"><div><span>Best Seller</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="books"><div><span>Latest Releases</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="romance"><div><span>Romance</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="fantasy"><div><span>Fantasy</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="thriller"><div><span>Thriller</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="horror"><div><span>Horror</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="fiction"><div><span>Fiction</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="politics"><div><span>Politics</span><span className="number-of-tickets"></span></div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="top"><div>Books That We Love</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="kindle"><div>Best Seller</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="books"><div>Latest Releases</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="romance"><div>Romance</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="fantasy"><div>Fantasy</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="thriller"><div>Thriller</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="horror"><div>Horror</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="fiction"><div>Fiction</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="politics"><div>Politics</div></Nav.Link>
               </Nav>
             </div>
 
@@ -56,6 +56,7 @@ function Home(props) {
                 <BookCard
                   asin={book.asin}
                   imUrl={book.imUrl}
+                  rating={book.rating}
                 />
               ))}
             </div>

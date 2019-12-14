@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import StarRatings from 'react-star-ratings';
 import { Row, Col, Button } from 'react-bootstrap';
 import  { withContext } from '../Auth/AuthContext';
@@ -15,27 +15,6 @@ console.log(process.env);
 //API_URL = "http://13.229.185.245:5000/book/B009EALX3K?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
 var payload = [];
 
-const data = {
-  "asin": "0000031852",
-  "title": "Girls Ballet Tutu Zebra Hot Pink",
-  "author": "Bella Forrest",
-  "rating": 4.3,
-  "num_ratings": 35,
-  "price": 3.17,
-  "imUrl": "https://images-na.ssl-images-amazon.com/images/I/41F5kmyiPsL._SX329_BO1,204,203,200_.jpg",
-  "related":
-  {
-    "also_bought": ["B00JHONN1S", "B002BZX8Z6", "B00D2K1M3O", "0000031909", "B00613WDTQ", "B00D0WDS9A", "B00D0GCI8S", "0000031895", "B003AVKOP2", "B003AVEU6G", "B003IEDM9Q", "B002R0FA24", "B00D23MC6W", "B00D2K0PA0", "B00538F5OK", "B00CEV86I6", "B002R0FABA", "B00D10CLVW", "B003AVNY6I", "B002GZGI4E", "B001T9NUFS", "B002R0F7FE", "B00E1YRI4C", "B008UBQZKU", "B00D103F8U", "B007R2RM8W"],
-    "also_viewed": ["B002BZX8Z6", "B00JHONN1S", "B008F0SU0Y", "B00D23MC6W", "B00AFDOPDA", "B00E1YRI4C", "B002GZGI4E", "B003AVKOP2", "B00D9C1WBM", "B00CEV8366", "B00CEUX0D8", "B0079ME3KU", "B00CEUWY8K", "B004FOEEHC", "0000031895", "B00BC4GY9Y", "B003XRKA7A", "B00K18LKX2", "B00EM7KAG6", "B00AMQ17JA", "B00D9C32NI", "B002C3Y6WG", "B00JLL4L5Y", "B003AVNY6I", "B008UBQZKU", "B00D0WDS9A", "B00613WDTQ", "B00538F5OK", "B005C4Y4F6", "B004LHZ1NY", "B00CPHX76U", "B00CEUWUZC", "B00IJVASUE", "B00GOR07RE", "B00J2GTM0W", "B00JHNSNSM", "B003IEDM9Q", "B00CYBU84G", "B008VV8NSQ", "B00CYBULSO", "B00I2UHSZA", "B005F50FXC", "B007LCQI3S", "B00DP68AVW", "B009RXWNSI", "B003AVEU6G", "B00HSOJB9M", "B00EHAGZNA", "B0046W9T8C", "B00E79VW6Q", "B00D10CLVW", "B00B0AVO54", "B00E95LC8Q", "B00GOR92SO", "B007ZN5Y56", "B00AL2569W", "B00B608000", "B008F0SMUC", "B00BFXLZ8M"],
-    "bought_together": ["B002BZX8Z6"]
-  },
-  "salesRank": { "Toys & Games": 211836 },
-  "brand": "Coxlures",
-  "categories": [["Sports & Outdoors", "Other Sports", "Dance"]],
-  "top_review": "Another fascinating and eye opening read by my favorite anchor/reporter/ hero. An important addition to her previous book this one focuses on the oil and gas industries. Russia, Tillerson Exon Mobil are all exposed and it’s a mouth gaping account of corporate greed, lies and how we need to act now, before it’s too late.",
-  "top_review_username": "noobkenneth",
-}
-
 function getTopReview() {
   
 }
@@ -48,22 +27,24 @@ function BookInfo(props) {
   const [description, setDescription] = useState("");
   const [imUrl, setImUrl] = useState("");
   const [rating, setRating] = useState(0);
-  const [num_rating, setNumRating] = useState(0);
+  const [num_ratings, setNumRatings] = useState(0);
   const [price, setPrice] = useState(0);
   const [reviews, setReviews] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState("");
   const [also_bought, setAlsoBought] = useState([]);
   const [buy_after_viewing, setBuyAfterViewing] = useState([]);
 
   useEffect(() => { 
     var query = props.getQuery();
-    console.log(query);
     //URL = process.env.REACT_APP_API_URL + "book/" + query + "?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
     (async () => {
       payload = await axios(process.env.REACT_APP_API_URL + "book/" + query + "?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5");
-      console.log(payload);
-      console.log(payload.data.asin);
-      console.log("HELLO");
+      var payload_num_ratings = await axios(process.env.REACT_APP_API_URL + "reviews/" + query + "?verbose=0");
+      var payload_ratings = await axios(process.env.REACT_APP_API_URL + "reviews/" + query + "?verbose=1");
+      console.log(payload)
+      // console.log(payload_num_ratings);
+      // console.log(payload_num_ratings.data[0].count);
+      // console.log(payload_ratings);
       // {payload.data.related.also_bought.map((book) => (
       //   console.log(book.asin)
       // ))}
@@ -76,17 +57,18 @@ function BookInfo(props) {
         setAuthor(payload.data.author);
       }
 
-      if (payload.description) {
-        setAuthor(payload.data.description);
+      if (payload.data.description) {
+        setDescription(payload.data.description);
       }
 
       //NOT YET IMPLEMENTED
-      if (payload.rating) {
-        setRating(payload.rating);
+      if (payload_ratings.data) {
+        setRating(payload_ratings.data);
       }
 
-      if (payload.num_rating) {
-        setNumRating(payload.num_rating);
+
+      if (payload_num_ratings.data[0].count) {
+        setNumRatings(payload_num_ratings.data[0].count);
       }
 
       setAsin(payload.data.asin);
@@ -101,7 +83,7 @@ function BookInfo(props) {
       }
 
       if (payload.data.categories) {
-        setCategories(payload.data.categories);
+        setCategory(payload.data.categories[0][1]);
       }
 
       if (payload.data.related) {
@@ -130,53 +112,89 @@ function BookInfo(props) {
               <span><Button className="btn-sm add-reading-list-button">Add to reading list</Button></span>
             </div>
             <div className="book-info-author">
-              <span style={{ 'color': '#B9C6CE' }}>by&nbsp;</span><span style={{ 'color': '#1D72A7' }}>{data.author}</span>
+              <span style={{ 'color': '#B9C6CE' }}>under&nbsp;</span><span style={{ 'color': '#1D72A7' }}>{category}</span>
             </div>
-            <div className="book-info-ratings">
-              <span>
-                <Ratings
-                  rating={data.rating}
-                  starDimension='15px'
-                />
-              </span>
-              <span>&nbsp;{data.num_ratings} Ratings</span>
-            </div>
+            {num_ratings > 0 ? 
+              <React.Fragment>
+                <div className="book-info-ratings">
+                  <span>
+                    <Ratings
+                      rating={rating}
+                      starDimension='15px'
+                    />
+                  </span>
+                  <span>&nbsp;{num_ratings} Ratings</span>
+                </div>
+              </React.Fragment> :
+              <React.Fragment>
+                {localStorage.getItem('user') ? 
+                <div className="book-info-ratings">
+                  This book currently has no ratings. Leave a <a href="/add-review">&nbsp;review?</a>
+                </div> :
+                <div className="book-info-ratings">
+                  This book currently has no ratings. &nbsp;<a href="/login">Sign in</a> &nbsp;to add a review.
+                </div>}
+              </React.Fragment>
+            }
+
             <div className="buy-amazon-container">
               <Button className="buy-amazon-button">
-                <div style={{ 'color': '#000000' }}>Buy on Amazon</div>
-                <div style={{ 'color': '#831313', 'float': 'left', 'fontSize': '16px' }}><b>${price}</b></div>
+                <div style={{ 'color': '#000000' }}>Price on Amazon</div>
+          <div style={{ 'color': '#831313', 'float': 'left', 'fontSize': '16px' }}>{price > 0 ? <b>${price}</b> : <b>NA</b>}</div>
               </Button>
             </div>
-            <div className="top-review">
-              "{data.top_review}"
-            </div>
-            <div className="top-review-username">
+            {description != '' && 
+              <React.Fragment>
+                <div className="top-review">
+                  {description}
+                </div>
+              </React.Fragment>
+            }
+            
+            {/* <div className="top-review-username">
               &#8212;<i>{data.top_review_username}, top review for {data.title}</i>
-            </div>
+            </div> */}
           </div>
         </div>
         <hr />
-        <div className="readers-also-viewed">Readers also viewed</div>
-        <div className="carousel-container">
-          <BookCarousel 
-            data={also_bought}
-          />
-        </div>
-        <hr />
-        <div className="readers-also-viewed">Reviews</div>
-        <div className="review-container-main-page">
-          <Reviews 
-            data={reviews}
-          />
-        </div>
-        <hr />
-        <div className="readers-also-viewed">Because you viewed this book</div>
-        <div className="carousel-container">
-          <BookCarousel 
-            data={buy_after_viewing}
-          />
-
-        </div>
+        {also_bought.length > 0 && 
+          <React.Fragment>
+            <div className="readers-also-viewed">Readers also viewed</div>
+            <div className="carousel-container">
+              <BookCarousel 
+                data={also_bought}
+              />
+            </div>
+            <hr />  
+          </React.Fragment>}
+        {reviews.length > 0 ? 
+          <React.Fragment>
+            <div className="readers-also-viewed">Reviews</div>
+            <div className="review-container-main-page">
+              <Reviews 
+                data={reviews}
+                rating={rating}
+              />
+            </div>
+            <hr />
+          </React.Fragment> :
+          <React.Fragment>
+            <div className="readers-also-viewed">Reviews</div>
+            <div className="review-container-main-page">
+              There are no user reviews yet.
+            </div>
+            <hr />
+          </React.Fragment>
+        }
+        {buy_after_viewing.length > 0 && 
+          <React.Fragment>
+            <div className="readers-also-viewed">Because you viewed this book</div>
+            <div className="carousel-container">
+              <BookCarousel 
+                data={buy_after_viewing}
+              />
+            </div>
+          </React.Fragment>}
       </div>
 
       

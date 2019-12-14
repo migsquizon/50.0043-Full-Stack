@@ -22,7 +22,7 @@ hr {
 }
 
 .book-img-container-lg img {
-    max-width: 220px;
+    max-width: 420px;
 }
 
 .book-info-container {
@@ -36,7 +36,7 @@ hr {
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
-    display: inline-flex;
+    display: flex;
     font-size: 1rem;
     font-family: 'AcuminProRegular';
     justify-content: flex-start;

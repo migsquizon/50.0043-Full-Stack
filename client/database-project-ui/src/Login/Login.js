@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+// import { Formik } from 'formik';
 import { Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -23,7 +24,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {username: '',
-                  password: ''};
+                  password: '',
+                  error: ''};
     
     this.handleChange = this.handleChange.bind(this);
     this.onLogin = this.onLogin.bind(this);
@@ -36,8 +38,12 @@ class Login extends Component {
        password: this.state.password
      }
      e.preventDefault();
-     this.props.login(payload);
-     this.props.history.push("/");  
+     if (this.props.login(payload)) {
+      this.props.history.push("/");  
+     } else {
+       this.setState({error: "Sorry, you have entered the wrong password."});
+     }
+
    }
   
   handleChange(event) {
@@ -101,12 +107,13 @@ class Login extends Component {
                         value={values.password}
                         onChange={this.handleChange}
                         isInvalid={!!errors.password}
+      
                       />
                       <Form.Control.Feedback type="invalid">
-                        {errors.password}
+                        {errors.pass}
                       </Form.Control.Feedback>
                     </Form.Group>
-                    
+                    {this.state.error && <div>{this.state.error}</div>}
                     <Button variant="primary" type="submit" onClick={(event) => this.onLogin(event)}>
                       Sign in to your account
                     </Button>
@@ -115,6 +122,7 @@ class Login extends Component {
                 </Form>
                 )}
               </Formik>
+
               <p>Don't have an account? <Link to='/register'>Sign up</Link></p>
           </Col>
           <Col></Col>
