@@ -23,14 +23,14 @@ def stack_exists(stack_name):
             return True
     return False
 
-def create_stack(name):
+def create_stack(name,keyname):
     if not stack_exists(name):
         template = parse_template('database.json')
         client.create_stack(StackName=name,\
             TemplateBody=template,Parameters=[
                 {
                     'ParameterKey':'KeyName',
-                    'ParameterValue':'gary-ong'
+                    'ParameterValue':'{}'.format(keyname)
                 },
                 {
                     'ParameterKey':'InstanceType',
@@ -102,9 +102,11 @@ def is_db_ready(dns):
 
 if __name__ == '__main__':
     if sys.argv[1] == 'start':
-        create_stack('databass')
+        key_name = input("enter key_name:")
+        create_stack('databass',key_name)
         ids = get_instance_ids('databass')
         print(ids)
+     
         if get_statuses(ids):
             dns = get_dns('databass')
             print('waiting for databases to load data')
