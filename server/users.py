@@ -1,7 +1,10 @@
 from pymongo import MongoClient
 from passlib.hash import pbkdf2_sha256
+from app import app
 
-mongo = MongoClient("mongodb://18.140.90.36:27017",username = 'Admin',password = 'yckcmkg')
+mongo_ip = app.config['MONGO_IP']
+print(mongo_ip)
+mongo = MongoClient(f"mongodb://{mongo_ip}:27017")
 
 def get_user_details(username):
     cursor = mongo['Kindle']['user_data'].find({'username':username},{'_id':0})
@@ -30,8 +33,6 @@ def verify_user_password(signin,database):
     if(pbkdf2_sha256.verify(signin,database)):
         return True
     return False
-
-
 
 # print(get_user_details('miguel'))
 # add_user({"username":'admin',"password":'imnotgoingrockafall'})
