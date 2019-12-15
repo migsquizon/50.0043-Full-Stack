@@ -13,7 +13,13 @@ cd client
 
 cd database-project-ui
 
-npm install
+EXIT_STATUS=1
+while [ "$EXIT_STATUS" -ne "0" ]
+do
+    npm install
+    EXIT_STATUS=$?
+done
+
 
 nohup npm start > react_debug.txt &
 
