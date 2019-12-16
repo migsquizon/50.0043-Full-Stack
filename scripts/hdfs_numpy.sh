@@ -16,6 +16,6 @@ flintrock run-command --master-only databass_cluster \
 	pip3 install pymongo --user &&\
 	wget https://github.com/migsquizon/50.0043-Full-Stack/raw/automation/scripts/etf/pearson.py &&\
 	wget https://github.com/migsquizon/50.0043-Full-Stack/raw/automation/scripts/etf/download.py &&\
-	python3 download.py $1 &&\
+	python3 download.py $1 $2 &&\
 	pip3 install flask --user"
 	

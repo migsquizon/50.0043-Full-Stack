@@ -57,9 +57,9 @@ def get_instance_ids(name):
             ls.append(output['OutputValue'])
     return ls
 
-def get_dns(name):
+def get_dns(name,dns):
     for output in client.describe_stacks(StackName=name)['Stacks'][0]['Outputs']:
-        if output['OutputKey'] == 'PublicDNS':
+        if output['OutputKey'] == dns:
             DNS = output['OutputValue']
             break
     return DNS
@@ -109,13 +109,20 @@ if __name__ == '__main__':
         print(ids)
      
         if get_statuses(ids):
-            dns = get_dns('databass')
+            dns = get_dns('databass','ReactDNS')
             print('waiting for databases to load data')
             time.sleep(60)#wait for 1 minute before polling
             while not is_db_ready(dns):#poll for flask backend to check if db is up
                 time.sleep(15)
             print("front end page")
             print("{}:3000".format(dns))
+            print('sql dns:')
+            sqldns = get_dns('databass','SqlDNS')
+            print(sqldns)
+            print('mongo dns:')
+            mongodns = get_dns('databass','MongoDNS')
+            print(mongodns)
+
     elif sys.argv[1] == 'destroy':
         destroy_stack('databass')
 

@@ -172,13 +172,21 @@
       "Description" : "Availability Zone of the newly created EC2 instance",
       "Value" : { "Fn::GetAtt" : [ "EC2Instance", "AvailabilityZone" ] }
     },
-    "PublicDNS" : {
+    "ReactDNS" : {
       "Description" : "Public DNSName of the newly created EC2 instance",
       "Value" : { "Fn::GetAtt" : [ "EC2Instance", "PublicDnsName" ] }
     },
     "PublicIP" : {
       "Description" : "Public IP address of the newly created EC2 instance",
       "Value" : { "Fn::GetAtt" : [ "EC2Instance", "PublicIp" ] }
+    },
+     "MongoDNS" : {
+      "Description" : "Public DNSName of the newly created EC2 instance",
+      "Value" : { "Fn::GetAtt" : [ "MongoInstance", "PublicDnsName" ] }
+    },
+     "SqlDNS" : {
+      "Description" : "Public DNSName of the newly created EC2 instance",
+      "Value" : { "Fn::GetAtt" : [ "MySqlInstance", "PublicDnsName" ] }
     }
   }
 }

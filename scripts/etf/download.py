@@ -9,10 +9,11 @@ import re
 import json
 import sys
 #mongo = MongoClient("mongodb://18.140.5.194")
-dns = sys.argv[1]
-mongo = MongoClient(dns)
+dns_mongo = sys.argv[1]
+dns_sql = sys.argv[2]
+mongo = MongoClient(dns_mongo)
 #sql = db.connect(host="3.0.139.44", user="root", db="Reviews")
-sql = db.connect(host=dns, user="root", db="Reviews")
+sql = db.connect(host=dns_sql, user="root", db="Reviews")
 
 
 def download_sql():
