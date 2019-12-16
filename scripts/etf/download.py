@@ -7,11 +7,12 @@ from bson import json_util
 from pymongo import MongoClient
 import re
 import json
-
+import sys
 #mongo = MongoClient("mongodb://18.140.5.194")
-mongo = MongoClient("ec2-52-221-193-182.ap-southeast-1.compute.amazonaws.com")
+dns = sys.argv[1]
+mongo = MongoClient(dns)
 #sql = db.connect(host="3.0.139.44", user="root", db="Reviews")
-sql = db.connect(host="ec2-54-169-101-36.ap-southeast-1.compute.amazonaws.com", user="root", db="Reviews")
+sql = db.connect(host=dns, user="root", db="Reviews")
 
 
 def download_sql():

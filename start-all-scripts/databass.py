@@ -96,6 +96,7 @@ def is_db_ready(dns):
         else:
             return False
     except Exception as e:
+        # print(e)
         return False
 
 # destroy_stack('databass')
