@@ -115,7 +115,7 @@ if __name__ == '__main__':
             while not is_db_ready(dns):#poll for flask backend to check if db is up
                 time.sleep(15)
             print("front end page")
-            print("http://{}:3000".format(dns))
+            print("{}:3000".format(dns))
     elif sys.argv[1] == 'destroy':
         destroy_stack('databass')
 
