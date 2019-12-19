@@ -26,6 +26,7 @@ class AddReview extends Component {
       rating: 0,
       description: "",
       reviewerID: "A",
+      message: "    "
     }
   }
   
@@ -71,8 +72,12 @@ class AddReview extends Component {
       };
     return axios.post(process.env.REACT_APP_API_URL + `book/${bookreview.title}`,  bookreview )
     .then(res => {
+        if (res.status === 200) {
+            this.setState({ message: "Review successfully submitted!" })
+        } else {
+            this.setState({ message: "Oh no, something seems to be wrong!" })
+        }
         console.log(res);
-        console.log(res.data);
     })
   }
 
@@ -138,6 +143,8 @@ class AddReview extends Component {
                 this.state.errorMessage &&
                 <p style={{color: "red"}}>{this.state.errorMessage}</p>
               } 
+              {this.state.message && <div>{this.state.message}</div>}
+              <br />
               <Button variant="secondary" onClick={this.state.errorMessage ? (this.handleCloseLogin) : (this.handleShowLogin)} type="submit">
                 Submit
               </Button>
