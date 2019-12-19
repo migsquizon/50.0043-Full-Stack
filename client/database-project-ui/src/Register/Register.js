@@ -72,11 +72,13 @@ class Register extends Component {
     // this.props.history.push("/");
 
     this.props.register(payload).then( res =>{
+      console.log(res)
       if (res) {
        this.props.refresh();
        this.props.history.push("/"); 
       } else {
        this.setState({error: "Sorry, an error has occurred."});
+       console.log(this.state.error);
     }})
   }
   
@@ -222,7 +224,7 @@ class Register extends Component {
                           {errors.confirmPassword}
                         </Form.Control.Feedback>
                       </Form.Group> 
-
+                      {this.state.error && <div>{this.state.error}</div>}
                       {/* <ReCAPTCHA
                         sitekey={process.env.REACT_APP_GOOGLE_CAPTCHA_SITE_KEY}
                       /> */}

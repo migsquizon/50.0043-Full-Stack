@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withContext } from '../Auth/AuthContext';
 import { withRouter } from 'react-router-dom';
 import Ratings from '../Extras/Ratings';
+import StarRatings from 'react-star-ratings';
 import { Modal, Button, Form } from 'react-bootstrap';
 
 class AddReview extends Component {
@@ -12,7 +13,7 @@ class AddReview extends Component {
     this.handleCloseLogin = this.handleCloseLogin.bind(this);
     this.handleShowError = this.handleShowError.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.onLogin = this.onLogin.bind(this);
+    this.changeRating = this.changeRating.bind(this);
 
 
     
@@ -30,6 +31,12 @@ class AddReview extends Component {
     const { name, value } = e.target;
     this.setState({
       [name]: value
+    });
+  }
+
+  changeRating( newRating, name ) {
+    this.setState({
+      rating: newRating
     });
   }
   
@@ -52,45 +59,7 @@ class AddReview extends Component {
   }
 
 
-  
-  onLogin = (e) => {
-    const payload = {
-      loginEmail: this.state.loginEmail,
-      loginPassword: this.state.loginPassword
-    }
-    e.preventDefault();
-    var loginEmail = this.state.loginEmail;
 
-    if (loginEmail.includes("@accenture")) {
-      this.props.adminLogin(this.state)
-      this.props.history.push("/admin/dashboard/");    
-        //.catch(err => {
-        //  this.setState({errorMessage: err.response.data.message})
-        //});
-        
-        //.catch((err) => console.log(err));
-        // .catch((err) => {
-        //   this.setState({errorMessage: err.response.data.error})
-        // });
-        
-        
-    // } else {
-    //   console.log("false");
-    //   this.props.login(payload)
-    //     // .then(res => console.log(res.json()))
-    // //     .catch((err) => {
-    // //       this.setState({errorMessage: err.response.data.error})
-    // // });
-    } else {
-      this.props.login(this.state);
-      this.props.history.push("/user/dashboard/");
-    }
-    
-
-
-    
-
-  }
   
   render() {
     console.log(this.props.asin)
@@ -129,12 +98,24 @@ class AddReview extends Component {
                               value={this.state.reviewTitle}
                               onChange={this.handleChange}/>
               </Form.Group>
-              <Ratings />
+              <StarRatings
+                name="book-rating"
+                rating={this.state.rating}
+                changeRating={this.changeRating}
+                starDimension='12px'
+                numberOfStars={5}
+                svgIconPath="M9.875,0.625C4.697,0.625,0.5,4.822,0.5,10s4.197,9.375,9.375,9.375S19.25,15.178,19.25,10S15.053,0.625,9.875,0.625"
+                svgIconViewBox="0 0 20 20"
+                starRatedColor="#F8CF46"
+                starEmptyColor="#D0CDC6"
+                starSpacing="3px"
+              />
               <Form.Group controlId="formAddReviewDescription">
                 <Form.Label>Review</Form.Label>
                 <Form.Control name="description"
                               type="description"
                               placeholder="Description"
+                              as="textarea"
                               rows="3"
                               value={this.state.description}
                               onChange={this.handleChange}/>

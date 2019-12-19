@@ -174,6 +174,7 @@ function BookInfo(props) {
               <Reviews 
                 data={reviews}
                 rating={rating}
+                asin={asin}
               />
             </div>
             <hr />

@@ -86,6 +86,9 @@ export class AuthProvider extends Component {
         }
 
       })
+      .catch(error => {
+        console.log(error.response)
+      })
   
     }
 
@@ -108,21 +111,25 @@ export class AuthProvider extends Component {
     return axios.post(process.env.REACT_APP_API_URL + 'signup', userInfo)
     .then(response => {
       if (response.status === 200) {
-        const { token, first_name, last_name, username } = response.data;
-        console.log(token)
-        console.log(response)
-        localStorage.setItem("token", token);
+        //const { token, first_name, last_name, username } = response.data;
+        //console.log(token)
+        //console.log(response)
+        //localStorage.setItem("token", token);
         localStorage.setItem("user", true);
   
-        console.log(localStorage.getItem("user"));
-        localStorage.setItem("first_name", first_name);
-        localStorage.setItem("last_name", last_name);
-        localStorage.setItem("username", username);
+        
+        localStorage.setItem("first_name", userInfo.first_name);
+        console.log(localStorage.getItem("first_name"));
+        localStorage.setItem("last_name", userInfo.last_name);
+        localStorage.setItem("username", userInfo.username);
 
         return true; // only if register suceeds
       } else {
         return false;
       }
+    })
+    .catch(error => {
+      console.log(error.response)
     })
   
   }
