@@ -71,7 +71,7 @@ def get_overall_review(asin):
             continue
         val += dic['overall']
     val = val/len(result)
-    return round(val,2)
+    return round(val,1)
 
 def get_review_by_id(asin,reviewerID):
     """
@@ -130,10 +130,13 @@ def get_overalls(asin_arr):
     keep_alive()
     cursor = sql.cursor()
     #done to prevent accidental sql injection
-    sql_string = """SELECT asin,avg(overall) as 'avg' FROM `Reviews`WHERE asin IN ({}) GROUP BY ASIN;""".format(', '.join(list(map(lambda x: '%s', asin_arr))))
+    sql_string = """SELECT asin,avg(overall) as 'avg',count(asin) as 'count' FROM `Reviews`WHERE asin IN ({}) GROUP BY ASIN;""".format(', '.join(list(map(lambda x: '%s', asin_arr))))
     cursor.execute(sql_string, asin_arr)
     result = cursor.fetchall()
-    return dict(result)
+    tempdic = {}
+    for asin,avg,count in result:
+        tempdic[asin] = (avg,count)
+    return tempdic
 
 def append_ratings(meta_ls):
     """
@@ -145,13 +148,17 @@ def append_ratings(meta_ls):
     for meta in meta_ls:
         asin = meta['asin']
         asin_arr.append(asin)
+    if len(asin_arr) == 0:
+        return
     overalls_dic = get_overalls(asin_arr)
     for meta in meta_ls:
         asin = meta['asin']
         if asin in overalls_dic:
-            meta['rating'] = float(overalls_dic[asin])
+            meta['rating'] = float(overalls_dic[asin][0])
+            meta['count'] = float(overalls_dic[asin][1])
         else:
             meta['rating'] = 0
+            meta['count'] = 0
 
 
 def test_connection():

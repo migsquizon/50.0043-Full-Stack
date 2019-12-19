@@ -77,8 +77,17 @@ def home_category(category):
 	"""
 	try:
 		number = request.args.get('number',default=20,type=int)
+		if category == 'hardcode':
+			books_ls = ["B000F83SZQ","B000FA64PA","B000FA64QO",\
+			"B000FBFMVG","B000FC1BN8","B000FC1TG2",\
+			"B000FC26RI","B000FC2MB8",\
+			"B000JMKNQ0","B000JMKU0Y","B000JMKX4W",\
+			"B000JML1QG","B000JML2H4","B000JML5JY"]
+			books1 = list(metadata.get_book_summary_list(books_ls,limit=len(books_ls)))
+			reviews.append_ratings(books1)
+			return dumps(books1)
+
 		books = list(metadata.get_books_by_category(category,number))
-		print(books[0])
 		reviews.append_ratings(books)
 		return dumps(books)
 	except Exception as e:
@@ -116,6 +125,7 @@ def get_book_by_asin(asin):
 					#need to test this part when adding new book
 					if summaries != None:
 						ls = list(metadata.get_book_summary_list(alsoboughtls,also_bought))
+						reviews.append_ratings(ls)
 					else:
 						ls = []
 					main_book['related']['also_bought'] = ls
@@ -124,6 +134,7 @@ def get_book_by_asin(asin):
 					summaries = metadata.get_book_summary_list(buyafterviewingls,buy_after_viewing)
 					if summaries != None:
 						ls1 = list(metadata.get_book_summary_list(buyafterviewingls,buy_after_viewing))
+						reviews.append_ratings(ls1)
 					else:
 						ls1 = []
 					main_book['related']['buy_after_viewing'] = ls1
