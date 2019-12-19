@@ -12,6 +12,6 @@ flintrock run-command --master-only databass_cluster \
 	wget https://github.com/migsquizon/50.0043-Full-Stack/raw/automation/scripts/hadoopsetupfinal/spark_tfidf.py &&\
 	python3 download.py $1 $2 &&\
 	hadoop fs -put etl_sql_reviews.csv /checkpoint3 &&\
-	hadoop fs -put etl_mongo_metadata.json /checkpoint3 &&\
+	hadoop fs -put etl_mongo_metadata.json /checkpoint3
 	"
 	
