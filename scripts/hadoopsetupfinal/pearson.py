@@ -7,9 +7,9 @@ import math
 #os.environ["PYSPARK_PYTHON"]="/usr/bin/python3"
 print("hello")
 sc = SparkSession.builder.master("local").appName("pearson").getOrCreate()
-reviews=sc.read.options(header=True).csv("hdfs:///anything/fresh.csv")
+reviews=sc.read.options(header=True).csv("hdfs:///checkpoint3/etl_sql_reviews.csv")
 reviews.show()
-price = sc.read.json("hdfs:///anything/freshdatanew.json")
+price = sc.read.json("hdfs:///checkpoint3/etl_mongo_metadata.json")
 price.show()
 print(type(price))
 from operator import add
