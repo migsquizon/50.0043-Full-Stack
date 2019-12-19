@@ -81,7 +81,13 @@ function BookInfo(props) {
       }
 
       if (payload.data.categories) {
-        setCategory(payload.data.categories[0][1]);
+        console.log(payload.data.categories)
+        if (payload.data.categories[0][1]) {
+          setCategory(payload.data.categories[0][1]);
+        } else {
+          setCategory(payload.data.categories);
+        }
+
       }
 
       if (payload.data.related) {
