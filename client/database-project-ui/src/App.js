@@ -36,7 +36,7 @@ function App() {
             <Route exact path='/' component={Home}/>  
             <Route path='/book-info' component={BookInfo}/>
             <Route path='/login' component={() => <Login refresh={updateNavbar()}/>}/>
-            <Route path='/register' component={Register}/>
+            <Route path='/register' component={() => <Register refresh={updateNavbar()}/>}/>
             <ProtectedRoute path='/add-book' component={AddBook}/>
             <ProtectedRoute path='/add-review' component={AddReview}/>
           </Switch>

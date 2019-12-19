@@ -3,6 +3,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import EachReview from './EachReview';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { withRouter } from 'react-router-dom';
+import AddReview from '../AddReview/AddReview';
 import './Reviews.css';
 import 'react-circular-progressbar/dist/styles.css';
 
@@ -59,7 +60,8 @@ function Reviews(props) {
         </div>
         <div className="write-review-container">
           {localStorage.getItem('user') ? 
-            <Button className="add-reading-list-button" onClick={(event) => goToReviewPage(event, props)}>Write a review</Button>:
+            <AddReview asin={props.asin}/>:
+            // <Button className="add-reading-list-button" onClick={(event) => goToReviewPage(event, props)}>Write a review</Button>:
             <div><a href="/login">Sign in</a> now to write a user review.</div>
           }
         </div>

@@ -12,8 +12,8 @@ var payload = [];
 
 function Home(props) {
 
-  const [key, setKey] = useState("top");
-  const [header, setHeader] = useState("top");
+  const [key, setKey] = useState("hardcode");
+  const [header, setHeader] = useState("hardcode");
   const [books, setBooks] = useState([{}]);
 
   useEffect(() => {
@@ -41,12 +41,12 @@ function Home(props) {
                 onSelect= {key => setKey(key)}  
               >
                 <br/>
-                <Nav.Link className="ticket-selection" eventKey="top"><div>Books That We Love</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="hardcode"><div>Books That We Love</div></Nav.Link>
                 <Nav.Link className="ticket-selection" eventKey="kindle"><div>Best Seller</div></Nav.Link>
                 <Nav.Link className="ticket-selection" eventKey="books"><div>Latest Releases</div></Nav.Link>
                 <br/>
                 <br/>
-                <br />
+                <br/>
                 <div className="ticket-selection-title">CATEGORIES</div>
                 <Nav.Link className="ticket-selection" eventKey="romance"><div>Romance</div></Nav.Link>
                 <Nav.Link className="ticket-selection" eventKey="fantasy"><div>Fantasy</div></Nav.Link>
@@ -65,6 +65,7 @@ function Home(props) {
                   asin={book.asin}
                   imUrl={book.imUrl}
                   rating={book.rating}
+                  count={book.count}
                 />
               ))}
             </div>

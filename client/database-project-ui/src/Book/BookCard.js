@@ -42,7 +42,7 @@ function BookCard(props) {
               starDimension='12px'
             />
           </span>
-          <span style={{'color': '#3B5260', 'font-size':'0.85rem'}}>&nbsp;{props.num_ratings}</span>
+          <span style={{'color': '#3B5260', 'font-size':'0.85rem'}}>&nbsp;{props.count}</span>
         </div>
       </div>
     </div>

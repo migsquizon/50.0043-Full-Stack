@@ -35,6 +35,7 @@ function BookInfo(props) {
     //URL = process.env.REACT_APP_API_URL + "book/" + query + "?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
     (async () => {
       payload = await axios(process.env.REACT_APP_API_URL + "book/" + query + "?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5");
+      console.log(payload)
       var payload_num_ratings = await axios(process.env.REACT_APP_API_URL + "reviews/" + query + "?verbose=0");
       var payload_ratings = await axios(process.env.REACT_APP_API_URL + "reviews/" + query + "?verbose=1");
       console.log(payload)
@@ -180,7 +181,7 @@ function BookInfo(props) {
           <React.Fragment>
             <div className="readers-also-viewed">Reviews</div>
             <div className="review-container-main-page">
-              There are no user reviews yet.
+              <span>There are no user reviews yet.</span><span><AddReview /></span>
             </div>
             <hr />
           </React.Fragment>

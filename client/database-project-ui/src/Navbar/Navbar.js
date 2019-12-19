@@ -104,6 +104,9 @@ class Navbar extends Component {
             <Col sm={5}>
               <div className="nav-menu">
                 <ul className="nav-menu-list">
+                   <li className="nav-item">
+                    <div href="/" className="nav-a">Welcome, {localStorage.getItem("first_name")}</div>
+                  </li>
                   <li className="nav-item">
                     <a href="/" className="nav-a">Home</a>
                   </li>
@@ -114,7 +117,7 @@ class Navbar extends Component {
                     <a href="/" className="nav-a" onClick={(event) => this.onLogout(event)}>Logout</a>
                   </li>
                   <li className="nav-item">
-                    <Avatar name="Kenneth Ng" size="40" round={true} color="#9F9FBD"/>
+                    <Avatar name={localStorage.getItem("first_name")} size="40" round={true} color="#9F9FBD"/>
                   </li>
                 </ul>
               </div>
