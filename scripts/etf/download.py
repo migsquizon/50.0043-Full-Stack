@@ -25,9 +25,9 @@ def download_sql():
         myFile = csv.writer(fp)
         columns = [i[0] for i in cursor.description]
         #print(list(columns))
-        #myFile.writerow(list(rows[0]))
+        myFile.writerow(list(columns))
         for row in rows:
-                #print(list(row))
+                # print(list(row))
 	# print(type(row))
 	# print(row.values())
                 #myFile.writerow(list(row.values()))
