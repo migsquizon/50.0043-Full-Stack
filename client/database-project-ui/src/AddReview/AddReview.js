@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Ratings from '../Extras/Ratings';
 import StarRatings from 'react-star-ratings';
 import { Modal, Button, Form } from 'react-bootstrap';
+import axios from 'axios';
 
 class AddReview extends Component {
   constructor(props) {
@@ -14,16 +15,17 @@ class AddReview extends Component {
     this.handleShowError = this.handleShowError.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.changeRating = this.changeRating.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
 
     
     this.state = {
       showLogin: false,
-      bookTitle: "",
       asin: "",
       reviewTitle: "",
       rating: 0,
       description: "",
+      reviewerID: "A",
     }
   }
   
@@ -58,6 +60,22 @@ class AddReview extends Component {
     }
   }
 
+  handleSubmit = async event => {
+    event.preventDefault();
+    const bookreview = {
+        summary:this.state.reviewTitle,
+        overall:this.state.rating,
+        reviewText:this.state.description,
+        reviewerName:localStorage.getItem('first_name'),
+        reviewerID:this.state.reviewerID
+      };
+    return axios.post(process.env.REACT_APP_API_URL + `book/${bookreview.title}`,  bookreview )
+    .then(res => {
+        console.log(res);
+        console.log(res.data);
+    })
+  }
+
 
 
   
@@ -68,18 +86,10 @@ class AddReview extends Component {
         <Button className="btn-sm add-reading-list-button" onClick={this.handleShowLogin}>Write a Review</Button>
         <Modal size="lg" show={this.state.showLogin} onHide={this.handleCloseLogin}>
           <Modal.Header closeButton>
-            <Modal.Title>Add a New Review</Modal.Title>
+            <Modal.Title>Add New Review</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <form onSubmit={this.onLogin}>
-              <Form.Group controlId="formAddReviewBookTitle">
-                <Form.Label>Book Title</Form.Label>
-                <Form.Control name="bookTitle"
-                              type="bookTitle"
-                              placeholder="Book Title"
-                              value={this.state.bookTitle}
-                              onChange={this.handleChange}/>
-              </Form.Group>
+            <form onSubmit={this.handleSubmit}>
               <Form.Group controlId="formAddReviewAsin">
                 <Form.Label>ASIN</Form.Label>
                 <Form.Control required
@@ -98,7 +108,10 @@ class AddReview extends Component {
                               value={this.state.reviewTitle}
                               onChange={this.handleChange}/>
               </Form.Group>
-              <StarRatings
+              <Form.Group controlId="formAddReviewRatings">
+                <Form.Label>Ratings</Form.Label>
+                <br/>
+                <StarRatings
                 name="book-rating"
                 rating={this.state.rating}
                 changeRating={this.changeRating}
@@ -109,7 +122,8 @@ class AddReview extends Component {
                 starRatedColor="#F8CF46"
                 starEmptyColor="#D0CDC6"
                 starSpacing="3px"
-              />
+                />
+              </Form.Group>
               <Form.Group controlId="formAddReviewDescription">
                 <Form.Label>Review</Form.Label>
                 <Form.Control name="description"
