@@ -1,23 +1,19 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import StarRatings from 'react-star-ratings';
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button, Modal } from 'react-bootstrap';
 import  { withContext } from '../Auth/AuthContext';
 import BookCarousel from './BookCarousel';
 import Reviews from '../Reviews/Reviews';
 import Ratings from '../Extras/Ratings';
+import AddReview from '../AddReview/AddReview';
 import axios from 'axios';
 import './BookInfo.css';
 require('dotenv/config');
 
-console.log(process.env);
 
 //var API_URL = process.env.REACT_APP_API_URL + "book/";
 //API_URL = "http://13.229.185.245:5000/book/B009EALX3K?verbose=3&also_bought=5&buy_after_viewing=5&num_reviews=5";
 var payload = [];
-
-function getTopReview() {
-  
-}
 
 function BookInfo(props) {
 
@@ -72,6 +68,7 @@ function BookInfo(props) {
       }
 
       setAsin(payload.data.asin);
+      console.log(payload.data.asin);
       setImUrl(payload.data.imUrl);
 
       if (payload.data.price) {
@@ -109,7 +106,7 @@ function BookInfo(props) {
           <div className="book-page-container">
             <div className="book-info-title-container">
               <span className="book-info-title">{asin}</span>
-              <span><Button className="btn-sm add-reading-list-button">Add to reading list</Button></span>
+              {/* <span><Button className="btn-sm add-reading-list-button">Add to reading list</Button></span> */}
             </div>
             <div className="book-info-author">
               <span style={{ 'color': '#B9C6CE' }}>under&nbsp;</span><span style={{ 'color': '#1D72A7' }}>{category}</span>
@@ -129,14 +126,16 @@ function BookInfo(props) {
               <React.Fragment>
                 {localStorage.getItem('user') ? 
                 <div className="book-info-ratings">
-                  This book currently has no ratings. Leave a <a href="/add-review">&nbsp;review?</a>
+                  {/* This book currently has no ratings. Leave a <a href="/add-review">&nbsp;review?</a> */}
+                  {/* <span>This book currently has no ratings.  </span><span><Button className="btn-sm add-reading-list-button">Write a Review</Button></span> */}
+                  <span>This book currently has no ratings.  </span><span><AddReview asin={asin}/></span>
                 </div> :
                 <div className="book-info-ratings">
                   This book currently has no ratings. &nbsp;<a href="/login">Sign in</a> &nbsp;to add a review.
                 </div>}
               </React.Fragment>
             }
-
+                
             <div className="buy-amazon-container">
               <Button className="buy-amazon-button">
                 <div style={{ 'color': '#000000' }}>Price on Amazon</div>

@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState} from 'react';
 import logo from './logo.svg';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import { AuthProvider } from './Auth/AuthContext';
@@ -18,16 +18,24 @@ import AddReview from './containers/AddReview';
 import AddBook from './containers/AddBook';
 import Home from './Home/Home.js';
 
+
 function App() {
+  const [value, setValue] = useState(0);
+
+  function updateNavbar() {
+    console.log({value})
+    return () => setValue(value => ++value);
+  }
+  
   return (
     <div className="App">
       <AuthProvider>
         <Router>
-          <Navbar />
+          <Navbar/>
           <Switch>
             <Route exact path='/' component={Home}/>  
             <Route path='/book-info' component={BookInfo}/>
-            <Route path='/login' component={Login}/>
+            <Route path='/login' component={() => <Login refresh={updateNavbar()}/>}/>
             <Route path='/register' component={Register}/>
             <ProtectedRoute path='/add-book' component={AddBook}/>
             <ProtectedRoute path='/add-review' component={AddReview}/>

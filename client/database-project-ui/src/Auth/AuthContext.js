@@ -66,9 +66,9 @@ export class AuthProvider extends Component {
 
   login = (credentials) => {
     //console.log(credentials);
-    axios.post(process.env.REACT_APP_API_URL + 'signin', credentials)
+    return axios.post(process.env.REACT_APP_API_URL + 'signin', credentials)
       .then(response => {
-        //console.log(response)
+        console.log(response)
         if (response.status === 200) {
           const { token, first_name, last_name, username } = response.data;
           //console.log(token)
@@ -134,6 +134,7 @@ export class AuthProvider extends Component {
 
      return user;
   }
+
 
 
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, FormControl, Row, Col } from 'react-bootstrap';
 import  { withContext } from '../Auth/AuthContext';
 import { withRouter } from 'react-router-dom';
+import Avatar from 'react-avatar';
 import './Navbar.css';
 
 // function onLogout(e) { 
@@ -43,9 +44,9 @@ class Navbar extends Component {
     }
   }
 
-  render() {
 
-  
+  render() {
+    console.log(localStorage.getItem('user'))
     return(
       <React.Fragment>
       {(!localStorage.getItem('user')) ? ( 
@@ -54,18 +55,18 @@ class Navbar extends Component {
             <Row>
               <Col sm={2}>
                 <div className="name">
-                  The Library
+                <a href="/">LIBRORUM</a>
                 </div>
               </Col>
-              <Col sm={5}>
-                <Form>
-                  <Form.Control type="text" placeholder="Search" ref={input => this.search = input} onChange={this.handleInputChange}/>
-                </Form>
-              </Col>
-              <Col sm={1}>
-                <Button variant="outline-success" onClick={(event) => this.onSearch(event)}>Search</Button>
-              </Col>
               <Col sm={4}>
+              <Form>
+                <Form.Control className="search-bar" type="text" placeholder="Search" ref={input => this.search = input} onChange={this.handleInputChange}/>
+              </Form>
+            </Col>
+            <Col sm={1}>
+              <img className="magnifying-glass" src={require("./magnifying-glass.svg")} onClick={(event) => this.onSearch(event)} />
+            </Col>
+              <Col sm={5}>
                 <div className="nav-menu">
                   <ul className="nav-menu-list">
                     <li className="nav-item">
@@ -89,18 +90,18 @@ class Navbar extends Component {
           <Row>
             <Col sm={2}>
               <div className="name">
-                The Library
+                <a href="/">LIBRORUM</a>
               </div>
             </Col>
-            <Col sm={5}>
+            <Col sm={4}>
               <Form>
-                <Form.Control type="text" placeholder="Search" ref={input => this.search = input} onChange={this.handleInputChange}/>
+                <Form.Control className="search-bar" type="text" placeholder="Search" ref={input => this.search = input} onChange={this.handleInputChange}/>
               </Form>
             </Col>
             <Col sm={1}>
-              <Button variant="outline-success" onClick={(event) => this.onSearch(event)} type='submit'>Search</Button>
+              <img className="magnifying-glass" src={require("./magnifying-glass.svg")} onClick={(event) => this.onSearch(event)} />
             </Col>
-            <Col sm={4}>
+            <Col sm={5}>
               <div className="nav-menu">
                 <ul className="nav-menu-list">
                   <li className="nav-item">
@@ -111,6 +112,9 @@ class Navbar extends Component {
                   </li>
                   <li className="nav-item">
                     <a href="/" className="nav-a" onClick={(event) => this.onLogout(event)}>Logout</a>
+                  </li>
+                  <li className="nav-item">
+                    <Avatar name="Kenneth Ng" size="40" round={true} color="#9F9FBD"/>
                   </li>
                 </ul>
               </div>

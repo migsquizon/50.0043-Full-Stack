@@ -1,17 +1,20 @@
 .nav-header {
-
-    padding: 0 0 10px; }
+    
+    padding: 0 0 0px; }
     .nav-header .nav-container {
+      height: 60px !important;
       padding: 0px 15px 0;
       margin-right: auto;
+      border-bottom: 1px solid #E9EBFC;
       margin-left: auto; }
   
   .name {
-    float: left;
-    padding: 0;
+    /* float: left; */
+    padding: 10px 0 0 0;
+    letter-spacing: 3px;
     border: 1px solid transparent;
     font-family: 'AcuminProRegular';
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #3B5260;}
   
   .nav-menu {
@@ -33,3 +36,17 @@
           color: #3B5260;
           border: 1px solid transparent;
           text-transform: uppercase; }
+
+.search-bar {
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  padding-top: 15px !important;
+  /* border-bottom: 1px solid black !important; */
+}
+
+.magnifying-glass {
+  width: 20px;
+  padding-top: 15px;
+  cursor: pointer;
+}
