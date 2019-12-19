@@ -115,6 +115,7 @@ def get_book_by_asin(asin):
 			book['reviews'] = reviews.get_reviews(asin,num_reviews)
 			return dumps(book),200
 		if verbose == 3:
+			print("reached2")
 			main_book = metadata.get_book_by_asin(asin)
 			#dont want to throw exception if there is no related books
 			#Limit 5 books or maxL allowed only for speed
@@ -138,7 +139,7 @@ def get_book_by_asin(asin):
 					else:
 						ls1 = []
 					main_book['related']['buy_after_viewing'] = ls1
-				main_book['reviews'] = reviews.get_reviews(asin,num_reviews)
+			main_book['reviews'] = reviews.get_reviews(asin,num_reviews)
 			return dumps(main_book)
 	except Exception as e:
                 print(e)
