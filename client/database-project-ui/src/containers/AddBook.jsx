@@ -16,7 +16,7 @@ class AddBook extends Component {
       imUrl:"",
       categories:"",
       description:"",
-      added_by:"John",
+      added_by:localStorage.getItem("first_name"),
       message: ""
     };
 

@@ -21,7 +21,6 @@ class AddReview extends Component {
     
     this.state = {
       showLogin: false,
-      asin: "",
       reviewTitle: "",
       rating: 0,
       description: "",
@@ -70,7 +69,7 @@ class AddReview extends Component {
         reviewerName:localStorage.getItem('first_name'),
         reviewerID:this.state.reviewerID
       };
-    return axios.post(process.env.REACT_APP_API_URL + `book/${bookreview.title}`,  bookreview )
+    return axios.post(process.env.REACT_APP_API_URL + `book/${this.props.asin}`,  bookreview )
     .then(res => {
         if (res.status === 200) {
             this.setState({ message: "Review successfully submitted!" })
