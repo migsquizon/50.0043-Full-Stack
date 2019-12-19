@@ -37,13 +37,15 @@ class Login extends Component {
        username: this.state.username,
        password: this.state.password
      }
+     console.log(payload)
      e.preventDefault();
-     if (this.props.login(payload)) {
-      this.props.history.push("/");  
-     } else {
-       this.setState({error: "Sorry, you have entered the wrong password."});
-     }
-
+     this.props.login(payload).then( res =>{
+       if (res) {
+        this.props.refresh();
+        this.props.history.push("/"); 
+       } else {
+        this.setState({error: "Sorry, you have entered the wrong password."});
+     }})
    }
   
   handleChange(event) {

@@ -66,9 +66,9 @@ export class AuthProvider extends Component {
 
   login = (credentials) => {
     //console.log(credentials);
-    axios.post(process.env.REACT_APP_API_URL + 'signin', credentials)
+    return axios.post(process.env.REACT_APP_API_URL + 'signin', credentials)
       .then(response => {
-        //console.log(response)
+        console.log(response)
         if (response.status === 200) {
           const { token, first_name, last_name, username } = response.data;
           //console.log(token)
@@ -85,6 +85,9 @@ export class AuthProvider extends Component {
           return false;
         }
 
+      })
+      .catch(error => {
+        console.log(error.response)
       })
   
     }
@@ -107,20 +110,26 @@ export class AuthProvider extends Component {
     console.log(userInfo);
     return axios.post(process.env.REACT_APP_API_URL + 'signup', userInfo)
     .then(response => {
-      const { token, first_name, last_name, username } = response.data;
-      console.log(token)
-      console.log(response)
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", true);
+      if (response.status === 200) {
+        //const { token, first_name, last_name, username } = response.data;
+        //console.log(token)
+        //console.log(response)
+        //localStorage.setItem("token", token);
+        localStorage.setItem("user", true);
+  
+        
+        localStorage.setItem("first_name", userInfo.first_name);
+        console.log(localStorage.getItem("first_name"));
+        localStorage.setItem("last_name", userInfo.last_name);
+        localStorage.setItem("username", userInfo.username);
 
-      console.log(localStorage.getItem("user"));
-      localStorage.setItem("first_name", first_name);
-      localStorage.setItem("last_name", last_name);
-      localStorage.setItem("username", username);
-          // this.setState({
-          //   user: user
-          // });
-      return response;
+        return true; // only if register suceeds
+      } else {
+        return false;
+      }
+    })
+    .catch(error => {
+      console.log(error.response)
     })
   
   }
@@ -134,6 +143,7 @@ export class AuthProvider extends Component {
 
      return user;
   }
+
 
 
 

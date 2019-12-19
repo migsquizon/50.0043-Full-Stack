@@ -9,6 +9,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { withContext } from '../Auth/AuthContext';
 import * as yup from 'yup';
 import checkSvg from './checked.svg'
+import { withRouter } from 'react-router-dom';
 require('dotenv/config');
 
 //var CAPTCHA_SITE_KEY = process.env.REACT_APP_GOOGLE_CAPTCHA_SITE_KEY;
@@ -42,7 +43,8 @@ class Register extends Component {
                   lastName: '',
                   username: '',
                   password: '',
-                  confirmPassword: ''};
+                  confirmPassword: '',
+                  error: ''};
     
     this.handleChange = this.handleChange.bind(this);
     this.onRegister = this.onRegister.bind(this);
@@ -66,8 +68,18 @@ class Register extends Component {
       password: this.state.password,
     }
     e.preventDefault();
-    this.props.register(payload);
-    this.props.history.push("/");
+    // this.props.register(payload);
+    // this.props.history.push("/");
+
+    this.props.register(payload).then( res =>{
+      console.log(res)
+      if (res) {
+       this.props.refresh();
+       this.props.history.push("/"); 
+      } else {
+       this.setState({error: "Sorry, an error has occurred."});
+       console.log(this.state.error);
+    }})
   }
   
   render() {
@@ -212,7 +224,7 @@ class Register extends Component {
                           {errors.confirmPassword}
                         </Form.Control.Feedback>
                       </Form.Group> 
-
+                      {this.state.error && <div>{this.state.error}</div>}
                       {/* <ReCAPTCHA
                         sitekey={process.env.REACT_APP_GOOGLE_CAPTCHA_SITE_KEY}
                       /> */}
@@ -235,4 +247,4 @@ class Register extends Component {
   }
 }
 
-export default withContext(Register);
+export default withRouter(withContext(Register));
