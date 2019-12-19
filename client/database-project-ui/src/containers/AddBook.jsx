@@ -16,7 +16,8 @@ class AddBook extends Component {
       imUrl:"",
       categories:"",
       description:"",
-      added_by:"John"
+      added_by:"John",
+      message: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -62,8 +63,12 @@ class AddBook extends Component {
 
       axios.post(process.env.REACT_APP_API_URL + `add/book`,  book )
         .then(res => {
+          if (res.status === 200) {
+            this.setState({ message: "Your book has been successfully added!" })
+        } else {
+            this.setState({ message: "Oh no, something seems to be wrong!" })
+        }
           console.log(res);
-          console.log(res.data);
         })
       }
       else{
@@ -106,6 +111,8 @@ class AddBook extends Component {
               <Form.Label>Enter Book Description</Form.Label>
               <Form.Control as="textarea" rows="5" placeholder="Description" name="description" value={this.state.description} onChange={this.handleInput}/>
             </Form.Group>
+            {this.state.message && <div>{this.state.message}</div>}
+            <br />
             <Button variant="secondary" type='submit'>
               Submit
             </Button>
