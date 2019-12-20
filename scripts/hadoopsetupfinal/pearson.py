@@ -68,5 +68,4 @@ num = xy*count - (x*y)
 denom = math.sqrt(count*x2-(x*x)) * math.sqrt(count*y2-(y*y))
 pearson = num/denom
 print( pearson )
-
-
+print("the pearson correlation is: {}".format(pearson))
