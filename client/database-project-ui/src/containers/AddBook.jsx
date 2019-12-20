@@ -13,7 +13,7 @@ class AddBook extends Component {
     this.state = {
       asin:"",
       title:"",
-      imUrl:"",
+      imUrl:`${process.env.REACT_APP_API_URL}book_cover`,
       categories:"",
       description:"",
       added_by:localStorage.getItem("first_name"),

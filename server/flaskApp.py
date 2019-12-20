@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request, jsonify
+from flask import Flask, url_for, request, jsonify,send_from_directory
 from bson import Binary, Code
 from bson.json_util import dumps, loads
 from functools import wraps, lru_cache
@@ -50,6 +50,10 @@ def test_mongo():
 @app.route('/sql')
 def test_sql():
 	return dumps(reviews.test_sql())
+
+@app.route('/book_cover')
+def book_cover():
+	return send_from_directory('static','book_cover.png')
 
 @app.route('/home')
 def home():
