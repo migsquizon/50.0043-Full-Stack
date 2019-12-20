@@ -51,15 +51,14 @@ def test_mongo():
 def test_sql():
 	return dumps(reviews.test_sql())
 
-@app.route('/home')
-def home():
+@app.route('/search/<asin>')
+def search(asin):
 	"""
-	returns first 20 books that mongo gets might not be the same everytime
+	returns books that matches search asin
 	"""
 	try:
-		number = request.args.get('number',default=20,type=int)
-		#must list as it is a cursor object
-		summaries = list(metadata.get_summaries(number))
+		summaries = list(metadata.search_book_summary_list(asin))
+		print(summaries)
 		reviews.append_ratings(summaries)
 
 		return dumps(summaries)

@@ -15,17 +15,28 @@ function Home(props) {
   const [key, setKey] = useState("hardcode");
   const [header, setHeader] = useState("hardcode");
   const [books, setBooks] = useState([{}]);
-
+  
+  let query = props.query
+  
   useEffect(() => {
     //var HOME_URL = process.env.REACT_APP_API_URL + `home/category/${key}`;
     console.log({key});
     //console.log(HOME_URL);
+    
+    if (query == "" ){
     (async () => {
       payload = await axios(process.env.REACT_APP_API_URL + `home/category/${key}`)
       console.log(payload);
       console.log(payload.data);
       setBooks(payload.data)
     })();
+  }else{
+    (async ()=>{
+      payload = await axios(process.env.REACT_APP_API_URL + `search/${query}`)
+      setBooks(payload.data)
+      console.log(payload.data)
+    })();
+  }
   }, [key]);
 
 
