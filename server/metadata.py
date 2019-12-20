@@ -17,6 +17,11 @@ def get_book_summary_list(asin_list,limit=5):
     metadata_collection = mongo['Kindle']['Metadata']
     return metadata_collection.find({"asin":{"$in":asin_list}},{"title":True,"asin":True,"imUrl":True,"description":True}).limit(limit)
 
+def search_book_summary_list(asin,limit=10):
+    metadata_collection = mongo['Kindle']['Metadata']
+    regexp = re.compile('^{}'.format(asin),re.IGNORECASE)
+    return metadata_collection.find({"asin":{'$regex':regexp}},{"title":True,"asin":True,"imUrl":True,"description":True}).limit(limit)
+
 def add_book(json):
     metadata_collection = mongo['Kindle']['Metadata']
     if "title" not in json or "imUrl" not in json or "asin" not in json or "categories" not in json or "added_by" not in json:

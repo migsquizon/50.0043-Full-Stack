@@ -21,19 +21,22 @@ import Home from './Home/Home.js';
 
 function App() {
   const [value, setValue] = useState(0);
+  const [query,setQuery] = useState("");
 
   function updateNavbar() {
     console.log({value})
     return () => setValue(value => ++value);
   }
-  
+  function setSearchQuery(name){
+    setQuery(name)
+  }
   return (
     <div className="App">
       <AuthProvider>
         <Router>
-          <Navbar/>
+          <Navbar setQuery={setSearchQuery}/>
           <Switch>
-            <Route exact path='/' component={Home}/>  
+            <Route exact path='/' component={()=><Home query={query}/>}/>  
             <Route path='/book-info' component={BookInfo}/>
             <Route path='/login' component={() => <Login refresh={updateNavbar()}/>}/>
             <Route path='/register' component={() => <Register refresh={updateNavbar()}/>}/>
