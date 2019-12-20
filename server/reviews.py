@@ -71,7 +71,6 @@ def get_overall_review(asin):
             continue
         val += dic['overall']
     val = val/len(result)+0.0001
-    print(val)
     return round(val,1)
 
 def get_review_by_id(asin,reviewerID):

@@ -62,8 +62,7 @@ def search(asin):
 	"""
 	try:
 		summaries = list(metadata.search_book_summary_list(asin))
-		print(summaries)
-		reviews.append_ratings(summaries)
+		#reviews.append_ratings(summaries)
 
 		return dumps(summaries)
 	except Exception as e:

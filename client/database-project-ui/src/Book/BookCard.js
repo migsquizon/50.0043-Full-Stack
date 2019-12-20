@@ -36,11 +36,12 @@ function BookCard(props) {
           {/* </Truncate>      */}
         </div>
         <div className="book-card-ratings">
-          <span>
+          <span>{
+          props.rating?//this is done because dont want to show rating when searching as sql cannot take such high workload
             <Ratings
               rating={props.rating}
               starDimension='12px'
-            />
+            />:undefined}
           </span>
           <span style={{'color': '#3B5260', 'font-size':'0.85rem'}}>&nbsp;{props.count}</span>
         </div>
