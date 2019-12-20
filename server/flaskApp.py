@@ -53,7 +53,7 @@ def test_sql():
 
 @app.route('/book_cover')
 def book_cover():
-	return send_from_directory('static','book_cover.png')
+	return send_from_directory('images','book_cover.png')
 
 @app.route('/search/<asin>')
 def search(asin):
