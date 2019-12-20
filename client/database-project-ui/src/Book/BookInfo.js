@@ -187,7 +187,7 @@ function BookInfo(props) {
           <React.Fragment>
             <div className="readers-also-viewed">Reviews</div>
             <div className="review-container-main-page">
-              <span>There are no user reviews yet.</span><span><AddReview /></span>
+              <span>There are no user reviews yet.</span><span><AddReview asin={asin}/></span>
             </div>
             <hr />
           </React.Fragment>
