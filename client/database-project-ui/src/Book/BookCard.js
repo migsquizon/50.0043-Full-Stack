@@ -37,7 +37,7 @@ function BookCard(props) {
         </div>
         <div className="book-card-ratings">
           <span>{
-          props.rating?//this is done because dont want to show rating when searching as sql cannot take such high workload
+          (props.rating!==undefined)?//this is done because dont want to show rating when searching as sql cannot take such high workload
             <Ratings
               rating={props.rating}
               starDimension='12px'
