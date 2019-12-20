@@ -32,6 +32,7 @@ class Navbar extends Component {
     this.setState({
       query: this.search.value
     })
+    this.props.setQuery(this.search.value)
   }
 
   onSearch(event) {

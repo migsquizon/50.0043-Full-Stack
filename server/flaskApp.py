@@ -55,15 +55,14 @@ def test_sql():
 def book_cover():
 	return send_from_directory('static','book_cover.png')
 
-@app.route('/home')
-def home():
+@app.route('/search/<asin>')
+def search(asin):
 	"""
-	returns first 20 books that mongo gets might not be the same everytime
+	returns books that matches search asin
 	"""
 	try:
-		number = request.args.get('number',default=20,type=int)
-		#must list as it is a cursor object
-		summaries = list(metadata.get_summaries(number))
+		summaries = list(metadata.search_book_summary_list(asin))
+		print(summaries)
 		reviews.append_ratings(summaries)
 
 		return dumps(summaries)

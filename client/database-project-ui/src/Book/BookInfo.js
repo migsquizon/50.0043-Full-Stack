@@ -102,8 +102,7 @@ function BookInfo(props) {
   
     })();
   }, []);
-
-  if (payload) {
+  if (payload.data) {
     return (
       <div className="page-container">
         <div className="book-main-info-container">
