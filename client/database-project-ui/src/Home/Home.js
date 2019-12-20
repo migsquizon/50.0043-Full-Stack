@@ -26,8 +26,8 @@ function Home(props) {
     if (query == "" ){
     (async () => {
       payload = await axios(process.env.REACT_APP_API_URL + `home/category/${key}`)
-      console.log(payload);
-      console.log(payload.data);
+      // console.log(payload);
+      // console.log(payload.data);
       setBooks(payload.data)
     })();
   }else{
@@ -39,8 +39,7 @@ function Home(props) {
   }
   }, [key]);
 
-
-
+if(payload.data){
   return (
     <React.Fragment>
       <Row style={{height: '100vh'}}>
@@ -70,6 +69,7 @@ function Home(props) {
 
           </Col>
           <Col xs={10}>
+            {payload.data.length>0?
             <div className="card-container-home">
               {books.map((book) => (
                 <BookCard
@@ -79,11 +79,13 @@ function Home(props) {
                   count={book.count}
                 />
               ))}
-            </div>
+            </div>:<div>No such book exists</div>}
           </Col> 
       </Row> 
     </React.Fragment>
-  )
+  )}else{
+    return (<img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" />)
+  }
 }
 
 export default withRouter(withContext(Home));
