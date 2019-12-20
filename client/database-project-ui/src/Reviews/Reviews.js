@@ -47,7 +47,7 @@ function Reviews(props) {
 
           <CircularProgressbar
             value={percentage}
-            text={props.rating}
+            text={props.rating.toFixed(1)}
             strokeWidth={5}
             styles={buildStyles({
               pathColor: '#F8CF46',
