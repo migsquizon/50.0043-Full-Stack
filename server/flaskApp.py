@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request, jsonify,send_from_directory
+from flask import Flask, url_for, request, jsonify,send_from_directory,render_template
 from bson import Binary, Code
 from bson.json_util import dumps, loads
 from functools import wraps, lru_cache
@@ -11,6 +11,18 @@ import metadata
 import users
 import os
 from app import app
+
+logs.addLogger() #Add logger 4 mongo
+@app.route('/logs')
+def log():
+	num = request.args.get('num',default=25,type=int)
+	try:
+		logList = list(logs.getLogs(num))
+		print(logList)
+		return render_template("logs.html",loggings=logList)
+	except Exception as e:
+		print(e)
+		return "No Logs",400
 
 def token_required(f):
 	@wraps(f)

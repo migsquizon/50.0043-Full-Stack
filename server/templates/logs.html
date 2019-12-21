@@ -1,0 +1,30 @@
+<style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+      text-align: left;    
+    }
+    </style>
+<table style="width:100%">
+    <tr>
+      <th>Source IP</th>
+      <th>Date</th>
+      <th>Request</th>
+      <th>Response Status</th>
+      <th>Unix Time</th>
+      <th>Extras</th>
+    </tr>
+    {%for m in loggings%}
+    <tr>
+      <td>{{m.setdefault('ip','no field')}}</td>
+      <td>{{m.setdefault('date','no field')}}</td>
+      <td>{{m.setdefault('request','no field')}}</td>
+      <td>{{m.setdefault('status','no field')}}</td>
+      <td>{{m.setdefault('unixTime',0)| int }}</td>
+      <td>{{m.setdefault('record','no field')}}</td>
+    </tr>
+    {%endfor%}
+  </table>
