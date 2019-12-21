@@ -36,6 +36,7 @@ function goToReviewPage(event, props) {
   props.history.push("/add-review")
 }
 
+
 function Reviews(props) {
   const percentage = props.rating / 5 * 100;
   return (

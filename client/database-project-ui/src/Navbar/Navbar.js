@@ -94,7 +94,7 @@ class Navbar extends Component {
                 <a href="/">LIBRORUM</a>
               </div>
             </Col>
-            <Col sm={4}>
+            <Col lg={4} md={3} sm={2}>
               <Form>
                 <Form.Control className="search-bar" type="text" placeholder="Search" ref={input => this.search = input} onChange={this.handleInputChange}/>
               </Form>
@@ -102,7 +102,7 @@ class Navbar extends Component {
             <Col sm={1}>
               <img className="magnifying-glass" src={require("./magnifying-glass.svg")} onClick={(event) => this.onSearch(event)} />
             </Col>
-            <Col sm={5}>
+            <Col lg={5} md={6} sm={7}>
               <div className="nav-menu">
                 <ul className="nav-menu-list">
                    <li className="nav-item">

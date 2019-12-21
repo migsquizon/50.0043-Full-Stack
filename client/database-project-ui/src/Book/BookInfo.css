@@ -18,7 +18,7 @@ hr {
     border-color:#ffffff;
     box-sizing: border-box;
     border-radius: 1%;
-    padding: 20px 0 0 40px;
+    padding: 20px 30px 0 40px;
 }
 
 .book-img-container-lg img {
@@ -41,6 +41,7 @@ hr {
     font-family: 'AcuminProRegular';
     justify-content: flex-start;
     color: #3B5260;
+    padding-top: 30px;
    
    
 }
