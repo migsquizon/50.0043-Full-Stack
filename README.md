@@ -3,6 +3,17 @@
 Innovating the book review industry
 # Automation scripts for setting up and tearing down
 
+First we create our virtual environment and install the dependencies that we need:
+ - flintrock (We will be using this external library to setup our Hadoop and Spark clusters
+ - requests
+
+```
+python3 -m venv databass
+source databass/bin/activate
+pip3 install flintrock
+pip3 install requests
+```
+
 ## Setup Flask MySql Mongo
 There is no need to clone the whole repository. However all scripts in the `start-all-scripts` folder need to be in the same folder and ran within the folder itself.
 
@@ -76,13 +87,12 @@ flintrock login databass_cluster
 # Extract, Transform and Load
 Here, we will perform ETL from our SQL and Mongo databases to the HDFS. 
   - Run the hdfs_numpy.sh file using the following syntax (you have to manually type in the respective DNS):
-  - sh hdfs_numpy.sh <mongo_dns> <sql_dns> 
   - This file installs the packages numpy, pyspark, and flask. It also downloads the corresponding pearson.py and spark_tfidf.py from our github repository so that we can proceed to Task 2.
   - After the script has finished execution, etl_sql_reviews.csv should have been located inside "HDFS /checkpoint3/etl_sql_reviews.csv"
 
 Example:
 ```
-sh hdfs_numpy.sh ec2-13-250-11-182.ap-southeast-1.compute.amazonaws.com ec2-52-221-180-221.ap-southeast-1.compute.amazonaws.com
+sh hdfs_numpy.sh <mongo_dns> <sql_dns> 
 ```
 
 ## Setup Explanation
@@ -102,6 +112,13 @@ python3 databass.py destroy
 ```
 flintrock destroy databass_cluster
 ```
+
+Also remember to deactive your virtual environment and delete it.
+```
+deactivate
+rm -R databass
+```
+
 # Use case Documentation
 ## Checkpoint 1 and 2
 
@@ -158,55 +175,7 @@ flintrock login databass_cluster
 ```
 and you can locate the file called "tfidf_local.csv".
 
-# Setting up Development Environment
-## Setting up backend
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Virtual Environment and Flask
-
-What things you need to install the software and how to install them
-
-If you have virtualenv installed, please skip:
-```
-pip install virtualenv virtualenvwrapper
-```
-
-From there, you need to add the following lines to your ~/.bash_profile  (notice that for macOS the file name is .bash_profile  and for Ubuntu it is .bashrc .
-
-```
-nano ~/.bash_profile
-```
-
-Append the following to the end. Ensure that the path corresponds to your root python path.
-
-```
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
-```
-
-Then source it
-
-```
-source ~/.bash_profile
-```
-
-Finally, create the virtual environment and install flask.
-
-```
-mkvirtualenv env_name -p python3
-pip install Flask
-```
-
-Ensure you are in the virtual environment, before installing flask as this allows us to isolate our development environment.
-
-To activate and deacivate the virtual environment:
-
-```
-workon env_name # activates virtual env
-deactivate # deactivates virtual env
-```
 
 ## Setting up the frontend
 
