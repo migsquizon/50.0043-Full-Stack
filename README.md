@@ -49,11 +49,11 @@ Mongo dns
 mysql dns
 logs dns
 ```
-The Mongo DNS and MySQL DNS are needed in the ETL section to retrieve from our database to the HDFS.
+**The Mongo DNS and MySQL DNS are needed in the ETL section to retrieve from our database to the HDFS.**
 
 ## Setup Hadoop File System and Apache Spark
 
-Download `hadoopsetupfinal` folder, which is located inside the `scripts` folder on github. Run flint_test.sh to configure your HDFS and Spark setup.
+Download `hadoopsetupfinal` folder, which is located inside the `scripts` folder on github. Run `flint_test.sh` to configure your HDFS and Spark setup.
 ```
 sh ./scripts/hadoopsetupfinal/flint_test.sh 
 ```
@@ -108,11 +108,8 @@ We chose to run Flask,MySql and MongoDB in `t3.small`. `t3.small` has a higher b
 After you are done you can run the destroy script which destroys all resources that we created including security groups and ec2 instances.
 ```
 python3 databass.py destroy
-```
-```
 flintrock destroy databass_cluster
 ```
-
 Also remember to deactive your virtual environment and delete it.
 ```
 deactivate
@@ -142,18 +139,17 @@ Simply go to any book and click on the write review button. Reviews are inserted
 * **Logs**
 
 ## Checkpoint 3
-Some explanation on how u arrive at the answer
 
-# Pearson Correlation
-  - Execute "task2a.sh". This file is located under /scripts/hadoopsetupfinal
+### Pearson Correlation
+  - Execute `task2a.sh`. This file is located under `/scripts/hadoopsetupfinal`
 ```
 sh ./scripts/hadoopsetupfinal/task2a.sh
 ```
   - This process should take roughly ~1min
   - The correlation score will be displayed to you when the script has finished executing
 
-# TF-iDF
-  - Execute "task2b.sh". This file is located under /scripts/hadoopsetupfinal
+### TF-iDF
+  - Execute `task2b.sh`. This file is located under `/scripts/hadoopsetupfinal`
 ```
 sh ./scripts/hadoopsetupfinal/task2b.sh
 ```
@@ -174,7 +170,7 @@ If you want to inspect the ouput csv file, ssh in with:
 ```
 flintrock login databass_cluster
 ```
-and you can locate the file called "tfidf_local.csv".
+and you can locate the file called `tfidf_local.csv`.
 
 
 
