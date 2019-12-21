@@ -9,6 +9,7 @@
 [**GET** /book/&lt;asin&gt;](#get-bookasin) -> Get book metadata and reviews\
 [**GET** /reviews/&lt;asin&gt;](#get-reviewsasin) -> Get book metadata and reviews\
 [**POST** /reviews/helpful/&lt;asin&gt;](#post-reviewshelpfulasin)\
+[**GET** /logs](#get-logs) -> Get Flask logs with Timestamp, Request and Response\
 **NOT IMPLEMENTED**\
 NONE
 ## **GET** /home
@@ -308,3 +309,9 @@ Show number of summaries in also_bought and buyafterviewing \
   "unixReviewTime": 1361577600
 }
 ```
+## **GET** /logs
+Returns a table of Flask logs\
+It renders logs from MongoDB and displays in a table format\
+The logs show their Timestamps, Requests, Responses, Levels, Thread names, IDs and Messages\
+### Sample Response
+![alt text](https://github.com/ktaewoong1234/image/blob/master/log_table.png?raw=true)

@@ -1,4 +1,5 @@
-from flask import Flask, url_for, request, jsonify
+from flask_pymongo import PyMongo
+from flask import Flask, url_for, request, jsonify, render_template
 from bson import Binary, Code
 from bson.json_util import dumps, loads
 from functools import wraps, lru_cache
@@ -9,12 +10,19 @@ import jwt
 import reviews
 import metadata
 import users
+import pymongo
+from pymongo import MongoClient
+from logging.handlers import RotatingFileHandler
 
 app = Flask(__name__)
 CORS(app)
 # app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['SECRET_KEY'] = 'yckcmkg'
 
+client = MongoClient("mongodb://18.140.90.36:27017",username = 'Admin',password = 'yckcmkg')
+app.config['MONGO_DBNAME'] = 'Kindle'
+db = client.Kindle
+collection=db.logs
 
 def token_required(f):
 	@wraps(f)
@@ -254,7 +262,13 @@ def sign_in():
 		print(e)
 		return {"Exception":str(e)},500
 
-
+@app.route('/logs')
+def test():
+        try:
+                loggings=db.logs.find()
+                return render_template('index.html', loggings=loggings)
+        except Exception as e:
+                return dumps({'error':str(e)})
 
 
 if __name__ == '__main__':

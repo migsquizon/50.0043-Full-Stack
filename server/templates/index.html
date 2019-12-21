@@ -1,0 +1,27 @@
+<style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+      text-align: left;    
+    }
+    </style>
+<table style="width:100%">
+		{%for m in loggings%}
+    <tr>
+      <th>Thread name</th>
+	      <td>{{m.threadName}}</td>
+      <th>Timestamp</th>
+	      <td>{{m.timestamp}}</td>
+      <th>Level</th>
+	      <td>{{m.level}}</td>
+      <th>ID</th>
+	      <td>{{m._id}}</td>
+      <th>Message</th>
+	      <td>{{m.message}}</td>
+    </tr>
+
+		{%endfor%}
+  </table>
