@@ -23,7 +23,6 @@ def addLogger():
     logger.addHandler(handler)
 
 def getLogs(num=25):
-    mongo_ip = "54.169.87.227"
     mongo = MongoClient(f"mongodb://{mongo_ip}:27017")
     return mongo['logs']['logs'].find().sort([('_id',-1)]).limit(num)
 
