@@ -135,7 +135,7 @@ function BookInfo(props) {
                 <div className="book-info-ratings">
                   {/* This book currently has no ratings. Leave a <a href="/add-review">&nbsp;review?</a> */}
                   {/* <span>This book currently has no ratings.  </span><span><Button className="btn-sm add-reading-list-button">Write a Review</Button></span> */}
-                  <span>This book currently has no ratings.  </span><span><AddReview asin={asin}/></span>
+                  <span style={{'padding-right': '10px'}}>This book currently has no ratings.</span><span><AddReview asin={asin}/></span>
                 </div> :
                 <div className="book-info-ratings">
                   This book currently has no ratings. &nbsp;<a href="/login">Sign in</a> &nbsp;to add a review.
@@ -188,7 +188,7 @@ function BookInfo(props) {
           <React.Fragment>
             <div className="readers-also-viewed">Reviews</div>
             <div className="review-container-main-page">
-              <span>There are no user reviews yet.</span><span><AddReview /></span>
+              <span style={{'padding-right': '10px'}}>There are no user reviews yet.</span><span><AddReview /></span>
             </div>
             <hr />
           </React.Fragment>

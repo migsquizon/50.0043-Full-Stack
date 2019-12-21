@@ -36,7 +36,18 @@ function goToReviewPage(event, props) {
   props.history.push("/add-review")
 }
 
+function roundToDecimal(props) {
+  if (props.rating.length == 1) {
+    return props.rating.toString() + '.0'
+    console.log(props.rating.toString() + '.0')
+  } else {
+    return props.rating;
+  }
+}
+
 function Reviews(props) {
+  var rating = roundToDecimal(props)
+  console.log(rating)
   const percentage = props.rating / 5 * 100;
   return (
     <div className="reviews-container">
@@ -47,7 +58,7 @@ function Reviews(props) {
 
           <CircularProgressbar
             value={percentage}
-            text={props.rating}
+            text={rating}
             strokeWidth={5}
             styles={buildStyles({
               pathColor: '#F8CF46',
