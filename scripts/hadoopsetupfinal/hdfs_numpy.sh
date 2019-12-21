@@ -1,6 +1,4 @@
-read -p "Enter key path: " KEY_PATH
-
-flintrock run-command --master-only --ec2-identity-file $KEY_PATH  --ec2-region ap-southeast-1 databass_cluster \
+flintrock run-command --master-only --ec2-identity-file $databass_path  --ec2-region ap-southeast-1 databass_cluster \
 	" hadoop fs -mkdir /checkpoint3 &&\
 	yes | sudo yum install python27-numpy &&\
 	yes | pip --no-cache-dir install pyspark --user &&\

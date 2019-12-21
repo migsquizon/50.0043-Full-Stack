@@ -4,6 +4,7 @@ read -p "Enter number of slaves: " NUM
 read -p "Enter instance type: " TYPE
 read -p "Enter key name: " KEY
 read -p "Enter key path: " KEY_PATH
+export databass_path=$KEY_PATH
 
 flintrock launch databass_cluster \
     --num-slaves $NUM \
