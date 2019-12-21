@@ -1,50 +1,30 @@
-from pymongo import MongoClient
-from pymongo import ASCENDING
-import datetime
-from pythonjsonlogger import jsonlogger
 import logging
-import logging.handlers
-import pymongo
-import json
-from handlers import MongoHandler
+import re
+from log4mongo.handlers import MongoHandler
+from pymongo import MongoClient
+from app import app
+import time
+mongo_ip = app.config['MONGO_IP']
+P_REQUEST_LOG = re.compile(r'^(.*?) - - \[(.*?)\] "(.*?)" (\d+) (\d+|-)$')
 
-client = MongoClient("mongodb://18.140.90.36:27017",username = 'Admin',password = 'yckcmkg')
-'''db = client.Kindle
-log_collection = db.logs
-log_collection.ensure_index([("timestamp", ASCENDING)])  '''
-
-
-
-formatter = jsonlogger.JsonFormatter('%(asctime)s %(levelname)s %(name)s %(threadName)s: %(message)s')
-
-handler = MongoHandler(host='18.140.90.36')
-logger=logging.getLogger()
-logger.addHandler(handler)
+class MyFormatter(logging.Formatter):
+    def format(self, record):
+        match = P_REQUEST_LOG.match(record.msg)
+        if match:
+            ip, date, request_line, status_code, size = match.groups()
+            return {'ip':ip,'date':date,'request':request_line,'status':status_code,'unixTime':time.time()}
+        return {'record':record.msg}
 
 
-'''log = logging.getLogger()
-log.setLevel(logging.DEBUG)
-fh = logging.handlers.RotatingFileHandler(
-              filename='test.log', maxBytes=2097152, backupCount=5)
-fh.setFormatter(formatter)
-log.addHandler(fh)'''
+def addLogger():
+    handler = MongoHandler(host=mongo_ip)
+    handler.setFormatter(MyFormatter())
+    logger = logging.getLogger()
+    logger.addHandler(handler)
 
-'''#read file
+def getLogs(num=25):
+    mongo_ip = "54.169.87.227"
+    mongo = MongoClient(f"mongodb://{mongo_ip}:27017")
+    return mongo['logs']['logs'].find().sort([('_id',-1)]).limit(num)
 
-with open('test.log', 'r') as myfile:
-	data=myfile.read()
-
-data=[]
-with open('test.log') as f:
-	for line in f:
-		data.append(json.loads(line))
-
-
-
-def log(msg):
-    entry = {}
-    entry['timestamp'] = datetime.datetime.utcnow()
-    entry['msg'] = msg
-    log_collection.insert(entry)
-
-log(data)'''
+# print(getLogs()[0])
