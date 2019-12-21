@@ -82,7 +82,7 @@ Here, we will perform ETL from our SQL and Mongo databases to the HDFS.
 
 Example:
 ```
-(E.g. sh hdfs_numpy.sh ec2-13-250-11-182.ap-southeast-1.compute.amazonaws.com ec2-52-221-180-221.ap-southeast-1.compute.amazonaws.com)
+sh hdfs_numpy.sh ec2-13-250-11-182.ap-southeast-1.compute.amazonaws.com ec2-52-221-180-221.ap-southeast-1.compute.amazonaws.com
 ```
 
 ## Setup Explanation
@@ -128,16 +128,29 @@ Simply go to any book and click on the write review button. Reviews are inserted
 Some explanation on how u arrive at the answer
 
 # Pearson Correlation
-  - Execute "sh task2a.sh"
+  - Execute "task2a.sh". This file is located under /scripts/hadoopsetupfinal
+```
+sh ./scripts/hadoopsetupfinal/task2a.sh
+```
   - This process should take roughly ~1min
   - The correlation score will be displayed to you when the script has finished executing
 
 # TF-iDF
-  - Execute "sh task2b.sh"
+  - Execute "task2b.sh". This file is located under /scripts/hadoopsetupfinal
+```
+sh ./scripts/hadoopsetupfinal/task2b.sh
+```
   - This process should take roughly ~15min
   - The TFIDF scores will then be calculated using etl_sql_reviews.csv on the HDFS.
+  - We used pyspark ML library to compute te TFIDF score. CountVectorizer was used to tokenize the words and their respective word count, and IDF to calculate inverse document frequency.
+  - After the scores were calculated, we used RDD and map function to convert all the word indices back to the actual words itself.
   - The output csv is returned in the following format: "reviewerID", "asin", "word1:tfidf_score1 word2:tfidf_score2 ... wordN:tfidf_scoreN"
   - The head of the csv file will be displayed to you when the script has finished executing
+
+Sample Output:
+```
+A2HSAKHC3IBRE6,B000F83SZQ,"the:0.151670965635, and:0.223112519025, i:0.288685120363, this:0.310181937816, in:0.60653914134, it:1.15346511519, was:0.708464869905, as:1.26347197711, not:2.28988905287, one:1.36014837207, an:1.45460924747, very:1.55425680957, characters:1.75027869815, well:3.91201486684, it's:2.20340235369, enjoyed:2.06945526766, i'm:2.43289833117, written:2.66645522981, sure:2.9690590998, why:3.11098704785, she's:3.54792981484, mystery:3.77718959317, much.:4.41171730945, called:4.57631987134, amy:6.33597853936, tho:6.99802341083, clean,:6.98584838495, drawn.:8.08776646176, brewster:10.7536710414"
+```
 
 If you want to inspect the ouput csv file, ssh in with:
 ```
