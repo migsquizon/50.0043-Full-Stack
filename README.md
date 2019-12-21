@@ -111,7 +111,7 @@ We chose to run Flask,MySql and MongoDB in `t3.small`. `t3.small` has a higher b
 After you are done you can run the destroy script which destroys all resources that we created including security groups and ec2 instances.
 ```
 python3 databass.py destroy
-flintrock --ec2-region ap-southeast-1 destroy databass_cluster
+flintrock destroy --ec2-region ap-southeast-1 databass_cluster
 ```
 Also remember to deactive your virtual environment and delete it.
 ```
