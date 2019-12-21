@@ -134,7 +134,7 @@ function BookInfo(props) {
                 <div className="book-info-ratings">
                   {/* This book currently has no ratings. Leave a <a href="/add-review">&nbsp;review?</a> */}
                   {/* <span>This book currently has no ratings.  </span><span><Button className="btn-sm add-reading-list-button">Write a Review</Button></span> */}
-                  <span>This book currently has no ratings.  </span><span><AddReview asin={asin}/></span>
+                  <span style={{'padding-right': '10px'}}>This book currently has no ratings.</span><span><AddReview asin={asin}/></span>
                 </div> :
                 <div className="book-info-ratings">
                   This book currently has no ratings. &nbsp;<a href="/login">Sign in</a> &nbsp;to add a review.

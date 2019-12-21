@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -23,5 +24,6 @@
 
 html, body {
   min-height: 100vh;
+  min-width: 1440px;
 }
 
