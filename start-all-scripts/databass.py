@@ -104,12 +104,12 @@ def is_db_ready(dns):
 if __name__ == '__main__':
     if sys.argv[1] == 'start':
         key_name = input("enter key_name:")
-        create_stack('databassy',key_name)
-        ids = get_instance_ids('databassy')
+        create_stack('databass',key_name)
+        ids = get_instance_ids('databass')
         print(ids)
      
         if get_statuses(ids):
-            dns = get_dns('databassy','ReactDNS')
+            dns = get_dns('databass','ReactDNS')
             print('waiting for databases to load data')
             time.sleep(60)#wait for 1 minute before polling
             while not is_db_ready(dns):#poll for flask backend to check if db is up
@@ -117,14 +117,14 @@ if __name__ == '__main__':
             print("front end page")
             print("{}:3000".format(dns))
             print('sql dns:')
-            sqldns = get_dns('databassy','SqlDNS')
+            sqldns = get_dns('databass','SqlDNS')
             print(sqldns)
             print('mongo dns:')
-            mongodns = get_dns('databassy','MongoDNS')
+            mongodns = get_dns('databass','MongoDNS')
             print(mongodns)
             print('logs dns:')
             print("{}:5000/logs".format(dns))
 
     elif sys.argv[1] == 'destroy':
-        destroy_stack('databassy')
+        destroy_stack('databass')
 
