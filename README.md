@@ -38,11 +38,53 @@ Mongo dns
 mysql dns
 logs dns
 ```
-## Setup Spark Hadoop
-Short explanation
+The Mongo DNS and MySQL DNS are needed in the ETL section to retrieve from our database to the HDFS.
+
+## Setup Hadoop File System and Apache Spark
+
+Download `hadoopsetupfinal` folder, which is located inside the `scripts` folder on github. Run flint_test.sh to configure your HDFS and Spark setup.
 ```
-some code here
+sh ./scripts/hadoopsetupfinal/flint_test.sh 
 ```
+
+Upon running of the script file, it will ask for 4 inputs:
+  - Number of instances: (This specifies the number of slave nodes that you require. If you type in 2 here, a total of 3 instances will be created; 1 for master and 2 for slaves)
+  - Instance type: (we typically choose t2.medium, but you can specify any instance that you want. Preferably t2.medium or better. At least 4gb memory is good.)
+  - Key name: (just enter your key name without any file extension. E.g. if my key name is database_key.pem, I will enter database_key)
+  - Path to key: (Enter the full path to where your key is located, including file extention. E.g /Users/Joseph/.ssh/database_key.pem)
+Below is an example of the inputs:
+```
+Enter number of slaves: 4
+Enter instance type: t2.medium
+Enter key name: test_instance
+Enter key path: /Users/Joseph/.ssh/test_instance.pem
+```
+
+Sample output when setup is completed:
+```
+HDFS online.
+Spark online.
+launch finished in 0:03:15.
+Cluster master: ec2-54-169-132-213.ap-southeast-1.compute.amazonaws.com
+Login with: flintrock login databass_cluster
+```
+If you want to ssh into the master node, simply type the following into your terminal:
+```
+flintrock login databass_cluster
+```
+
+# Extract, Transform and Load
+Here, we will perform ETL from our SQL and Mongo databases to the HDFS. 
+  - Run the hdfs_numpy.sh file using the following syntax (you have to manually type in the respective DNS):
+  - sh hdfs_numpy.sh <mongo_dns> <sql_dns> 
+  - This file installs the packages numpy, pyspark, and flask. It also downloads the corresponding pearson.py and spark_tfidf.py from our github repository so that we can proceed to Task 2.
+  - After the script has finished execution, etl_sql_reviews.csv should have been located inside "HDFS /checkpoint3/etl_sql_reviews.csv"
+
+Example:
+```
+(E.g. sh hdfs_numpy.sh ec2-13-250-11-182.ap-southeast-1.compute.amazonaws.com ec2-52-221-180-221.ap-southeast-1.compute.amazonaws.com)
+```
+
 ## Setup Explanation
 We use [fLintrocK](https://github.com/nchammas/flintrock) to setup our apache and hadoop backend.\
 It then uses [AWS Cloudformation](https://aws.amazon.com/cloudformation/) which is a declarative language for setting up AWS resources. You can take a look at `database.json` to see how the resources are created.
@@ -58,7 +100,7 @@ After you are done you can run the destroy script which destroys all resources t
 python3 databass.py destroy
 ```
 ```
-destroy spark hadoop here
+flintrock destroy databass_cluster
 ```
 # Use case Documentation
 ## Checkpoint 1 and 2
@@ -85,6 +127,23 @@ Simply go to any book and click on the write review button. Reviews are inserted
 ## Checkpoint 3
 Some explanation on how u arrive at the answer
 
+# Pearson Correlation
+  - Execute "sh task2a.sh"
+  - This process should take roughly ~1min
+  - The correlation score will be displayed to you when the script has finished executing
+
+# TF-iDF
+  - Execute "sh task2b.sh"
+  - This process should take roughly ~15min
+  - The TFIDF scores will then be calculated using etl_sql_reviews.csv on the HDFS.
+  - The output csv is returned in the following format: "reviewerID", "asin", "word1:tfidf_score1 word2:tfidf_score2 ... wordN:tfidf_scoreN"
+  - The head of the csv file will be displayed to you when the script has finished executing
+
+If you want to inspect the ouput csv file, ssh in with:
+```
+flintrock login databass_cluster
+```
+and you can locate the file called "tfidf_local.csv".
 
 # Setting up Development Environment
 ## Setting up backend
