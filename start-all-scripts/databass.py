@@ -122,6 +122,8 @@ if __name__ == '__main__':
             print('mongo dns:')
             mongodns = get_dns('databass','MongoDNS')
             print(mongodns)
+            print('logs dns:')
+            print("{}:5000/logs")
 
     elif sys.argv[1] == 'destroy':
         destroy_stack('databass')
