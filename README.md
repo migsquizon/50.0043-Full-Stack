@@ -15,9 +15,9 @@ pip3 install requests
 ```
 
 ## Setup Flask MySql Mongo
-There is no need to clone the whole repository. However all scripts in the `start-all-scripts` folder need to be in the same folder and ran within the folder itself.
+All scripts in the `start-all-scripts` folder need to be in the same folder and ran within the folder itself.
 
-Download `start-all-scripts` folder.  
+So make sure you cd into the `start-all-scripts` folder, then run the following command.
 ```
 python3 databass.py start
 ```
@@ -53,22 +53,25 @@ logs dns
 
 ## Setup Hadoop File System and Apache Spark
 
-Download `hadoopsetupfinal` folder, which is located inside the `scripts` folder on github. Run `flint_test.sh` to configure your HDFS and Spark setup.
+First and foremost, we must export the path to our key as an environment variable. (E.g. export databass_path=/Users/Joseph/.ssh/test_instance.pem)
+```
+export databass_path=<path to key>
+```
+
+In the `hadoopsetupfinal` folder, which is located inside the `scripts` folder. Run `flint_test.sh` to configure your HDFS and Spark setup.
 ```
 sh ./scripts/hadoopsetupfinal/flint_test.sh 
 ```
 
-Upon running of the script file, it will ask for 4 inputs:
+Upon running of the script file, it will ask for 3 inputs:
   - Number of instances: (This specifies the number of slave nodes that you require. If you type in 2 here, a total of 3 instances will be created; 1 for master and 2 for slaves)
   - Instance type: (we typically choose t2.medium, but you can specify any instance that you want. Preferably t2.medium or better. At least 4gb memory is good.)
   - Key name: (just enter your key name without any file extension. E.g. if my key name is database_key.pem, I will enter database_key)
-  - Path to key: (Enter the full path to where your key is located, including file extention. E.g /Users/Joseph/.ssh/database_key.pem)
 Below is an example of the inputs:
 ```
 Enter number of slaves: 4
 Enter instance type: t2.medium
 Enter key name: test_instance
-Enter key path: /Users/Joseph/.ssh/test_instance.pem
 ```
 
 Sample output when setup is completed:
@@ -81,7 +84,7 @@ Login with: flintrock login databass_cluster
 ```
 If you want to ssh into the master node, simply type the following into your terminal:
 ```
-flintrock login databass_cluster
+flintrock login --ec2-region ap-southeast-1 --ec2-identity-file $databass_path databass_cluster
 ```
 
 # Extract, Transform and Load
@@ -108,7 +111,7 @@ We chose to run Flask,MySql and MongoDB in `t3.small`. `t3.small` has a higher b
 After you are done you can run the destroy script which destroys all resources that we created including security groups and ec2 instances.
 ```
 python3 databass.py destroy
-flintrock destroy databass_cluster
+flintrock --ec2-region ap-southeast-1 destroy databass_cluster
 ```
 Also remember to deactive your virtual environment and delete it.
 ```
@@ -168,7 +171,7 @@ A2HSAKHC3IBRE6,B000F83SZQ,"the:0.151670965635, and:0.223112519025, i:0.288685120
 
 If you want to inspect the ouput csv file, ssh in with:
 ```
-flintrock login databass_cluster
+flintrock login --ec2-region ap-southeast-1 --ec2-identity-file $databass_path databass_cluster
 ```
 and you can locate the file called `tfidf_local.csv`.
 
