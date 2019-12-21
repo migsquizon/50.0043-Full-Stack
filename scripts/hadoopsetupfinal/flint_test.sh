@@ -15,6 +15,7 @@ flintrock launch databass_cluster \
     --ec2-ami ami-05c859630889c79c8 \
     --ec2-user ec2-user \
     --ec2-instance-type $TYPE\
+    --debug \
     --ec2-region ap-southeast-1\
     --install-hdfs\
     --install-spark
