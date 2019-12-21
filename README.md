@@ -86,7 +86,7 @@ flintrock login databass_cluster
 
 # Extract, Transform and Load
 Here, we will perform ETL from our SQL and Mongo databases to the HDFS. 
-  - Run the hdfs_numpy.sh file using the following syntax (you have to manually type in the respective DNS):
+  - In the same `hadoopsetupfinal` folder, run the `hdfs_numpy.sh` file using the following syntax (you have to manually type in the respective DNS):
   - This file installs the packages numpy, pyspark, and flask. It also downloads the corresponding pearson.py and spark_tfidf.py from our github repository so that we can proceed to Task 2.
   - After the script has finished execution, etl_sql_reviews.csv should have been located inside "HDFS /checkpoint3/etl_sql_reviews.csv"
 
@@ -162,6 +162,7 @@ sh ./scripts/hadoopsetupfinal/task2b.sh
   - We used pyspark ML library to compute te TFIDF score. CountVectorizer was used to tokenize the words and their respective word count, and IDF to calculate inverse document frequency.
   - After the scores were calculated, we used RDD and map function to convert all the word indices back to the actual words itself.
   - The output csv is returned in the following format: "reviewerID", "asin", "word1:tfidf_score1 word2:tfidf_score2 ... wordN:tfidf_scoreN"
+  - The output file is saved on the HDFS, and a copy of the csv is also stored on the local file system of the master node.
   - The head of the csv file will be displayed to you when the script has finished executing
 
 Sample Output:
