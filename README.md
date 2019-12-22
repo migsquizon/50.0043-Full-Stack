@@ -29,10 +29,10 @@ The scripts should take less than 10 minutes to setup fully.
 
 SAMPLE OUTPUT
 ```
-enter key-name: gary-ong
+enter key_name:gary-ong
 creating cloud formation stack
 stack created
-['i-0edd1fc15cf8b4899', 'i-0c4ff56f1d9fc42f5', 'i-097ba40aa025db785']
+['i-09f7907c885d39c47', 'i-05c16febec95fc809', 'i-09d8b481b6976dbc9']
 waiting for instances to be ready
 Instance ready
 waiting for databases to load data
@@ -40,16 +40,16 @@ Waiting for db to load
 Waiting for db to load
 Waiting for db to load
 Waiting for db to load
-Waiting for db to load
-Waiting for db to load
-Waiting for db to load
 front end page
-http://ec2-13-229-123-250.ap-southeast-1.compute.amazonaws.com:3000
-Mongo dns
-mysql dns
-logs dns
+ec2-18-140-67-192.ap-southeast-1.compute.amazonaws.com:3000
+sql dns:
+ec2-18-138-254-8.ap-southeast-1.compute.amazonaws.com
+mongo dns:
+ec2-13-229-251-145.ap-southeast-1.compute.amazonaws.com
+logs dns:
+ec2-18-140-67-192.ap-southeast-1.compute.amazonaws.com:5000/logs
 ```
-**The Mongo DNS and MySQL DNS are needed in the ETL section to retrieve from our database to the HDFS.**
+The `Mongo DNS` and `MySQL DNS` are needed in the ETL section to retrieve from our database to the HDFS.
 
 ## Setup Hadoop File System and Apache Spark
 
@@ -128,6 +128,7 @@ You need to register to write a review.
 Simply go to any book and click on the write review button. Reviews are inserted into MySql.
 
 * **Logs**
+You can view the logs in logs dns. Refresh the page to see the most recent logs. Note that visiting the log page itself is also being logged.
 
 ## Checkpoint 3
 ### ETL
