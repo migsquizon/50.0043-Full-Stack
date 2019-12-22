@@ -60,7 +60,6 @@
             "echo $MONGO_IP > mongoip\n",
             "echo $REACT_APP_API_URL > flaskip\n",
             "cd 50.0043-Full-Stack/scripts\n",
-            "git checkout automation\n",
             "echo y | source ./full_stack.sh > debug.txt\n"
           ]]}}
         
