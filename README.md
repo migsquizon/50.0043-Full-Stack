@@ -84,7 +84,7 @@ Login with: flintrock login databass_cluster
 ```
 If you want to ssh into the master node, simply type the following into your terminal:
 ```
-flintrock login --ec2-region ap-southeast-1 --ec2-identity-file $databass_path databass_cluster
+flintrock login --ec2-region ap-southeast-1 --ec2-identity-file $databass_path --ec2-user ec2-user databass_cluster
 ```
 
 # Extract, Transform and Load
@@ -171,7 +171,7 @@ A2HSAKHC3IBRE6,B000F83SZQ,"the:0.151670965635, and:0.223112519025, i:0.288685120
 
 If you want to inspect the ouput csv file, ssh in with:
 ```
-flintrock login --ec2-region ap-southeast-1 --ec2-identity-file $databass_path databass_cluster
+flintrock login --ec2-region ap-southeast-1 --ec2-identity-file $databass_path --ec2-user ec2-user databass_cluster
 ```
 and you can locate the file called `tfidf_local.csv`.
 
