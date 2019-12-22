@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal'
 import './AddBook.css';
 import axios from 'axios';
 require('dotenv/config');
@@ -17,7 +18,8 @@ class AddBook extends Component {
       categories:"",
       description:"",
       added_by:localStorage.getItem("first_name"),
-      message: ""
+      message: "",
+      showModal:false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -46,7 +48,7 @@ class AddBook extends Component {
   handleSubmit = async event => {
     event.preventDefault();
 
-    if (this.handleValidation){
+    if (this.handleValidation()){
       const book = {
         title:this.state.title,
         asin:this.state.asin,
@@ -65,10 +67,12 @@ class AddBook extends Component {
         .then(res => {
           if (res.status === 200) {
             this.setState({ message: "Your book has been successfully added!" })
+            this.setState({showModal:true})
+
         } else {
             this.setState({ message: "Oh no, something seems to be wrong!" })
         }
-          console.log(res);
+  
         })
       }
       else{
@@ -77,6 +81,27 @@ class AddBook extends Component {
   }
 
   render(){
+    if (!this.state.showModal){
+      return this.renderBody()
+    }else{
+      return(
+      <>
+      <Modal show={true} >
+        <Modal.Header  closeButton>
+      <Modal.Title>Book {this.state.asin} successfully added</Modal.Title>
+        </Modal.Header>
+    <Modal.Body>You can now search <b>{this.state.asin}</b></Modal.Body>
+        <Modal.Footer>
+          <Button variant="success" onClick={()=>{this.props.history.push("/")}}>
+            ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>)
+    }
+  }
+
+  renderBody(){
     return (
       <div>
         {/* <NavBar/> */}
