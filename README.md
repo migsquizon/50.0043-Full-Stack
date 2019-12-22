@@ -149,9 +149,9 @@ sh ./scripts/hadoopsetupfinal/task2a.sh
       - Using asin, we performed a join to combine the two tables and dropped all columns other than price and average review length.
       - We passed this Dataframe into an RDD and performed a flatmap to get the x,y,x^2,y^2 and xy ( x refers to the average review length and y refers to price )
       - Using reduceByKey, we get the summation of the above results.
-      - The formula for pearson is as follows :
+      - The formula for pearson correlation is as follows :
+
       ![alt text](https://github.com/migsquizon/50.0043-Full-Stack/blob/automation/pearson.JPG)
-         (xy*count -(x*y))/(sqrt(count*x^2-(x*x))*(sqrt(count*y^2-(y*y)))
 
 ### TF-iDF
   - Execute `task2b.sh`. This file is located under `/scripts/hadoopsetupfinal`
