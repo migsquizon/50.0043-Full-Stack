@@ -128,3 +128,18 @@ if __name__ == '__main__':
     elif sys.argv[1] == 'destroy':
         destroy_stack('databass')
 
+    elif sys.argv[1] == 'describe':
+        dns = get_dns('databass','ReactDNS')
+        print("front end page")
+        print("{}:3000".format(dns))
+        print('sql dns:')
+        sqldns = get_dns('databass','SqlDNS')
+        print(sqldns)
+        print('mongo dns:')
+        mongodns = get_dns('databass','MongoDNS')
+        print(mongodns)
+        print('logs dns:')
+        print("{}:5000/logs".format(dns))
+    
+    else:
+        print("invalid command")

@@ -17,8 +17,9 @@ pip3 install requests
 ## Setup Flask MySql Mongo
 All scripts in the `start-all-scripts` folder need to be in the same folder and ran within the folder itself.
 
-So make sure you cd into the `start-all-scripts` folder, then run the following command.
+Make sure you cd into the `start-all-scripts` folder, then run the following command.
 ```
+cd start-all-scripts
 python3 databass.py start
 ```
 When prompted for `key-name`, enter your ec2-ssh key-name **without .pem** or any file extension.
@@ -49,8 +50,8 @@ ec2-13-229-251-145.ap-southeast-1.compute.amazonaws.com
 logs dns:
 ec2-18-140-67-192.ap-southeast-1.compute.amazonaws.com:5000/logs
 ```
-The `Mongo DNS` and `MySQL DNS` are needed in the ETL section to retrieve from our database to the HDFS.
-
+The `Mongo DNS` and `MySQL DNS` are needed in the ETL section to retrieve from our database to the HDFS.\
+You can type `python3 databass.py describe` to see the DNS again if you wish.
 ## Setup Hadoop File System and Apache Spark
 
 First and foremost, we must export the path to our key as an environment variable. (E.g. export databass_path=/Users/Joseph/.ssh/test_instance.pem)
@@ -127,7 +128,7 @@ Once registered, you should be automatically logged in. The top bar should haved
 You need to register to write a review.
 Simply go to any book and click on the write review button. Reviews are inserted into MySql.
 
-* **Logs**
+* **Logs**\
 You can view the logs in logs dns. Refresh the page to see the most recent logs. Note that visiting the log page itself is also being logged.
 
 ## Checkpoint 3
