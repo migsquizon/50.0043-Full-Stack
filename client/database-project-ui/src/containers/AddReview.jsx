@@ -6,6 +6,7 @@ import NavBar from "./NavBar";
 import axios from 'axios';
 import StarRatings from 'react-star-ratings';
 import * as yup from 'yup';
+require('dotenv/config');
 
 // const schema = yup.object({
 //   title: yup
@@ -75,7 +76,7 @@ class AddReview extends Component {
       };
       console.log(bookreview)
 
-      axios.post(`http://13.229.185.245:5000/book/${bookreview.title}`,  bookreview )
+      axios.post(process.env.REACT_APP_API_URL + `book/${bookreview.title}`,  bookreview )
         .then(res => {
           console.log(res);
           console.log(res.data);

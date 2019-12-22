@@ -27,7 +27,7 @@ function EachReview(props) {
         {/* </Truncate> */}
       </div>
       <div className="review-helpful">
-        <span>{props.helpful} people found this helpful</span>
+        <span>{props.helpful} user(s) found this helpful</span>
         {/* <span>
           <svg width="120" height="120">
             <symbol viewBox="0 0 20 20">

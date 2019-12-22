@@ -40,7 +40,7 @@ function BookCarousel(props) {
               max: 3000,
               min: 1024
             },
-            items: 4,
+            items: 3,
             partialVisibilityGutter: 40
           },
           mobile: {
@@ -71,9 +71,8 @@ function BookCarousel(props) {
             asin={book.asin}
             imUrl={book.imUrl}
             author={book.author}
-            //A little cheating hehe // LOL
-            rating={Math.floor(Math.random() * 5) + 3}
-            num_ratings={Math.floor(Math.random() * 100) + 100}
+            rating={book.rating}
+            count={book.count}
           />
         ))}      
       </Carousel>

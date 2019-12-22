@@ -12,7 +12,7 @@
 
 .book-summary-content {
     display: block;
-    float: right;
+    align-content: center;
 }
 
 .book-img-container {
@@ -21,37 +21,45 @@
     border-color:#ffffff;
     box-sizing: border-box;
     border-radius: 1%;
+    cursor: pointer;
 }
 
-.book-img-container:hover { 
+/* .book-img-container-img {
+    display: block;
+    margin: 0 34px;
+ 
+} */
+
+/* .book-img-container:hover { 
     display: block;
     border: 1px solid;
     box-sizing: border-box;
     border-color:#F8CF46;
     border-radius: 1%;
-}
+} */
 
 .book-img-container img {
     /* border-radius: 1%; */
-    max-width: 150px;
+    width: 150px;
+   
 }
 
 .book-card-title {
     
     padding-top: 10px;
-    float: left;
+ 
     font-size: 16px;
     color: #3B5260;
 }
 
 .book-card-author {
-    float: left;
+  
     font-size: 0.8rem;
     color: #7E8990;
 }
 
 .book-card-ratings {
-    float: left;
+  
 
 }
 

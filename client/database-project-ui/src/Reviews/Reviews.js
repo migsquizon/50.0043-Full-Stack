@@ -3,6 +3,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import EachReview from './EachReview';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { withRouter } from 'react-router-dom';
+import AddReview from '../AddReview/AddReview';
 import './Reviews.css';
 import 'react-circular-progressbar/dist/styles.css';
 
@@ -28,14 +29,16 @@ const data = {
   ]
 }
 
-const percentage = data.rating / 5 * 100;
+
 
 function goToReviewPage(event, props) {
   event.preventDefault();
   props.history.push("/add-review")
 }
 
+
 function Reviews(props) {
+  const percentage = props.rating / 5 * 100;
   return (
     <div className="reviews-container">
       {/* <Row>
@@ -45,7 +48,7 @@ function Reviews(props) {
 
           <CircularProgressbar
             value={percentage}
-            text={data.rating}
+            text={props.rating.toFixed(1)}
             strokeWidth={5}
             styles={buildStyles({
               pathColor: '#F8CF46',
@@ -54,15 +57,15 @@ function Reviews(props) {
               textColor: '#3B5260',
             })}
           />
+          
         </div>
         <div className="write-review-container">
-          <Button className="add-reading-list-button" onClick={(event) => goToReviewPage(event, props)}>Write a review</Button>
-
+          {localStorage.getItem('user') ? 
+            <AddReview asin={props.asin}/>:
+            // <Button className="add-reading-list-button" onClick={(event) => goToReviewPage(event, props)}>Write a review</Button>:
+            <div><a href="/login">Sign in</a> now to write a user review.</div>
+          }
         </div>
-        <div className="write-review-container">
-          Categories:
-        </div>
-
       </div>
 
       <div className="review-container">

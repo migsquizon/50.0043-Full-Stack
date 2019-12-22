@@ -1,18 +1,28 @@
 import mysql.connector as db
 import time
 from datetime import date
-sql = db.connect(host="18.139.174.176", user="root",
-                 password='yckcmkg', db="Reviews")
-
-
+from app import app
+import time
+sql_ip = app.config['SQL_IP']
+print(sql_ip)
+init = False
+sql = None
 def keep_alive():
     """
     Connect sql again if connection drops
     """
     global sql
-    if not sql.is_connected():
-        sql = db.connect(host="18.139.174.176", user="root",
-                 password='yckcmkg', db="Reviews")
+    global init
+    try:
+        if not init:
+            sql = db.connect(host=sql_ip, user="root", db="Reviews")
+            init = True
+    
+        elif not sql.is_connected():
+            sql = db.connect(host=sql_ip, user="root", db="Reviews")
+    except Exception as e:
+        print(e)
+
 
 
 def test_sql():
@@ -28,7 +38,7 @@ def get_reviews(asin,num=5):
     """
     keep_alive()
     cursor = sql.cursor(dictionary=True)
-    cursor.execute("""SELECT * FROM `Reviews` where asin = %s ORDER BY overall DESC LIMIT %s """, (asin,num))
+    cursor.execute("""SELECT * FROM `Reviews` where asin = %s ORDER BY unixReviewTime DESC LIMIT %s """, (asin,num))
     result = cursor.fetchall()
     return result
 
@@ -60,8 +70,8 @@ def get_overall_review(asin):
         if dic['overall'] is None:
             continue
         val += dic['overall']
-    val = val/len(result)
-    return round(val,2)
+    val = val/len(result)+0.0001
+    return round(val,1)
 
 def get_review_by_id(asin,reviewerID):
     """
@@ -112,6 +122,58 @@ def add_review(asin, json):
     sql.commit()
     return True
 
+def get_overalls(asin_arr):
+    """
+    params asin_arr -> array of asin to get average overall rating
+    returns dictionary asin->average rating
+    """
+    keep_alive()
+    cursor = sql.cursor()
+    #done to prevent accidental sql injection
+    sql_string = """SELECT asin,avg(overall) as 'avg',count(asin) as 'count' FROM `Reviews`WHERE asin IN ({}) GROUP BY ASIN;""".format(', '.join(list(map(lambda x: '%s', asin_arr))))
+    cursor.execute(sql_string, asin_arr)
+    result = cursor.fetchall()
+    tempdic = {}
+    for asin,avg,count in result:
+        tempdic[asin] = (avg,count)
+    return tempdic
+
+def append_ratings(meta_ls):
+    """
+    meta_ls -> list of metadata dictionaries -> must contain asin
+    inplace editing on list/dictionary itself so no need to return anything 
+    avoid overhead of deepcopying 
+    """
+    asin_arr = []
+    for meta in meta_ls:
+        asin = meta['asin']
+        asin_arr.append(asin)
+    if len(asin_arr) == 0:
+        return
+    overalls_dic = get_overalls(asin_arr)
+    for meta in meta_ls:
+        asin = meta['asin']
+        if asin in overalls_dic:
+            meta['rating'] = float(overalls_dic[asin][0])
+            meta['count'] = float(overalls_dic[asin][1])
+        else:
+            meta['rating'] = 0
+            meta['count'] = 0
+
+
+def test_connection():
+    global init
+    try:
+        if len(test_sql())>0:
+            return True
+        else:
+            init = False
+    except Exception as e:
+        print(e)
+        init = False
+        return False
+
+# print(get_overalls(['B000F83SZQ','B000FA64PA']))
 # add_review("123456", {
 #     "overall": 5,
 #     "reviewText": "test",

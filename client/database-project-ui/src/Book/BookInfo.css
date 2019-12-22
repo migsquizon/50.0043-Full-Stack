@@ -18,11 +18,11 @@ hr {
     border-color:#ffffff;
     box-sizing: border-box;
     border-radius: 1%;
-    padding: 20px 0 0 40px;
+    padding: 20px 30px 0 40px;
 }
 
 .book-img-container-lg img {
-    max-width: 220px;
+    max-width: 420px;
 }
 
 .book-info-container {
@@ -36,11 +36,12 @@ hr {
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
-    display: inline-flex;
+    display: flex;
     font-size: 1rem;
     font-family: 'AcuminProRegular';
     justify-content: flex-start;
     color: #3B5260;
+    padding-top: 30px;
    
    
 }

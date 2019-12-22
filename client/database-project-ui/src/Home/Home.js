@@ -1,15 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar,Nav, Overlay, Card, Form, Row, Col, Badge, OverlayTrigger, Button } from 'react-bootstrap';
 import './Home.css';
+import axios from 'axios';
+import BookCard from '../Book/BookCard.js';
+import { withContext } from '../Auth/AuthContext';
+import { withRouter } from 'react-router-dom';
+require('dotenv/config');
 
-var API = "http://13.229.185.245:5000/home/category";
+
+var payload = [];
 
 function Home(props) {
 
-  const [key, setKey] = useState("");
+  const [key, setKey] = useState("homepage");
+  const [header, setHeader] = useState("homepage");
+  const [books, setBooks] = useState([{}]);
+  
+  let query = props.query
+  
+  useEffect(() => {
+    //var HOME_URL = process.env.REACT_APP_API_URL + `home/category/${key}`;
+    console.log({key});
+    //console.log(HOME_URL);
+    
+    if (query == "" ){
+    (async () => {
+      payload = await axios(process.env.REACT_APP_API_URL + `home/category/${key}`)
+      // console.log(payload);
+      // console.log(payload.data);
+      setBooks(payload.data)
+    })();
+  }else{
+    (async ()=>{
+      payload = await axios(process.env.REACT_APP_API_URL + `search/${query}`)
+      setBooks(payload.data)
+      console.log(payload.data)
+    })();
+  }
+  }, [key]);
 
-  useEffect(() => {})
-
+if(payload.data){
   return (
     <React.Fragment>
       <Row style={{height: '100vh'}}>
@@ -20,23 +50,42 @@ function Home(props) {
                 className="flex-column"
                 onSelect= {key => setKey(key)}  
               >
-                <Nav.Link className="ticket-selection" eventKey="unsolved"><div><span>Books We Love</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="new"><div><span>Best Seller</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="urgent"><div><span>Latest Releases</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="unassigned"><div><span>Romance</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="open"><div><span>Thriller</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="pending"><div><span>Fiction</span><span className="number-of-tickets"></span></div></Nav.Link>
-                <Nav.Link className="ticket-selection" eventKey="solved"><div><span>Non-Fiction</span><span className="number-of-tickets"></span></div></Nav.Link>
+                <br/>
+                <Nav.Link className="ticket-selection" eventKey="homepage"><div>Books That We Love</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="kindle"><div>Best Seller</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="books"><div>Latest Releases</div></Nav.Link>
+                <br/>
+                <br/>
+                <br/>
+                <div className="ticket-selection-title">CATEGORIES</div>
+                <Nav.Link className="ticket-selection" eventKey="romance"><div>Romance</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="fantasy"><div>Fantasy</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="thriller"><div>Thriller</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="horror"><div>Horror</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="fiction"><div>Fiction</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="politics"><div>Politics</div></Nav.Link>
               </Nav>
             </div>
 
           </Col>
           <Col xs={10}>
-            TEMPORARY HOME PAGE
+            {payload.data.length>0?
+            <div className="card-container-home">
+              {books.map((book) => (
+                <BookCard
+                  asin={book.asin}
+                  imUrl={book.imUrl}
+                  rating={book.rating}
+                  count={book.count}
+                />
+              ))}
+            </div>:<div>No such book exists</div>}
           </Col> 
       </Row> 
     </React.Fragment>
-  )
+  )}else{
+    return (<img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" />)
+  }
 }
 
-export default Home;
+export default withRouter(withContext(Home));

@@ -3,14 +3,13 @@
 read -p "Enter number of slaves: " NUM
 read -p "Enter instance type: " TYPE
 read -p "Enter key name: " KEY
-read -p "Enter key path: " KEY_PATH
 
-flintrock launch databass_cluster \
+flintrock --debug launch databass_cluster \
     --num-slaves $NUM \
     --spark-version 2.4.4 \
     --hdfs-version 2.7.7 \
     --ec2-key-name $KEY \
-    --ec2-identity-file $KEY_PATH \
+    --ec2-identity-file $databass_path \
     --ec2-ami ami-05c859630889c79c8 \
     --ec2-user ec2-user \
     --ec2-instance-type $TYPE\

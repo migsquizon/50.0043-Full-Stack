@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal'
 import './AddBook.css';
 import axios from 'axios';
+require('dotenv/config');
 
 
 
@@ -12,10 +14,12 @@ class AddBook extends Component {
     this.state = {
       asin:"",
       title:"",
-      imUrl:"",
+      imUrl:`${process.env.REACT_APP_API_URL}book_cover`,
       categories:"",
       description:"",
-      added_by:"John"
+      added_by:localStorage.getItem("first_name"),
+      message: "",
+      showModal:false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -44,7 +48,7 @@ class AddBook extends Component {
   handleSubmit = async event => {
     event.preventDefault();
 
-    if (this.handleValidation){
+    if (this.handleValidation()){
       const book = {
         title:this.state.title,
         asin:this.state.asin,
@@ -59,10 +63,16 @@ class AddBook extends Component {
       console.log(book)
 
 
-      axios.post(`http://13.229.185.245:5000/add/book`,  book )
+      axios.post(process.env.REACT_APP_API_URL + `add/book`,  book )
         .then(res => {
-          console.log(res);
-          console.log(res.data);
+          if (res.status === 200) {
+            this.setState({ message: "Your book has been successfully added!" })
+            this.setState({showModal:true})
+
+        } else {
+            this.setState({ message: "Oh no, something seems to be wrong!" })
+        }
+  
         })
       }
       else{
@@ -71,6 +81,27 @@ class AddBook extends Component {
   }
 
   render(){
+    if (!this.state.showModal){
+      return this.renderBody()
+    }else{
+      return(
+      <>
+      <Modal show={true} >
+        <Modal.Header  closeButton>
+      <Modal.Title>Book {this.state.asin} successfully added</Modal.Title>
+        </Modal.Header>
+    <Modal.Body>You can now search <b>{this.state.asin}</b></Modal.Body>
+        <Modal.Footer>
+          <Button variant="success" onClick={()=>{this.props.history.push("/")}}>
+            ok
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>)
+    }
+  }
+
+  renderBody(){
     return (
       <div>
         {/* <NavBar/> */}
@@ -105,6 +136,8 @@ class AddBook extends Component {
               <Form.Label>Enter Book Description</Form.Label>
               <Form.Control as="textarea" rows="5" placeholder="Description" name="description" value={this.state.description} onChange={this.handleInput}/>
             </Form.Group>
+            {this.state.message && <div>{this.state.message}</div>}
+            <br />
             <Button variant="secondary" type='submit'>
               Submit
             </Button>

@@ -13,7 +13,7 @@ function onSearch(event, props) {
   if (props.location.pathname == '/book-info') {
     window.location.reload();
   } else {
-    this.props.history.push('/book-info');
+    props.history.push('/book-info');
   }
 }
 
@@ -21,7 +21,7 @@ function BookCard(props) {
   return (
     <div className="book-summary-container" onClick={(event) => onSearch(event, props)}>
       <div className="book-img-container">
-        <img src={props.imUrl} fluid />
+        <img className="book-img-container-img" src={props.imUrl} fluid />
       </div>
       <div className="book-summary-content">
         <div className="book-card-title">
@@ -36,13 +36,14 @@ function BookCard(props) {
           {/* </Truncate>      */}
         </div>
         <div className="book-card-ratings">
-          <span>
+          <span>{
+          (props.rating!==undefined)?//this is done because dont want to show rating when searching as sql cannot take such high workload
             <Ratings
               rating={props.rating}
               starDimension='12px'
-            />
+            />:undefined}
           </span>
-          <span style={{'color': '#3B5260', 'font-size':'0.85rem'}}>&nbsp;{props.num_ratings}</span>
+          <span style={{'color': '#3B5260', 'font-size':'0.85rem'}}>&nbsp;{props.count}</span>
         </div>
       </div>
     </div>
