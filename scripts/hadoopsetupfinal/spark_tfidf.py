@@ -33,8 +33,8 @@ def stringify(vector):
 		words+=temp
 	return words[:-2]
 
-attempt = rescaledData.select('reviewerID','asin','features').rdd.map(lambda row: [row[0],row[1],stringify(row[2])])
-df = sc.createDataFrame(attempt, ['reviewerID','asin', 'tfidf'])
+attempt = rescaledData.select('reviewerID','asin','unixReviewTime','features').rdd.map(lambda row: [row[0],row[1],row[2],stringify(row[3])])
+df = sc.createDataFrame(attempt, ['reviewerID','asin','unixReviewTime','tfidf'])
 df = df.where(f.length(f.col("reviewerID")) < 20)
 df.write.csv('/checkpoint3/tfidf.csv')
 sc.stop()
