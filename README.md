@@ -107,18 +107,6 @@ The only two AMIs that we use are `ami-061eb2b23f9f8839c` which is a blank Ubunt
 We chose to run Flask,MySql and MongoDB in `t3.small`. `t3.small` has a higher bandwidth than `t2.medium` at **half the price** and the main bottleneck is the internet speed for downloading data and dependencies. Please **DO NOT** change the instance type as occasionally we would get http 503 service unavailable on some dependencies when running on instances with a lower bandwidth. Also **DO NOT** restart any of the instances as all IPs are binded at start and restarting will reset the IPs.
 
 
-## Destroy scripts
-After you are done you can run the destroy script which destroys all resources that we created including security groups and ec2 instances.
-```
-python3 databass.py destroy
-flintrock destroy --ec2-region ap-southeast-1 databass_cluster
-```
-Also remember to deactive your virtual environment and delete it.
-```
-deactivate
-rm -R databass
-```
-
 # Use case Documentation
 ## Checkpoint 1 and 2
 
@@ -175,10 +163,14 @@ flintrock login --ec2-region ap-southeast-1 --ec2-identity-file $databass_path -
 ```
 and you can locate the file called `tfidf_local.csv`.
 
-
-
-## Setting up the frontend
-
-@frontend peeps, edit for necessary setup
-
-Also please restructure the client folder according to React requirements
+## Destroy scripts
+After you are done you can run the destroy script which destroys all resources that we created including security groups and ec2 instances.
+```
+python3 databass.py destroy
+flintrock destroy --ec2-region ap-southeast-1 databass_cluster
+```
+Also remember to deactive your virtual environment and delete it.
+```
+deactivate
+rm -R databass
+```
