@@ -130,7 +130,9 @@ Simply go to any book and click on the write review button. Reviews are inserted
 * **Logs**
 
 ## Checkpoint 3
-
+### ETL
+  - Our ETL script downloads uses pymongo and the python mysql connector to download the Reviews table from SQL and the metadata in mongoDB.
+  - After getting the csv and json files, these were put into the hadoop file system using CLI commands.
 ### Pearson Correlation
   - Execute `task2a.sh`. This file is located under `/scripts/hadoopsetupfinal`
 ```
@@ -138,6 +140,15 @@ sh ./scripts/hadoopsetupfinal/task2a.sh
 ```
   - This process should take roughly ~1min
   - The correlation score will be displayed to you when the script has finished executing
+  - How it was done
+      - the Kindle reviews and price data was obtained from hadoop filesystem
+      - Length of review was calculated using f.split and then f.size on the column review text
+      - Using a groupby function on asin, we can get the average review length of the review text.
+      - Using asin, we performed a join to combine the two tables and dropped all columns other than price and average review length.
+      - We passed this Dataframe into an RDD and performed a flatmap to get the x,y,x^2,y^2 and xy ( x refers to the average review length and y refers to price )
+      - Using reduceByKey, we get the summation of the above results.
+      - The formula for pearson is as follows :
+         (xy*count -(x*y))/(sqrt(count*x^2-(x*x))*(sqrt(count*y^2-(y*y)))
 
 ### TF-iDF
   - Execute `task2b.sh`. This file is located under `/scripts/hadoopsetupfinal`
