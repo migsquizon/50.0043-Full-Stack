@@ -162,7 +162,7 @@ sh ./scripts/hadoopsetupfinal/task2b.sh
   - The TFIDF scores will then be calculated using etl_sql_reviews.csv on the HDFS.
   - We used pyspark ML library to compute te TFIDF score. CountVectorizer was used to tokenize the words and their respective word count, and IDF to calculate inverse document frequency.
   - After the scores were calculated, we used RDD and map function to convert all the word indices back to the actual words itself.
-  - The output csv is returned in the following format: "reviewerID", "asin", "word1:tfidf_score1 word2:tfidf_score2 ... wordN:tfidf_scoreN"
+  - The output csv is returned in the following format: "reviewerID", "asin","unixReviewTime", "word1:tfidf_score1 word2:tfidf_score2 ... wordN:tfidf_scoreN"
   - The output file is saved on the HDFS, and a copy of the csv is also stored on the local file system of the master node.
   - The head of the csv file will be displayed to you when the script has finished executing
 
