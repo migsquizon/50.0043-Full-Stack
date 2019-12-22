@@ -12,8 +12,8 @@ var payload = [];
 
 function Home(props) {
 
-  const [key, setKey] = useState("hardcode");
-  const [header, setHeader] = useState("hardcode");
+  const [key, setKey] = useState("homepage");
+  const [header, setHeader] = useState("homepage");
   const [books, setBooks] = useState([{}]);
   
   let query = props.query
@@ -51,7 +51,7 @@ if(payload.data){
                 onSelect= {key => setKey(key)}  
               >
                 <br/>
-                <Nav.Link className="ticket-selection" eventKey="hardcode"><div>Books That We Love</div></Nav.Link>
+                <Nav.Link className="ticket-selection" eventKey="homepage"><div>Books That We Love</div></Nav.Link>
                 <Nav.Link className="ticket-selection" eventKey="kindle"><div>Best Seller</div></Nav.Link>
                 <Nav.Link className="ticket-selection" eventKey="books"><div>Latest Releases</div></Nav.Link>
                 <br/>

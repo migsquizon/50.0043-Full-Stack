@@ -91,7 +91,7 @@ def home_category(category):
 	"""
 	try:
 		number = request.args.get('number',default=20,type=int)
-		if category == 'hardcode':
+		if category == 'homepage':
 			books_ls = ["B000F83SZQ","B000FA64PA","B000FA64QO",\
 			"B000FBFMVG","B000FC1BN8","B000FC1TG2",\
 			"B000FC26RI","B000FC2MB8",\
