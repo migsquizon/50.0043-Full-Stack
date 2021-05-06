@@ -1,7 +1,7 @@
 astroid==2.3.3
 Click==7.0
 Flask==1.1.1
-Flask-Cors==3.0.8
+Flask-Cors==3.0.9
 Flask-PyMongo==2.3.0
 Flask-WTF==0.14.2
 isort==4.3.21
